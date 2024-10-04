@@ -24,3 +24,5 @@ BraceWrapping:
   SplitEmptyRecord: true
   SplitEmptyNamespace: true
 SpaceAfterCStyleCast: true
+AttributeMacros:
+  - G_GNUC_PRINTF
