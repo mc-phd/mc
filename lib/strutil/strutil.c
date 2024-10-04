@@ -31,7 +31,7 @@
 #include <errno.h>
 
 #include "lib/global.h"
-#include "lib/util.h"           /* MC_PTR_FREE */
+#include "lib/util.h" /* MC_PTR_FREE */
 #include "lib/strutil.h"
 
 /*** global variables ****************************************************************************/
@@ -49,36 +49,18 @@ GIConv str_cnv_not_convert = INVALID_CONV;
 /*** file scope variables ************************************************************************/
 
 /* names, that are used for utf-8 */
-static const char *const str_utf8_encodings[] = {
-    "utf-8",
-    "utf8",
-    NULL
-};
+static const char *const str_utf8_encodings[] = { "utf-8", "utf8", NULL };
 
 /* standard 8bit encodings, no wide or multibytes characters */
 static const char *const str_8bit_encodings[] = {
-    /* Solaris has different names of Windows 1251 encoding */
+/* Solaris has different names of Windows 1251 encoding */
 #ifdef __sun
-    "ansi-1251",
-    "ansi1251",
+    "ansi-1251", "ansi1251",
 #else
-    "cp-1251",
-    "cp1251",
+    "cp-1251", "cp1251",
 #endif
-    "cp-1250",
-    "cp1250",
-    "cp-866",
-    "cp866",
-    "ibm-866",
-    "ibm866",
-    "cp-850",
-    "cp850",
-    "cp-852",
-    "cp852",
-    "iso-8859",
-    "iso8859",
-    "koi8",
-    NULL
+    "cp-1250",   "cp1250",   "cp-866", "cp866",    "ibm-866", "ibm866", "cp-850",
+    "cp850",     "cp-852",   "cp852",  "iso-8859", "iso8859", "koi8",   NULL
 };
 
 /* terminal encoding */
@@ -108,7 +90,7 @@ _str_convert (GIConv coder, const char *string, int size, GString *buffer)
     gsize bytes_read = 0;
     gsize bytes_written = 0;
 
-    errno = 0;                  /* FIXME: is it really needed? */
+    errno = 0; /* FIXME: is it really needed? */
 
     if (coder == INVALID_CONV)
         return ESTR_FAILURE;
@@ -139,8 +121,8 @@ _str_convert (GIConv coder, const char *string, int size, GString *buffer)
         gchar *tmp_buff;
         GError *mcerror = NULL;
 
-        tmp_buff = g_convert_with_iconv ((const gchar *) string,
-                                         left, coder, &bytes_read, &bytes_written, &mcerror);
+        tmp_buff = g_convert_with_iconv ((const gchar *) string, left, coder, &bytes_read,
+                                         &bytes_written, &mcerror);
         if (mcerror != NULL)
         {
             int code = mcerror->code;
@@ -160,8 +142,8 @@ _str_convert (GIConv coder, const char *string, int size, GString *buffer)
                 /* Invalid byte sequence in conversion input. */
                 if ((tmp_buff == NULL) && (bytes_read != 0))
                     /* recode valid byte sequence */
-                    tmp_buff = g_convert_with_iconv ((const gchar *) string,
-                                                     bytes_read, coder, NULL, NULL, NULL);
+                    tmp_buff = g_convert_with_iconv ((const gchar *) string, bytes_read, coder,
+                                                     NULL, NULL, NULL);
 
                 if (tmp_buff != NULL)
                 {
@@ -187,9 +169,9 @@ _str_convert (GIConv coder, const char *string, int size, GString *buffer)
                     mc_g_string_append_c_len (buffer, '?', left - bytes_read);
                 return ESTR_PROBLEM;
 
-            case G_CONVERT_ERROR_BAD_URI:      /* Don't know how handle this error :( */
-            case G_CONVERT_ERROR_NOT_ABSOLUTE_PATH:    /* Don't know how handle this error :( */
-            case G_CONVERT_ERROR_FAILED:       /* Conversion failed for some reason. */
+            case G_CONVERT_ERROR_BAD_URI:           /* Don't know how handle this error :( */
+            case G_CONVERT_ERROR_NOT_ABSOLUTE_PATH: /* Don't know how handle this error :( */
+            case G_CONVERT_ERROR_FAILED:            /* Conversion failed for some reason. */
             default:
                 g_free (tmp_buff);
                 return ESTR_FAILURE;
@@ -265,8 +247,8 @@ str_crt_conv_to (const char *to_enc)
 GIConv
 str_crt_conv_from (const char *from_enc)
 {
-    return (!str_test_not_convert (from_enc))
-        ? g_iconv_open (codeset, from_enc) : str_cnv_not_convert;
+    return (!str_test_not_convert (from_enc)) ? g_iconv_open (codeset, from_enc)
+                                              : str_cnv_not_convert;
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -357,7 +339,7 @@ str_translate_char (GIConv conv, const char *keys, size_t ch_size, char *output,
 
     left = (ch_size == (size_t) (-1)) ? strlen (keys) : ch_size;
 
-    cnv = g_iconv (conv, (gchar **) & keys, &left, &output, &out_size);
+    cnv = g_iconv (conv, (gchar **) &keys, &left, &output, &out_size);
     if (cnv == (size_t) (-1))
         return (errno == EINVAL) ? ESTR_PROBLEM : ESTR_FAILURE;
 

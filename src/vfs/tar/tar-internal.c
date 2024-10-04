@@ -32,12 +32,12 @@
 
 #include <config.h>
 
-#include <inttypes.h>           /* uintmax_t */
-#include <stdint.h>             /* UINTMAX_MAX, etc */
+#include <inttypes.h> /* uintmax_t */
+#include <stdint.h>   /* UINTMAX_MAX, etc */
 
 #include "lib/global.h"
-#include "lib/widget.h"         /* message() */
-#include "lib/vfs/vfs.h"        /* mc_read() */
+#include "lib/widget.h"  /* message() */
+#include "lib/vfs/vfs.h" /* mc_read() */
 
 #include "tar-internal.h"
 
@@ -46,8 +46,8 @@
 /*** file scope macro definitions ****************************************************************/
 
 /* Log base 2 of common values. */
-#define LG_8 3
-#define LG_64 6
+#define LG_8   3
+#define LG_64  6
 #define LG_256 8
 
 /*** file scope type declarations ****************************************************************/
@@ -57,13 +57,11 @@
 /*** file scope variables ************************************************************************/
 
 /* Base 64 digits; see RFC 2045 Table 1.  */
-static char const base_64_digits[64] = {
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'
-};
+static char const base_64_digits[64]
+    = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+        'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
+        'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+        'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/' };
 
 /* Table of base 64 digit values indexed by unsigned chars.
    The value is 64 for unsigned chars that are not base 64 digits. */
@@ -76,8 +74,8 @@ static char base64_map[1 + (unsigned char) (-1)];
 static gboolean
 tar_short_read (size_t status, tar_super_t *archive)
 {
-    size_t left;                /* bytes left */
-    char *more;                 /* pointer to next byte to read */
+    size_t left; /* bytes left */
+    char *more;  /* pointer to next byte to read */
 
     more = archive->record_start->buffer + status;
     left = record_size - status;
@@ -245,7 +243,7 @@ tar_assign_string_dup_n (char **string, const char *value, size_t n)
  *
  * Result is -1 if the field is invalid.
  */
-#if !(INTMAX_MAX <= UINTMAX_MAX && - (INTMAX_MIN + 1) <= UINTMAX_MAX)
+#if !(INTMAX_MAX <= UINTMAX_MAX && -(INTMAX_MIN + 1) <= UINTMAX_MAX)
 #error "tar_from_header() internally represents intmax_t as uintmax_t + sign"
 #endif
 #if !(UINTMAX_MAX / 2 <= INTMAX_MAX)
@@ -350,8 +348,9 @@ tar_from_header (const char *where0, size_t digs, char const *type, intmax_t min
             where++;
         }
     }
-    else if (where <= lim - 2 && (*where == '\200'      /* positive base-256 */
-                                  || *where == '\377' /* negative base-256 */ ))
+    else if (where <= lim - 2
+             && (*where == '\200' /* positive base-256 */
+                 || *where == '\377' /* negative base-256 */))
     {
         /* Parse base-256 output.  A nonnegative number N is
            represented as (256**DIGS)/2 + N; a negative number -N is
@@ -364,8 +363,8 @@ tar_from_header (const char *where0, size_t digs, char const *type, intmax_t min
         uintmax_t topbits;
 
         signbit = *where & (1 << (LG_256 - 2));
-        topbits =
-            (((uintmax_t) - signbit) << (CHAR_BIT * sizeof (uintmax_t) - LG_256 - (LG_256 - 2)));
+        topbits
+            = (((uintmax_t) -signbit) << (CHAR_BIT * sizeof (uintmax_t) - LG_256 - (LG_256 - 2)));
 
         value = (*where++ & ((1 << (LG_256 - 2)) - 1)) - signbit;
 
@@ -419,7 +418,7 @@ tar_find_next_block (tar_super_t *archive)
 
         if (!tar_flush_archive (archive))
         {
-            message (D_ERROR, MSG_ERROR, _("Inconsistent tar archive"));
+            message (D_ERROR, MSG_ERROR, _ ("Inconsistent tar archive"));
             return NULL;
         }
 

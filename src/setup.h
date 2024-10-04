@@ -7,7 +7,7 @@
 
 #include <config.h>
 
-#include "lib/global.h"         /* GError */
+#include "lib/global.h" /* GError */
 
 #include "filemanager/layout.h" /* panel_view_mode_t */
 #include "filemanager/panel.h"  /* WPanel */
@@ -17,15 +17,15 @@
 /* TAB length for editor and viewer */
 #define DEFAULT_TAB_SPACING 8
 
-#define MAX_MACRO_LENGTH 1024
+#define MAX_MACRO_LENGTH    1024
 
 /*** enums ***************************************************************************************/
 
 typedef enum
 {
-    QSEARCH_CASE_INSENSITIVE = 0,       /* quick search in case insensitive mode */
-    QSEARCH_CASE_SENSITIVE = 1, /* quick search in case sensitive mode */
-    QSEARCH_PANEL_CASE = 2,     /* quick search get value from panel case_sensitive */
+    QSEARCH_CASE_INSENSITIVE = 0, /* quick search in case insensitive mode */
+    QSEARCH_CASE_SENSITIVE = 1,   /* quick search in case sensitive mode */
+    QSEARCH_PANEL_CASE = 2,       /* quick search get value from panel case_sensitive */
     QSEARCH_NUM
 } qsearch_mode_t;
 
@@ -34,27 +34,29 @@ typedef enum
 /* panels ini options; [Panels] section */
 typedef struct
 {
-    gboolean show_mini_info;    /* If true, show the mini-info on the panel */
-    gboolean kilobyte_si;       /* If TRUE, SI units (1000 based) will be used for larger units
-                                 * (kilobyte, megabyte, ...). If FALSE, binary units (1024 based) will be used */
-    gboolean mix_all_files;     /* If FALSE then directories are shown separately from files */
-    gboolean show_backups;      /* If TRUE, show files ending in ~ */
-    gboolean show_dot_files;    /* If TRUE, show files starting with a dot */
-    gboolean fast_reload;       /* If TRUE then use stat() on the cwd to determine directory changes */
-    gboolean fast_reload_msg_shown;     /* Have we shown the fast-reload warning in the past? */
-    gboolean mark_moves_down;   /* If TRUE, marking a files moves the cursor down */
-    gboolean reverse_files_only;        /* If TRUE, only selection of files is inverted */
+    gboolean show_mini_info; /* If true, show the mini-info on the panel */
+    gboolean kilobyte_si;    /* If TRUE, SI units (1000 based) will be used for larger units
+                              * (kilobyte, megabyte, ...). If FALSE, binary units (1024 based) will be
+                              * used */
+    gboolean mix_all_files;  /* If FALSE then directories are shown separately from files */
+    gboolean show_backups;   /* If TRUE, show files ending in ~ */
+    gboolean show_dot_files; /* If TRUE, show files starting with a dot */
+    gboolean fast_reload;    /* If TRUE then use stat() on the cwd to determine directory changes */
+    gboolean fast_reload_msg_shown; /* Have we shown the fast-reload warning in the past? */
+    gboolean mark_moves_down;       /* If TRUE, marking a files moves the cursor down */
+    gboolean reverse_files_only;    /* If TRUE, only selection of files is inverted */
     gboolean auto_save_setup;
-    gboolean navigate_with_arrows;      /* If TRUE: l&r arrows are used to chdir if the input line is empty */
-    gboolean scroll_pages;      /* If TRUE, panel is scrolled by half the display when the cursor reaches
-                                   the end or the beginning of the panel */
-    gboolean scroll_center;     /* If TRUE, scroll when the cursor hits the middle of the panel */
-    gboolean mouse_move_pages;  /* Scroll page/item using mouse wheel */
-    gboolean filetype_mode;     /* If TRUE then add per file type highlighting */
-    gboolean permission_mode;   /* If TRUE, we use permission highlighting */
-    qsearch_mode_t qsearch_mode;        /* Quick search mode */
-    gboolean torben_fj_mode;    /* If TRUE, use some usability hacks by Torben */
-    select_flags_t select_flags;        /* Select/unselect file flags */
+    gboolean
+        navigate_with_arrows; /* If TRUE: l&r arrows are used to chdir if the input line is empty */
+    gboolean scroll_pages; /* If TRUE, panel is scrolled by half the display when the cursor reaches
+                              the end or the beginning of the panel */
+    gboolean scroll_center;      /* If TRUE, scroll when the cursor hits the middle of the panel */
+    gboolean mouse_move_pages;   /* Scroll page/item using mouse wheel */
+    gboolean filetype_mode;      /* If TRUE then add per file type highlighting */
+    gboolean permission_mode;    /* If TRUE, we use permission highlighting */
+    qsearch_mode_t qsearch_mode; /* Quick search mode */
+    gboolean torben_fj_mode;     /* If TRUE, use some usability hacks by Torben */
+    select_flags_t select_flags; /* Select/unselect file flags */
 } panels_options_t;
 
 typedef struct macro_action_t
@@ -147,15 +149,15 @@ const char *setup_init (void);
 void load_setup (void);
 gboolean save_setup (gboolean save_options, gboolean save_panel_options);
 void done_setup (void);
-void setup_save_config_show_error (const char *filename, GError ** mcerror);
+void setup_save_config_show_error (const char *filename, GError **mcerror);
 
 void load_key_defs (void);
 #ifdef ENABLE_VFS_FTP
 char *load_anon_passwd (void);
 #endif /* ENABLE_VFS_FTP */
 
-void panel_load_setup (WPanel * panel, const char *section);
-void panel_save_setup (WPanel * panel, const char *section);
+void panel_load_setup (WPanel *panel, const char *section);
+void panel_save_setup (WPanel *panel, const char *section);
 
 /*** inline functions ****************************************************************************/
 

@@ -54,14 +54,14 @@
 
 /* states: S_N: normal, S_I: comparing integral part, S_F: comparing
    fractional parts, S_Z: idem but with leading Zeroes only */
-#define  S_N    0x0
-#define  S_I    0x3
-#define  S_F    0x6
-#define  S_Z    0x9
+#define S_N 0x0
+#define S_I 0x3
+#define S_F 0x6
+#define S_Z 0x9
 
 /* result_type: CMP: return diff; LEN: compare using len_diff/diff */
-#define  CMP    2
-#define  LEN    3
+#define CMP 2
+#define LEN 3
 
 #endif /* HAVE_STRVERSCMP */
 
@@ -86,7 +86,7 @@ str_verscmp (const char *s1, const char *s2)
 #ifdef HAVE_STRVERSCMP
     return strverscmp (s1, s2);
 
-#else /* HAVE_STRVERSCMP */
+#else  /* HAVE_STRVERSCMP */
     const unsigned char *p1 = (const unsigned char *) s1;
     const unsigned char *p2 = (const unsigned char *) s2;
     unsigned char c1, c2;
@@ -96,24 +96,21 @@ str_verscmp (const char *s1, const char *s2)
     /* *INDENT-OFF* */
     /* Symbol(s)    0       [1-9]   others
        Transition   (10) 0  (01) d  (00) x   */
-    static const unsigned char next_state[] =
-    {
-        /* state    x    d    0  */
-        /* S_N */ S_N, S_I, S_Z,
-        /* S_I */ S_N, S_I, S_I,
-        /* S_F */ S_N, S_F, S_F,
-        /* S_Z */ S_N, S_F, S_Z
+    static const unsigned char next_state[] = { /* state    x    d    0  */
+                                                /* S_N */ S_N, S_I, S_Z,
+                                                /* S_I */ S_N, S_I, S_I,
+                                                /* S_F */ S_N, S_F, S_F,
+                                                /* S_Z */ S_N, S_F, S_Z
     };
 
-    static const signed char result_type[] =
-    {
-        /* state  x/x  x/d  x/0  d/x  d/d  d/0  0/x  0/d  0/0  */
+    static const signed char result_type[]
+        = { /* state  x/x  x/d  x/0  d/x  d/d  d/0  0/x  0/d  0/0  */
 
-        /* S_N */ CMP, CMP, CMP, CMP, LEN, CMP, CMP, CMP, CMP,
-        /* S_I */ CMP,  -1,  -1,  +1, LEN, LEN,  +1, LEN, LEN,
-        /* S_F */ CMP, CMP, CMP, CMP, CMP, CMP, CMP, CMP, CMP,
-        /* S_Z */ CMP,  +1,  +1,  -1, CMP, CMP,  -1, CMP, CMP
-    };
+            /* S_N */ CMP, CMP, CMP, CMP, LEN, CMP, CMP, CMP, CMP,
+            /* S_I */ CMP, -1,  -1,  +1,  LEN, LEN, +1,  LEN, LEN,
+            /* S_F */ CMP, CMP, CMP, CMP, CMP, CMP, CMP, CMP, CMP,
+            /* S_Z */ CMP, +1,  +1,  -1,  CMP, CMP, -1,  CMP, CMP
+          };
     /* *INDENT-ON* */
 
     if (p1 == p2)

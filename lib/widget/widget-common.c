@@ -253,9 +253,8 @@ gboolean
 hotkey_equal (const hotkey_t hotkey1, const hotkey_t hotkey2)
 {
     /* *INDENT-OFF* */
-    return (strcmp (hotkey1.start, hotkey2.start) == 0) &&
-           hotkey_cmp (hotkey1.hotkey, hotkey2.hotkey) &&
-           hotkey_cmp (hotkey1.end, hotkey2.end);
+    return (strcmp (hotkey1.start, hotkey2.start) == 0)
+           && hotkey_cmp (hotkey1.hotkey, hotkey2.hotkey) && hotkey_cmp (hotkey1.end, hotkey2.end);
     /* *INDENT-ON* */
 }
 
@@ -494,13 +493,13 @@ widget_set_visibility (Widget *w, gboolean make_visible)
 
 /* --------------------------------------------------------------------------------------------- */
 /**
-  * Check whether widget is active or not.
-  * Widget is active if it's current in the its owner and each owner in the chain is current too.
-  *
-  * @param w the widget
-  *
-  * @return TRUE if the widget is active, FALSE otherwise
-  */
+ * Check whether widget is active or not.
+ * Widget is active if it's current in the its owner and each owner in the chain is current too.
+ *
+ * @param w the widget
+ *
+ * @return TRUE if the widget is active, FALSE otherwise
+ */
 
 gboolean
 widget_is_active (const void *w)
@@ -543,11 +542,11 @@ widget_draw (Widget *w)
 
 /* --------------------------------------------------------------------------------------------- */
 /**
-  * Replace widget in the dialog.
-  *
-  * @param old_w old widget that need to be replaced
-  * @param new_w new widget that will replace @old_w
-  */
+ * Replace widget in the dialog.
+ *
+ * @param old_w old widget that need to be replaced
+ * @param new_w new widget that will replace @old_w
+ */
 
 void
 widget_replace (Widget *old_w, Widget *new_w)
@@ -607,8 +606,8 @@ widget_replace (Widget *old_w, Widget *new_w)
 gboolean
 widget_is_focusable (const Widget *w)
 {
-    return (widget_get_options (w, WOP_SELECTABLE) && widget_get_state (w, WST_VISIBLE) &&
-            !widget_get_state (w, WST_DISABLED));
+    return (widget_get_options (w, WOP_SELECTABLE) && widget_get_state (w, WST_VISIBLE)
+            && !widget_get_state (w, WST_DISABLED));
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -657,12 +656,12 @@ widget_set_bottom (Widget *w)
 
 /* --------------------------------------------------------------------------------------------- */
 /**
-  * Look up key event of widget and translate it to command ID.
-  * @param w   widget
-  * @param key key event
-  *
-  * @return command ID binded with @key.
-  */
+ * Look up key event of widget and translate it to command ID.
+ * @param w   widget
+ * @param key key event
+ *
+ * @return command ID binded with @key.
+ */
 
 long
 widget_lookup_key (Widget *w, int key)
@@ -679,12 +678,12 @@ widget_lookup_key (Widget *w, int key)
 /* --------------------------------------------------------------------------------------------- */
 
 /**
-  * Default widget callback to convert widget coordinates from local (relative to owner) to global
-  * (relative to screen).
-  *
-  * @param w widget
-  * @delta offset for top-left corner coordinates. Used for child widgets of WGroup
-  */
+ * Default widget callback to convert widget coordinates from local (relative to owner) to global
+ * (relative to screen).
+ *
+ * @param w widget
+ * @delta offset for top-left corner coordinates. Used for child widgets of WGroup
+ */
 
 void
 widget_default_make_global (Widget *w, const WRect *delta)
@@ -698,12 +697,12 @@ widget_default_make_global (Widget *w, const WRect *delta)
 /* --------------------------------------------------------------------------------------------- */
 
 /**
-  * Default widget callback to convert widget coordinates from global (relative to screen) to local
-  * (relative to owner).
-  *
-  * @param w widget
-  * @delta offset for top-left corner coordinates. Used for child widgets of WGroup
-  */
+ * Default widget callback to convert widget coordinates from global (relative to screen) to local
+ * (relative to owner).
+ *
+ * @param w widget
+ * @delta offset for top-left corner coordinates. Used for child widgets of WGroup
+ */
 
 void
 widget_default_make_local (Widget *w, const WRect *delta)
@@ -727,8 +726,8 @@ widget_default_make_local (Widget *w, const WRect *delta)
 GList *
 widget_default_find (const Widget *w, const Widget *what)
 {
-    return (w != what
-            || w->owner == NULL) ? NULL : g_list_find (CONST_GROUP (w->owner)->widgets, what);
+    return (w != what || w->owner == NULL) ? NULL
+                                           : g_list_find (CONST_GROUP (w->owner)->widgets, what);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -826,7 +825,7 @@ widget_default_set_state (Widget *w, widget_state_t state, gboolean enable)
                 if (w == GROUP (owner)->current->data)
                     group_select_next_widget (GROUP (owner));
 
-                widget_update_cursor (owner);   /* FIXME: unneeded? */
+                widget_update_cursor (owner); /* FIXME: unneeded? */
             }
         }
         break;
@@ -838,19 +837,19 @@ widget_default_set_state (Widget *w, widget_state_t state, gboolean enable)
         break;
 
     case WST_FOCUSED:
-        {
-            widget_msg_t msg;
+    {
+        widget_msg_t msg;
 
-            msg = enable ? MSG_FOCUS : MSG_UNFOCUS;
-            ret = send_message (w, NULL, msg, 0, NULL);
-            if (ret == MSG_HANDLED && widget_get_state (owner, WST_ACTIVE))
-            {
-                widget_draw (w);
-                /* Notify owner that focus was moved from one widget to another */
-                send_message (owner, w, MSG_CHANGED_FOCUS, 0, NULL);
-            }
+        msg = enable ? MSG_FOCUS : MSG_UNFOCUS;
+        ret = send_message (w, NULL, msg, 0, NULL);
+        if (ret == MSG_HANDLED && widget_get_state (owner, WST_ACTIVE))
+        {
+            widget_draw (w);
+            /* Notify owner that focus was moved from one widget to another */
+            send_message (owner, w, MSG_CHANGED_FOCUS, 0, NULL);
         }
-        break;
+    }
+    break;
 
     default:
         break;
@@ -899,7 +898,7 @@ mouse_global_in_widget (const Gpm_Event *event, const Widget *w)
     const WRect *r = &w->rect;
 
     return (event->x > r->x) && (event->y > r->y) && (event->x <= r->x + r->cols)
-        && (event->y <= r->y + r->lines);
+           && (event->y <= r->y + r->lines);
 }
 
 /* --------------------------------------------------------------------------------------------- */

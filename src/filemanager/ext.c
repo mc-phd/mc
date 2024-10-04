@@ -47,11 +47,11 @@
 #include "lib/vfs/vfs.h"
 #include "lib/widget.h"
 #ifdef HAVE_CHARSET
-#include "lib/charsets.h"       /* get_codepage_index */
+#include "lib/charsets.h" /* get_codepage_index */
 #endif
 
 #ifdef USE_FILE_CMD
-#include "src/setup.h"          /* use_file_to_check_type */
+#include "src/setup.h" /* use_file_to_check_type */
 #endif
 #include "src/execute.h"
 #include "src/history.h"
@@ -61,11 +61,11 @@
 #include "src/viewer/mcviewer.h"
 
 #ifdef HAVE_CHARSET
-#include "src/selcodepage.h"    /* do_set_codepage */
+#include "src/selcodepage.h" /* do_set_codepage */
 #endif
 
-#include "filemanager.h"        /* current_panel */
-#include "panel.h"              /* panel_cd */
+#include "filemanager.h" /* current_panel */
+#include "panel.h"       /* panel_cd */
 
 #include "ext.h"
 
@@ -199,13 +199,11 @@ exec_get_export_variables (const vfs_path_t *filename_vpath)
         const char symbol;
         const char *name;
         const gboolean is_result_quoted;
-    } export_variables[] = {
-        {'p', "MC_EXT_BASENAME", FALSE},
-        {'d', "MC_EXT_CURRENTDIR", FALSE},
-        {'s', "MC_EXT_SELECTED", TRUE},
-        {'t', "MC_EXT_ONLYTAGGED", TRUE},
-        {'\0', NULL, FALSE}
-    };
+    } export_variables[] = { { 'p', "MC_EXT_BASENAME", FALSE },
+                             { 'd', "MC_EXT_CURRENTDIR", FALSE },
+                             { 's', "MC_EXT_SELECTED", TRUE },
+                             { 't', "MC_EXT_ONLYTAGGED", TRUE },
+                             { '\0', NULL, FALSE } };
     /* *INDENT-ON* */
 
     text = exec_get_file_name (filename_vpath);
@@ -218,13 +216,12 @@ exec_get_export_variables (const vfs_path_t *filename_vpath)
 
     for (i = 0; export_variables[i].name != NULL; i++)
     {
-        text =
-            exec_expand_format (export_variables[i].symbol, export_variables[i].is_result_quoted);
+        text
+            = exec_expand_format (export_variables[i].symbol, export_variables[i].is_result_quoted);
         if (text != NULL)
         {
-            g_string_append_printf (export_vars_string,
-                                    "%s=%s\nexport %s\n", export_variables[i].name, text,
-                                    export_variables[i].name);
+            g_string_append_printf (export_vars_string, "%s=%s\nexport %s\n",
+                                    export_variables[i].name, text, export_variables[i].name);
             g_free (text);
         }
     }
@@ -253,9 +250,8 @@ exec_make_shell_string (const char *lc_data, const vfs_path_t *filename_vpath)
                 char *parameter;
 
                 parameter_found = FALSE;
-                parameter =
-                    input_dialog (_("Parameter"), lc_prompt, MC_HISTORY_EXT_PARAMETER, "",
-                                  INPUT_COMPLETE_NONE);
+                parameter = input_dialog (_ ("Parameter"), lc_prompt, MC_HISTORY_EXT_PARAMETER, "",
+                                          INPUT_COMPLETE_NONE);
                 if (parameter == NULL)
                 {
                     /* User canceled */
@@ -361,7 +357,7 @@ exec_make_shell_string (const char *lc_data, const vfs_path_t *filename_vpath)
             else
                 g_string_append_c (shell_string, *lc_data);
         }
-    }                           /* for */
+    } /* for */
 
     return shell_string;
 }
@@ -425,12 +421,11 @@ exec_extension_cd (WPanel *panel)
     vfs_path_free (p_vpath, TRUE);
 }
 
-
 /* --------------------------------------------------------------------------------------------- */
 
 static vfs_path_t *
-exec_extension (WPanel *panel, void *target, const vfs_path_t *filename_vpath,
-                const char *lc_data, int start_line)
+exec_extension (WPanel *panel, void *target, const vfs_path_t *filename_vpath, const char *lc_data,
+                int start_line)
 {
     GString *shell_string, *export_variables;
     vfs_path_t *script_vpath = NULL;
@@ -469,8 +464,8 @@ exec_extension (WPanel *panel, void *target, const vfs_path_t *filename_vpath,
 
     if (cmd_file_fd == -1)
     {
-        message (D_ERROR, MSG_ERROR,
-                 _("Cannot create temporary command file\n%s"), unix_error_string (errno));
+        message (D_ERROR, MSG_ERROR, _ ("Cannot create temporary command file\n%s"),
+                 unix_error_string (errno));
         g_string_free (shell_string, TRUE);
         goto ret;
     }
@@ -538,7 +533,7 @@ exec_extension (WPanel *panel, void *target, const vfs_path_t *filename_vpath,
     g_free (cmd);
 
     exec_cleanup_file_name (filename_vpath, TRUE);
-  ret:
+ret:
     return script_vpath;
 }
 
@@ -574,12 +569,12 @@ get_popen_information (const char *cmd_file, const char *args, char *buf, int bu
 #endif
         read_bytes = (fgets (buf, buflen, f) != NULL);
         if (!read_bytes)
-            buf[0] = '\0';      /* Paranoid termination */
+            buf[0] = '\0'; /* Paranoid termination */
         pclose (f);
     }
     else
     {
-        buf[0] = '\0';          /* Paranoid termination */
+        buf[0] = '\0'; /* Paranoid termination */
         return -1;
     }
 
@@ -673,7 +668,7 @@ regex_check_type (const vfs_path_t *filename_vpath, const char *ptr, gboolean ca
         vfs_path_t *localfile_vpath;
 
 #ifdef HAVE_CHARSET
-        static char encoding_id[21];    /* CSISO51INISCYRILLIC -- 20 */
+        static char encoding_id[21]; /* CSISO51INISCYRILLIC -- 20 */
         int got_encoding_data;
 #endif /* HAVE_CHARSET */
 
@@ -683,15 +678,16 @@ regex_check_type (const vfs_path_t *filename_vpath, const char *ptr, gboolean ca
         localfile_vpath = mc_getlocalcopy (filename_vpath);
         if (localfile_vpath == NULL)
         {
-            mc_propagate_error (mcerror, 0, _("Cannot fetch a local copy of %s"),
+            mc_propagate_error (mcerror, 0, _ ("Cannot fetch a local copy of %s"),
                                 vfs_path_as_str (filename_vpath));
             return FALSE;
         }
 
-
 #ifdef HAVE_CHARSET
-        got_encoding_data = is_autodetect_codeset_enabled
-            ? get_file_encoding_local (localfile_vpath, encoding_id, sizeof (encoding_id)) : 0;
+        got_encoding_data
+            = is_autodetect_codeset_enabled
+                  ? get_file_encoding_local (localfile_vpath, encoding_id, sizeof (encoding_id))
+                  : 0;
 
         if (got_encoding_data > 0)
         {
@@ -724,7 +720,7 @@ regex_check_type (const vfs_path_t *filename_vpath, const char *ptr, gboolean ca
 
 #ifndef FILE_B
             {
-                const char *real_name;  /* name used with "file" */
+                const char *real_name; /* name used with "file" */
                 size_t real_len;
 
                 real_name = vfs_path_get_last_path_str (localfile_vpath);
@@ -754,7 +750,7 @@ regex_check_type (const vfs_path_t *filename_vpath, const char *ptr, gboolean ca
 
     if (got_data == -1)
     {
-        mc_propagate_error (mcerror, 0, "%s", _("Pipe failed"));
+        mc_propagate_error (mcerror, 0, "%s", _ ("Pipe failed"));
         return FALSE;
     }
 
@@ -772,7 +768,7 @@ regex_check_type (const vfs_path_t *filename_vpath, const char *ptr, gboolean ca
         }
         else
         {
-            mc_propagate_error (mcerror, 0, "%s", _("Regular expression error"));
+            mc_propagate_error (mcerror, 0, "%s", _ ("Regular expression error"));
         }
     }
 
@@ -789,9 +785,9 @@ check_old_extension_file (void)
 
     extension_old_file = mc_config_get_full_path (MC_EXT_OLD_FILE);
     if (exist_file (extension_old_file))
-        message (D_ERROR, _("Warning"),
-                 _("You have an outdated %s file.\nMidnight Commander now uses %s file.\n"
-                   "Please copy your modifications of the old file to the new one."),
+        message (D_ERROR, _ ("Warning"),
+                 _ ("You have an outdated %s file.\nMidnight Commander now uses %s file.\n"
+                    "Please copy your modifications of the old file to the new one."),
                  extension_old_file, MC_EXT_FILE);
     g_free (extension_old_file);
 }
@@ -812,13 +808,13 @@ load_extension_file (void)
 
         check_old_extension_file ();
 
-      check_stock_mc_ext:
+    check_stock_mc_ext:
         extension_file = mc_build_filename (mc_global.sysconfig_dir, MC_EXT_FILE, (char *) NULL);
         if (!exist_file (extension_file))
         {
             g_free (extension_file);
-            extension_file =
-                mc_build_filename (mc_global.share_data_dir, MC_EXT_FILE, (char *) NULL);
+            extension_file
+                = mc_build_filename (mc_global.share_data_dir, MC_EXT_FILE, (char *) NULL);
             if (!exist_file (extension_file))
                 MC_PTR_FREE (extension_file);
         }
@@ -841,9 +837,9 @@ load_extension_file (void)
         if (!mc_user_ext)
         {
             message (D_ERROR, MSG_ERROR,
-                     _("The format of the\n%s%s\nfile has changed with version 4.0.\n"
-                       "It seems that the installation has failed.\nPlease fetch a fresh copy "
-                       "from the Midnight Commander package."),
+                     _ ("The format of the\n%s%s\nfile has changed with version 4.0.\n"
+                        "It seems that the installation has failed.\nPlease fetch a fresh copy "
+                        "from the Midnight Commander package."),
                      mc_global.sysconfig_dir, MC_EXT_FILE);
             return FALSE;
         }
@@ -855,10 +851,11 @@ load_extension_file (void)
     if (home_error)
     {
         extension_file = mc_config_get_full_path (MC_EXT_FILE);
-        message (D_ERROR, MSG_ERROR,
-                 _("The format of the\n%s\nfile has changed with version 4.0.\nYou may either want "
-                   "to copy it from\n%s%s\nor use that file as an example of how to write it."),
-                 extension_file, mc_global.sysconfig_dir, MC_EXT_FILE);
+        message (
+            D_ERROR, MSG_ERROR,
+            _ ("The format of the\n%s\nfile has changed with version 4.0.\nYou may either want "
+               "to copy it from\n%s%s\nor use that file as an example of how to write it."),
+            extension_file, mc_global.sysconfig_dir, MC_EXT_FILE);
         g_free (extension_file);
     }
 
@@ -945,7 +942,8 @@ regex_command_for (void *target, const vfs_path_t *filename_vpath, const char *a
             TYPE_UNUSED,
             TYPE_NOT_FOUND,
             TYPE_FOUND
-        } type_state = TYPE_UNUSED;
+        } type_state
+            = TYPE_UNUSED;
 
         const gchar *g = *group_iter;
         gchar *pattern;
@@ -961,11 +959,11 @@ regex_command_for (void *target, const vfs_path_t *filename_vpath, const char *a
         if (pattern != NULL)
         {
             found = S_ISDIR (mystat.st_mode)
-                && mc_search (pattern, DEFAULT_CHARSET, vfs_path_as_str (filename_vpath),
-                              MC_SEARCH_T_REGEX);
+                    && mc_search (pattern, DEFAULT_CHARSET, vfs_path_as_str (filename_vpath),
+                                  MC_SEARCH_T_REGEX);
             g_free (pattern);
 
-            continue;           /* stop if found */
+            continue; /* stop if found */
         }
 
 #ifdef USE_FILE_CMD
@@ -977,13 +975,14 @@ regex_command_for (void *target, const vfs_path_t *filename_vpath, const char *a
                 GError *mcerror = NULL;
 
                 ignore_case = mc_config_get_bool (ext_ini, g, "TypeIgnoreCase", FALSE);
-                type_state =
-                    regex_check_type (filename_vpath, pattern, ignore_case, &have_type, &mcerror)
-                    ? TYPE_FOUND : TYPE_NOT_FOUND;
+                type_state
+                    = regex_check_type (filename_vpath, pattern, ignore_case, &have_type, &mcerror)
+                          ? TYPE_FOUND
+                          : TYPE_NOT_FOUND;
                 g_free (pattern);
 
                 if (mc_error_message (&mcerror, NULL))
-                    error_flag = TRUE;  /* leave it if file cannot be opened */
+                    error_flag = TRUE; /* leave it if file cannot be opened */
 
                 if (type_state == TYPE_NOT_FOUND)
                     continue;
@@ -1023,11 +1022,11 @@ regex_command_for (void *target, const vfs_path_t *filename_vpath, const char *a
                 pattern_len = strlen (pattern);
 
                 if (*pattern == '.' && filename_len >= pattern_len)
-                    found =
-                        cmp_func (pattern, filename + filename_len - pattern_len, pattern_len) == 0;
+                    found = cmp_func (pattern, filename + filename_len - pattern_len, pattern_len)
+                            == 0;
                 else
                     found = pattern_len == filename_len
-                        && cmp_func (pattern, filename, filename_len) == 0;
+                            && cmp_func (pattern, filename, filename_len) == 0;
 
                 g_free (pattern);
 

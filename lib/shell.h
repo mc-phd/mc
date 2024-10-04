@@ -14,8 +14,8 @@ typedef enum
     SHELL_NONE,
     SHELL_SH,
     SHELL_BASH,
-    SHELL_ASH_BUSYBOX,          /* BusyBox default shell (ash) */
-    SHELL_DASH,                 /* Debian variant of ash */
+    SHELL_ASH_BUSYBOX, /* BusyBox default shell (ash) */
+    SHELL_DASH,        /* Debian variant of ash */
     SHELL_TCSH,
     SHELL_ZSH,
     SHELL_FISH

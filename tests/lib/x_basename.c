@@ -56,36 +56,14 @@ static const struct test_x_basename_ds
 {
     const char *input_value;
     const char *expected_result;
-} test_x_basename_ds[] =
-{
-    {
-        "/test/path/test2/path2",
-        "path2"
-    },
-    {
-        "/test/path/test2/path2#vfsprefix",
-        "path2#vfsprefix"
-    },
-    {
-        "/test/path/test2/path2/vfsprefix://",
-        "path2/vfsprefix://"
-    },
-    {
-        "/test/path/test2/path2/vfsprefix://subdir",
-        "subdir"
-    },
-    {
-        "/test/path/test2/path2/vfsprefix://subdir/",
-        "subdir/"
-    },
-    {
-        "/test/path/test2/path2/vfsprefix://subdir/subdir2",
-        "subdir2"
-    },
-    {
-        "/test/path/test2/path2/vfsprefix:///",
-        "/"
-    },
+} test_x_basename_ds[] = {
+    { "/test/path/test2/path2", "path2" },
+    { "/test/path/test2/path2#vfsprefix", "path2#vfsprefix" },
+    { "/test/path/test2/path2/vfsprefix://", "path2/vfsprefix://" },
+    { "/test/path/test2/path2/vfsprefix://subdir", "subdir" },
+    { "/test/path/test2/path2/vfsprefix://subdir/", "subdir/" },
+    { "/test/path/test2/path2/vfsprefix://subdir/subdir2", "subdir2" },
+    { "/test/path/test2/path2/vfsprefix:///", "/" },
 };
 /* *INDENT-ON* */
 

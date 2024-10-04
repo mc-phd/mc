@@ -149,12 +149,12 @@
 #include "lib/global.h"
 #include "lib/tty/tty.h"
 #include "lib/skin.h"
-#include "lib/util.h"           /* is_printable() */
+#include "lib/util.h" /* is_printable() */
 #ifdef HAVE_CHARSET
 #include "lib/charsets.h"
 #endif
 
-#include "src/setup.h"          /* option_tab_spacing */
+#include "src/setup.h" /* option_tab_spacing */
 
 #include "internal.h"
 
@@ -164,8 +164,8 @@
 
 /* The Unicode standard recommends that lonely combining characters are printed over a dotted
  * circle. If the terminal is not UTF-8, this will be replaced by a dot anyway. */
-#define BASE_CHARACTER_FOR_LONELY_COMBINING 0x25CC      /* dotted circle */
-#define MAX_COMBINING_CHARS 4   /* both slang and ncurses support exactly 4 */
+#define BASE_CHARACTER_FOR_LONELY_COMBINING 0x25CC /* dotted circle */
+#define MAX_COMBINING_CHARS                 4      /* both slang and ncurses support exactly 4 */
 
 /* I think anything other than space (e.g. arrows) just introduce visual clutter without actually
  * adding value. */
@@ -423,8 +423,8 @@ mcview_get_next_maybe_nroff_char (WView *view, mcview_state_machine_t *state, in
     {
         *state = state_after_nroff;
         if (color != NULL)
-            *color =
-                state->nroff_underscore_is_underlined ? VIEW_UNDERLINED_COLOR : VIEW_BOLD_COLOR;
+            *color
+                = state->nroff_underscore_is_underlined ? VIEW_UNDERLINED_COLOR : VIEW_BOLD_COLOR;
     }
     else if (*c == c3)
     {
@@ -473,8 +473,8 @@ mcview_get_next_maybe_nroff_char (WView *view, mcview_state_machine_t *state, in
  * @return the number of entries placed in cs, or 0 on EOF
  */
 static int
-mcview_next_combining_char_sequence (WView *view, mcview_state_machine_t *state, int *cs,
-                                     int clen, int *color)
+mcview_next_combining_char_sequence (WView *view, mcview_state_machine_t *state, int *cs, int clen,
+                                     int *color)
 {
     int i = 1;
 
@@ -572,8 +572,8 @@ mcview_next_combining_char_sequence (WView *view, mcview_state_machine_t *state,
  * @return the number of rows, that is, 0 if we were already at EOF, otherwise 1
  */
 static int
-mcview_display_line (WView *view, mcview_state_machine_t *state, int row,
-                     gboolean *paragraph_ended, off_t *linewidth)
+mcview_display_line (WView *view, mcview_state_machine_t *state, int row, gboolean *paragraph_ended,
+                     off_t *linewidth)
 {
     const WRect *r = &view->data_area;
     off_t dpy_text_column = view->mode_flags.wrap ? 0 : view->dpy_text_column;
@@ -629,7 +629,8 @@ mcview_display_line (WView *view, mcview_state_machine_t *state, int row,
 
         if (mcview_is_non_spacing_mark (view, cs[0]))
         {
-            /* Lonely combining character. Probably leftover after too many combining chars. Just ignore. */
+            /* Lonely combining character. Probably leftover after too many combining chars. Just
+             * ignore. */
             continue;
         }
 
@@ -668,8 +669,8 @@ mcview_display_line (WView *view, mcview_state_machine_t *state, int row,
         /* Display, unless outside of the viewport. */
         if (row >= 0 && row < r->lines)
         {
-            if ((off_t) col >= dpy_text_column &&
-                (off_t) col + charwidth <= dpy_text_column + (off_t) r->cols)
+            if ((off_t) col >= dpy_text_column
+                && (off_t) col + charwidth <= dpy_text_column + (off_t) r->cols)
             {
                 /* The combining character sequence fits entirely in the viewport. Print it. */
                 tty_setcolor (color);
@@ -705,8 +706,8 @@ mcview_display_line (WView *view, mcview_state_machine_t *state, int row,
                     tty_print_anychar ((cs[0] == '\t') ? ' ' : PARTIAL_CJK_AT_LEFT_MARGIN);
                 }
             }
-            else if ((off_t) col < dpy_text_column + (off_t) r->cols &&
-                     (off_t) col + charwidth > dpy_text_column + (off_t) r->cols)
+            else if ((off_t) col < dpy_text_column + (off_t) r->cols
+                     && (off_t) col + charwidth > dpy_text_column + (off_t) r->cols)
             {
                 /* The combining character sequence would cross the right edge of the viewport
                  * and we're not wrapping. Print replacement character(s),
@@ -990,15 +991,14 @@ mcview_ascii_move_up (WView *view, off_t lines)
             }
             lines -= view->dpy_paragraph_skip_lines;
             view->force_max = view->dpy_start;
-            view->dpy_start =
-                mcview_bol (view, view->dpy_start - 1,
-                            view->dpy_start - MAX_BACKWARDS_WALK_IN_PARAGRAPH);
+            view->dpy_start = mcview_bol (view, view->dpy_start - 1,
+                                          view->dpy_start - MAX_BACKWARDS_WALK_IN_PARAGRAPH);
             mcview_state_machine_init (&view->dpy_state_top, view->dpy_start);
             /* This is a tricky way of denoting that we're at the end of the paragraph.
              * Normally we'd jump to the next paragraph and reset paragraph_skip_lines. But for
              * walking backwards this is exactly what we need. */
-            view->dpy_paragraph_skip_lines =
-                mcview_display_paragraph (view, &view->dpy_state_top, view->data_area.lines);
+            view->dpy_paragraph_skip_lines
+                = mcview_display_paragraph (view, &view->dpy_state_top, view->data_area.lines);
             view->force_max = -1;
         }
 

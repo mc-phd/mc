@@ -108,57 +108,25 @@ static const struct test_create_ini_file_ds
     const char *input_default_value;
     const char *expected_value;
     const char *expected_raw_value;
-} test_create_ini_file_ds[] =
-{
+} test_create_ini_file_ds[] = {
     { /* 0. */
-        "group-not-exists",
-        "param-not_exists",
-        NULL,
-        NULL,
-        NULL
-    },
+      "group-not-exists", "param-not_exists", NULL, NULL, NULL },
     { /* 1. */
-        "test-group1",
-        "test-param1",
-        "not-exists",
-        " some value ",
-        " some value "
-    },
+      "test-group1", "test-param1", "not-exists", " some value ", " some value " },
     { /* 2. */
-        "test-group1",
-        "test-param2",
-        "not-exists",
-        " \tkoi8-r: Тестовое значение ",
-        " \tkoi8-r: \320\242\320\265\321\201\321\202\320\276\320\262\320\276\320\265 \320\267\320\275\320\260\321\207\320\265\320\275\320\270\320\265 "
-    },
+      "test-group1", "test-param2", "not-exists", " \tkoi8-r: Тестовое значение ",
+      " \tkoi8-r: \320\242\320\265\321\201\321\202\320\276\320\262\320\276\320\265 "
+      "\320\267\320\275\320\260\321\207\320\265\320\275\320\270\320\265 " },
     { /* 3. */
-        "test-group1",
-        "test-param3",
-        "not-exists",
-        " \tsome value2\n\nf\b\005fff ",
-        " \tsome value2\n\nf\b\005fff "
-    },
+      "test-group1", "test-param3", "not-exists", " \tsome value2\n\nf\b\005fff ",
+      " \tsome value2\n\nf\b\005fff " },
     { /* 4. */
-        "test-group2",
-        "test-param1",
-        "not-exists",
-        " some value ",
-        " some value "
-    },
+      "test-group2", "test-param1", "not-exists", " some value ", " some value " },
     { /* 5. */
-        "test-group2",
-        "test-param2",
-        "not-exists",
-        "not-exists",
-        "not-exists"
-    },
+      "test-group2", "test-param2", "not-exists", "not-exists", "not-exists" },
     { /* 6. */
-        "test-group2",
-        "test-param3",
-        "not-exists",
-        " \tsome value2\n\nf\b\005fff ",
-        " \tsome value2\n\nf\b\005fff "
-    },
+      "test-group2", "test-param3", "not-exists", " \tsome value2\n\nf\b\005fff ",
+      " \tsome value2\n\nf\b\005fff " },
 
 };
 /* *INDENT-ON* */
@@ -183,12 +151,10 @@ START_PARAMETRIZED_TEST (test_create_ini_file_paths, test_create_ini_file_ds)
     config_object__reopen ();
 
     /* when */
-    actual_value =
-        mc_config_get_string (mc_config, data->input_group, data->input_param,
-                              data->input_default_value);
-    actual_raw_value =
-        mc_config_get_string_raw (mc_config, data->input_group, data->input_param,
-                                  data->input_default_value);
+    actual_value = mc_config_get_string (mc_config, data->input_group, data->input_param,
+                                         data->input_default_value);
+    actual_raw_value = mc_config_get_string_raw (mc_config, data->input_group, data->input_param,
+                                                 data->input_default_value);
 
     /* then */
     mctest_assert_str_eq (actual_value, data->expected_value);

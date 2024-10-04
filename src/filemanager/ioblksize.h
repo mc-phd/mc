@@ -76,8 +76,10 @@
    and default to io_blksize() if not.
  */
 
-
-enum { IO_BUFSIZE = 256 * 1024 };
+enum
+{
+    IO_BUFSIZE = 256 * 1024
+};
 
 /* *INDENT-ON* */
 

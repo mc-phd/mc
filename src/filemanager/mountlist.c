@@ -30,7 +30,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdint.h>             /* SIZE_MAX */
+#include <stdint.h> /* SIZE_MAX */
 #include <sys/types.h>
 
 #include <errno.h>
@@ -40,7 +40,7 @@
 #include <sys/param.h>
 #endif
 
-#if defined STAT_STATVFS || defined STAT_STATVFS64      /* POSIX 1003.1-2001 (and later) with XSI */
+#if defined STAT_STATVFS || defined STAT_STATVFS64 /* POSIX 1003.1-2001 (and later) with XSI */
 #include <sys/statvfs.h>
 #else
 /* Don't include backward-compatibility files unless they're needed.
@@ -49,17 +49,17 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-#ifdef MOUNTED_GETFSSTAT        /* OSF_1, also (obsolete) Apple Darwin 1.3 */
+#ifdef MOUNTED_GETFSSTAT /* OSF_1, also (obsolete) Apple Darwin 1.3 */
 #ifdef HAVE_SYS_UCRED_H
-#include <grp.h>                /* needed on OSF V4.0 for definition of NGROUPS,
+#include <grp.h>       /* needed on OSF V4.0 for definition of NGROUPS,
                                    NGROUPS is used as an array dimension in ucred.h */
-#include <sys/ucred.h>          /* needed by powerpc-apple-darwin1.3.7 */
+#include <sys/ucred.h> /* needed by powerpc-apple-darwin1.3.7 */
 #endif
 #ifdef HAVE_SYS_MOUNT_H
 #include <sys/mount.h>
 #endif
 #ifdef HAVE_SYS_FS_TYPES_H
-#include <sys/fs_types.h>       /* needed by powerpc-apple-darwin1.3.7 */
+#include <sys/fs_types.h> /* needed by powerpc-apple-darwin1.3.7 */
 #endif
 #ifdef HAVE_STRUCT_FSSTAT_F_FSTYPENAME
 #define FS_TYPE(Ent) ((Ent).f_fstypename)
@@ -72,65 +72,65 @@
 #ifdef HAVE_SYS_VFS_H
 #include <sys/vfs.h>
 #endif
-#ifdef HAVE_SYS_FS_S5PARAM_H    /* Fujitsu UXP/V */
+#ifdef HAVE_SYS_FS_S5PARAM_H /* Fujitsu UXP/V */
 #include <sys/fs/s5param.h>
 #endif
 #ifdef HAVE_SYS_STATFS_H
 #include <sys/statfs.h>
 #endif
 
-#ifdef MOUNTED_GETMNTENT1       /* glibc, HP-UX, IRIX, Cygwin, Android,
-                                   also (obsolete) 4.3BSD, SunOS */
+#ifdef MOUNTED_GETMNTENT1 /* glibc, HP-UX, IRIX, Cygwin, Android,                                  \
+                             also (obsolete) 4.3BSD, SunOS */
 #include <mntent.h>
 #include <sys/types.h>
-#if defined __ANDROID__         /* Android */
-   /* Bionic versions from between 2014-01-09 and 2015-01-08 define MOUNTED to
-      an incorrect value; older Bionic versions don't define it at all.  */
+#if defined __ANDROID__ /* Android */
+                        /* Bionic versions from between 2014-01-09 and 2015-01-08 define MOUNTED to
+                           an incorrect value; older Bionic versions don't define it at all.  */
 #undef MOUNTED
 #define MOUNTED "/proc/mounts"
-#elif !defined  MOUNTED
-#ifdef _PATH_MOUNTED            /* GNU libc  */
+#elif !defined MOUNTED
+#ifdef _PATH_MOUNTED /* GNU libc  */
 #define MOUNTED _PATH_MOUNTED
 #endif
-#ifdef MNT_MNTTAB               /* HP-UX.  */
+#ifdef MNT_MNTTAB /* HP-UX.  */
 #define MOUNTED MNT_MNTTAB
 #endif
 #endif
 #endif
 
-#ifdef MOUNTED_GETMNTINFO       /* Mac OS X, FreeBSD, OpenBSD, also (obsolete) 4.4BSD  */
+#ifdef MOUNTED_GETMNTINFO /* Mac OS X, FreeBSD, OpenBSD, also (obsolete) 4.4BSD  */
 #include <sys/mount.h>
 #endif
 
-#ifdef MOUNTED_GETMNTINFO2      /* NetBSD, Minix */
+#ifdef MOUNTED_GETMNTINFO2 /* NetBSD, Minix */
 #include <sys/statvfs.h>
 #endif
 
-#ifdef MOUNTED_FS_STAT_DEV      /* Haiku, also (obsolete) BeOS */
+#ifdef MOUNTED_FS_STAT_DEV /* Haiku, also (obsolete) BeOS */
 #include <fs_info.h>
 #include <dirent.h>
 #endif
 
-#ifdef MOUNTED_FREAD_FSTYP      /* (obsolete) SVR3 */
+#ifdef MOUNTED_FREAD_FSTYP /* (obsolete) SVR3 */
 #include <mnttab.h>
 #include <sys/fstyp.h>
 #include <sys/statfs.h>
 #endif
 
-#ifdef MOUNTED_GETEXTMNTENT     /* Solaris >= 8 */
+#ifdef MOUNTED_GETEXTMNTENT /* Solaris >= 8 */
 #include <sys/mnttab.h>
 #endif
 
-#ifdef MOUNTED_GETMNTENT2       /* Solaris < 8, also (obsolete) SVR4 */
+#ifdef MOUNTED_GETMNTENT2 /* Solaris < 8, also (obsolete) SVR4 */
 #include <sys/mnttab.h>
 #endif
 
-#ifdef MOUNTED_VMOUNT           /* AIX */
+#ifdef MOUNTED_VMOUNT /* AIX */
 #include <fshelp.h>
 #include <sys/vfs.h>
 #endif
 
-#ifdef MOUNTED_INTERIX_STATVFS  /* Interix */
+#ifdef MOUNTED_INTERIX_STATVFS /* Interix */
 #include <sys/statvfs.h>
 #include <dirent.h>
 #endif
@@ -141,10 +141,10 @@
 #endif
 
 #ifdef MOUNTED_GETMNTENT1
-#if !HAVE_SETMNTENT             /* Android <= 4.4 */
-#define setmntent(fp,mode) fopen (fp, mode)
+#if !HAVE_SETMNTENT /* Android <= 4.4 */
+#define setmntent(fp, mode) fopen (fp, mode)
 #endif
-#if !HAVE_ENDMNTENT             /* Android <= 4.4 */
+#if !HAVE_ENDMNTENT /* Android <= 4.4 */
 #define endmntent(fp) fclose (fp)
 #endif
 #endif
@@ -171,20 +171,20 @@
 #include <sys/fsys.h>
 #endif
 
-#ifdef HAVE_SYS_STATVFS_H       /* SVR4.  */
+#ifdef HAVE_SYS_STATVFS_H /* SVR4.  */
 #include <sys/statvfs.h>
 #endif
 
 #include "lib/global.h"
-#include "lib/strutil.h"        /* str_verscmp() */
-#include "lib/unixcompat.h"     /* makedev */
+#include "lib/strutil.h"    /* str_verscmp() */
+#include "lib/unixcompat.h" /* makedev */
 #include "mountlist.h"
 
 /*** global variables ****************************************************************************/
 
 /*** file scope macro definitions ****************************************************************/
 
-#if defined (__QNX__) && !defined(__QNXNTO__) && !defined (HAVE_INFOMOUNT_LIST)
+#if defined(__QNX__) && !defined(__QNXNTO__) && !defined(HAVE_INFOMOUNT_LIST)
 #define HAVE_INFOMOUNT_QNX
 #endif
 
@@ -197,36 +197,26 @@
 #undef opendir
 #undef closedir
 
-#define ME_DUMMY_0(Fs_name, Fs_type)            \
-  (strcmp (Fs_type, "autofs") == 0              \
-   || strcmp (Fs_type, "proc") == 0             \
-   || strcmp (Fs_type, "subfs") == 0            \
-   /* for Linux 2.6/3.x */                      \
-   || strcmp (Fs_type, "debugfs") == 0          \
-   || strcmp (Fs_type, "devpts") == 0           \
-   || strcmp (Fs_type, "fusectl") == 0          \
-   || strcmp (Fs_type, "fuse.portal") == 0      \
-   || strcmp (Fs_type, "mqueue") == 0           \
-   || strcmp (Fs_type, "rpc_pipefs") == 0       \
-   || strcmp (Fs_type, "sysfs") == 0            \
-   /* FreeBSD, Linux 2.4 */                     \
-   || strcmp (Fs_type, "devfs") == 0            \
-   /* for NetBSD 3.0 */                         \
-   || strcmp (Fs_type, "kernfs") == 0           \
-   /* for Irix 6.5 */                           \
-   || strcmp (Fs_type, "ignore") == 0)
+#define ME_DUMMY_0(Fs_name, Fs_type)                                                               \
+    (strcmp (Fs_type, "autofs") == 0 || strcmp (Fs_type, "proc") == 0                              \
+     || strcmp (Fs_type, "subfs") == 0 /* for Linux 2.6/3.x */                                     \
+     || strcmp (Fs_type, "debugfs") == 0 || strcmp (Fs_type, "devpts") == 0                        \
+     || strcmp (Fs_type, "fusectl") == 0 || strcmp (Fs_type, "fuse.portal") == 0                   \
+     || strcmp (Fs_type, "mqueue") == 0 || strcmp (Fs_type, "rpc_pipefs") == 0                     \
+     || strcmp (Fs_type, "sysfs") == 0  /* FreeBSD, Linux 2.4 */                                   \
+     || strcmp (Fs_type, "devfs") == 0  /* for NetBSD 3.0 */                                       \
+     || strcmp (Fs_type, "kernfs") == 0 /* for Irix 6.5 */                                         \
+     || strcmp (Fs_type, "ignore") == 0)
 
 /* Historically, we have marked as "dummy" any file system of type "none",
    but now that programs like du need to know about bind-mounted directories,
    we grant an exception to any with "bind" in its list of mount options.
    I.e., those are *not* dummy entries.  */
 #ifdef MOUNTED_GETMNTENT1
-#define ME_DUMMY(Fs_name, Fs_type, Bind)        \
-  (ME_DUMMY_0 (Fs_name, Fs_type)                \
-   || (strcmp (Fs_type, "none") == 0 && !Bind))
+#define ME_DUMMY(Fs_name, Fs_type, Bind)                                                           \
+    (ME_DUMMY_0 (Fs_name, Fs_type) || (strcmp (Fs_type, "none") == 0 && !Bind))
 #else
-#define ME_DUMMY(Fs_name, Fs_type)              \
-  (ME_DUMMY_0 (Fs_name, Fs_type) || strcmp (Fs_type, "none") == 0)
+#define ME_DUMMY(Fs_name, Fs_type) (ME_DUMMY_0 (Fs_name, Fs_type) || strcmp (Fs_type, "none") == 0)
 #endif
 
 #ifdef __CYGWIN__
@@ -261,35 +251,27 @@ me_remote (char const *fs_name, char const *fs_type)
    or if it is of any other of the listed types
    or Fs_name is equal to "-hosts" (used by autofs to mount remote fs).
    "VM" file systems like prl_fs or vboxsf are not considered remote here. */
-#define ME_REMOTE(Fs_name, Fs_type) \
-    (strchr (Fs_name, ':') != NULL \
-     || ((Fs_name)[0] == '/' \
-         && (Fs_name)[1] == '/' \
-         && (strcmp (Fs_type, "smbfs") == 0 \
-             || strcmp (Fs_type, "smb3") == 0 \
-             || strcmp (Fs_type, "cifs") == 0)) \
-     || strcmp (Fs_type, "acfs") == 0 \
-     || strcmp (Fs_type, "afs") == 0 \
-     || strcmp (Fs_type, "coda") == 0 \
-     || strcmp (Fs_type, "auristorfs") == 0 \
-     || strcmp (Fs_type, "fhgfs") == 0 \
-     || strcmp (Fs_type, "gpfs") == 0 \
-     || strcmp (Fs_type, "ibrix") == 0 \
-     || strcmp (Fs_type, "ocfs2") == 0 \
-     || strcmp (Fs_type, "vxfs") == 0 \
-     || strcmp ("-hosts", Fs_name) == 0)
+#define ME_REMOTE(Fs_name, Fs_type)                                                                \
+    (strchr (Fs_name, ':') != NULL                                                                 \
+     || ((Fs_name)[0] == '/' && (Fs_name)[1] == '/'                                                \
+         && (strcmp (Fs_type, "smbfs") == 0 || strcmp (Fs_type, "smb3") == 0                       \
+             || strcmp (Fs_type, "cifs") == 0))                                                    \
+     || strcmp (Fs_type, "acfs") == 0 || strcmp (Fs_type, "afs") == 0                              \
+     || strcmp (Fs_type, "coda") == 0 || strcmp (Fs_type, "auristorfs") == 0                       \
+     || strcmp (Fs_type, "fhgfs") == 0 || strcmp (Fs_type, "gpfs") == 0                            \
+     || strcmp (Fs_type, "ibrix") == 0 || strcmp (Fs_type, "ocfs2") == 0                           \
+     || strcmp (Fs_type, "vxfs") == 0 || strcmp ("-hosts", Fs_name) == 0)
 #endif
 
 /* Many space usage primitives use all 1 bits to denote a value that is
    not applicable or unknown.  Propagate this information by returning
    a uintmax_t value that is all 1 bits if X is all 1 bits, even if X
    is unsigned and narrower than uintmax_t.  */
-#define PROPAGATE_ALL_ONES(x) \
-  ((sizeof (x) < sizeof (uintmax_t) \
-    && (~ (x) == (sizeof (x) < sizeof (int) \
-          ? - (1 << (sizeof (x) * CHAR_BIT)) \
-          : 0))) \
-   ? UINTMAX_MAX : (uintmax_t) (x))
+#define PROPAGATE_ALL_ONES(x)                                                                      \
+    ((sizeof (x) < sizeof (uintmax_t)                                                              \
+      && (~(x) == (sizeof (x) < sizeof (int) ? -(1 << (sizeof (x) * CHAR_BIT)) : 0)))              \
+         ? UINTMAX_MAX                                                                             \
+         : (uintmax_t) (x))
 
 /* Extract the top bit of X as an uintmax_t value.  */
 #define EXTRACT_TOP_BIT(x) ((x) & ((uintmax_t) 1 << (sizeof (x) * CHAR_BIT - 1)))
@@ -301,10 +283,10 @@ me_remote (char const *fs_name, char const *fs_type)
    the original value.  If X's top bit is clear, just yield X.
    Use PROPAGATE_TOP_BIT if the original value might be negative;
    otherwise, use PROPAGATE_ALL_ONES.  */
-#define PROPAGATE_TOP_BIT(x) ((x) | ~ (EXTRACT_TOP_BIT (x) - 1))
+#define PROPAGATE_TOP_BIT(x) ((x) | ~(EXTRACT_TOP_BIT (x) - 1))
 
 #ifdef STAT_STATVFS
-#if ! (defined __linux__ && (defined __GLIBC__ || defined __UCLIBC__))
+#if !(defined __linux__ && (defined __GLIBC__ || defined __UCLIBC__))
 /* The FRSIZE fallback is not required in this case.  */
 #undef STAT_STATFS2_FRSIZE
 #else
@@ -319,15 +301,15 @@ me_remote (char const *fs_name, char const *fs_type)
 /* A mount table entry. */
 struct mount_entry
 {
-    char *me_devname;           /* Device node name, including "/dev/". */
-    char *me_mountdir;          /* Mount point directory name. */
-    char *me_mntroot;           /* Directory on filesystem of device used
-                                   as root for the (bind) mount. */
-    char *me_type;              /* "nfs", "4.2", etc. */
-    dev_t me_dev;               /* Device number of me_mountdir. */
-    unsigned int me_dummy:1;    /* Nonzero for dummy file systems. */
-    unsigned int me_remote:1;   /* Nonzero for remote filesystems. */
-    unsigned int me_type_malloced:1;    /* Nonzero if me_type was malloced. */
+    char *me_devname;                  /* Device node name, including "/dev/". */
+    char *me_mountdir;                 /* Mount point directory name. */
+    char *me_mntroot;                  /* Directory on filesystem of device used
+                                          as root for the (bind) mount. */
+    char *me_type;                     /* "nfs", "4.2", etc. */
+    dev_t me_dev;                      /* Device number of me_mountdir. */
+    unsigned int me_dummy : 1;         /* Nonzero for dummy file systems. */
+    unsigned int me_remote : 1;        /* Nonzero for remote filesystems. */
+    unsigned int me_type_malloced : 1; /* Nonzero if me_type was malloced. */
 };
 
 struct fs_usage
@@ -361,7 +343,7 @@ static GSList *mc_mount_list = NULL;
 static int
 statvfs_works (void)
 {
-#if ! (defined __linux__ && (defined __GLIBC__ || defined __UCLIBC__))
+#if !(defined __linux__ && (defined __GLIBC__ || defined __UCLIBC__))
     return 1;
 #else
     static int statvfs_works_cache = -1;
@@ -392,7 +374,7 @@ free_mount_entry (struct mount_entry *me)
 
 /* --------------------------------------------------------------------------------------------- */
 
-#ifdef MOUNTED_GETMNTINFO       /* Mac OS X, FreeBSD, OpenBSD, also (obsolete) 4.4BSD */
+#ifdef MOUNTED_GETMNTINFO /* Mac OS X, FreeBSD, OpenBSD, also (obsolete) 4.4BSD */
 
 #ifndef HAVE_STRUCT_STATFS_F_FSTYPENAME
 static char *
@@ -526,7 +508,7 @@ fsp_to_string (const struct statfs *fsp)
 
 /* --------------------------------------------------------------------------------------------- */
 
-#ifdef MOUNTED_VMOUNT           /* AIX */
+#ifdef MOUNTED_VMOUNT /* AIX */
 static char *
 fstype_to_string (int t)
 {
@@ -566,8 +548,7 @@ dev_from_mount_options (char const *mount_options)
         unsigned long int dev;
         errno = 0;
         dev = strtoul (optval, &optvalend, 16);
-        if (optval != optvalend
-            && (*optvalend == '\0' || *optvalend == ',')
+        if (optval != optvalend && (*optvalend == '\0' || *optvalend == ',')
             && !(dev == ULONG_MAX && errno == ERANGE) && dev == (dev_t) dev)
             return dev;
     }
@@ -581,7 +562,8 @@ dev_from_mount_options (char const *mount_options)
 
 /* --------------------------------------------------------------------------------------------- */
 
-#if defined MOUNTED_GETMNTENT1 && (defined __linux__ || defined __ANDROID__)    /* GNU/Linux, Android */
+#if defined MOUNTED_GETMNTENT1                                                                     \
+    && (defined __linux__ || defined __ANDROID__) /* GNU/Linux, Android */
 
 /* Unescape the paths in mount tables.
    STR is updated in place.  */
@@ -595,8 +577,7 @@ unescape_tab (char *str)
 
     for (i = 0; i < len; i++)
     {
-        if (str[i] == '\\' && (i + 4 < len)
-            && str[i + 1] >= '0' && str[i + 1] <= '3'
+        if (str[i] == '\\' && (i + 4 < len) && str[i + 1] >= '0' && str[i + 1] <= '3'
             && str[i + 2] >= '0' && str[i + 2] <= '7' && str[i + 3] >= '0' && str[i + 3] <= '7')
         {
             str[j++] = (str[i + 1] - '0') * 64 + (str[i + 2] - '0') * 8 + (str[i + 3] - '0');
@@ -619,8 +600,8 @@ read_file_system_list (void)
     GSList *mount_list = NULL;
     struct mount_entry *me;
 
-#ifdef MOUNTED_GETMNTENT1       /* glibc, HP-UX, IRIX, Cygwin, Android,
-                                   also (obsolete) 4.3BSD, SunOS */
+#ifdef MOUNTED_GETMNTENT1 /* glibc, HP-UX, IRIX, Cygwin, Android,                                  \
+                             also (obsolete) 4.3BSD, SunOS */
     {
         FILE *fp;
 
@@ -646,7 +627,8 @@ read_file_system_list (void)
                 char *dash;
                 int rc;
 
-                rc = sscanf (line, "%*u "       /* id - discarded  */
+                rc = sscanf (line,
+                             "%*u "     /* id - discarded  */
                              "%*u "     /* parent - discarded */
                              "%u:%u "   /* dev major:minor  */
                              "%n%*s%n " /* mountroot */
@@ -662,7 +644,8 @@ read_file_system_list (void)
                 if (dash == NULL)
                     continue;
 
-                rc = sscanf (dash, " - "        /* */
+                rc = sscanf (dash,
+                             " - "      /* */
                              "%n%*s%n " /* FS type, start and end  */
                              "%n%*s%n " /* source, start and end  */
                              "%c",      /* more data...  */
@@ -711,8 +694,8 @@ read_file_system_list (void)
             if (fclose (fp) == EOF)
                 goto free_then_fail;
         }
-        else                    /* fallback to /proc/self/mounts (/etc/mtab).  */
-#endif /* __linux __ || __ANDROID__ */
+        else /* fallback to /proc/self/mounts (/etc/mtab).  */
+#endif       /* __linux __ || __ANDROID__ */
         {
             struct mntent *mnt;
             const char *table = MOUNTED;
@@ -746,7 +729,7 @@ read_file_system_list (void)
     }
 #endif /* MOUNTED_GETMNTENT1. */
 
-#ifdef MOUNTED_GETMNTINFO       /* Mac OS X, FreeBSD, OpenBSD, also (obsolete) 4.4BSD */
+#ifdef MOUNTED_GETMNTINFO /* Mac OS X, FreeBSD, OpenBSD, also (obsolete) 4.4BSD */
     {
         struct statfs *fsp;
         int entries;
@@ -766,14 +749,14 @@ read_file_system_list (void)
             me->me_type_malloced = 0;
             me->me_dummy = ME_DUMMY (me->me_devname, me->me_type);
             me->me_remote = ME_REMOTE (me->me_devname, me->me_type);
-            me->me_dev = (dev_t) (-1);  /* Magic; means not known yet. */
+            me->me_dev = (dev_t) (-1); /* Magic; means not known yet. */
 
             mount_list = g_slist_prepend (mount_list, me);
         }
     }
 #endif /* MOUNTED_GETMNTINFO */
 
-#ifdef MOUNTED_GETMNTINFO2      /* NetBSD, Minix */
+#ifdef MOUNTED_GETMNTINFO2 /* NetBSD, Minix */
     {
         struct statvfs *fsp;
         int entries;
@@ -791,7 +774,7 @@ read_file_system_list (void)
             me->me_type_malloced = 1;
             me->me_dummy = ME_DUMMY (me->me_devname, me->me_type);
             me->me_remote = ME_REMOTE (me->me_devname, me->me_type);
-            me->me_dev = (dev_t) (-1);  /* Magic; means not known yet. */
+            me->me_dev = (dev_t) (-1); /* Magic; means not known yet. */
 
             mount_list = g_slist_prepend (mount_list, me);
         }
@@ -874,8 +857,8 @@ read_file_system_list (void)
                         break;
 
                 me = g_malloc (sizeof (*me));
-                me->me_devname =
-                    g_strdup (fi.device_name[0] != '\0' ? fi.device_name : fi.fsh_name);
+                me->me_devname
+                    = g_strdup (fi.device_name[0] != '\0' ? fi.device_name : fi.fsh_name);
                 me->me_mountdir = g_strdup (re != NULL ? re->name : fi.fsh_name);
                 me->me_mntroot = NULL;
                 me->me_type = g_strdup (fi.fsh_name);
@@ -898,7 +881,7 @@ read_file_system_list (void)
     }
 #endif /* MOUNTED_FS_STAT_DEV */
 
-#ifdef MOUNTED_GETFSSTAT        /*  OSF/1, also (obsolete) Apple Darwin 1.3 */
+#ifdef MOUNTED_GETFSSTAT /*  OSF/1, also (obsolete) Apple Darwin 1.3 */
     {
         int numsys, counter;
         size_t bufsize;
@@ -909,7 +892,7 @@ read_file_system_list (void)
             return NULL;
         if (SIZE_MAX / sizeof (*stats) <= numsys)
         {
-            fprintf (stderr, "%s\n", _("Memory exhausted!"));
+            fprintf (stderr, "%s\n", _ ("Memory exhausted!"));
             exit (EXIT_FAILURE);
         }
 
@@ -933,7 +916,7 @@ read_file_system_list (void)
             me->me_type_malloced = 1;
             me->me_dummy = ME_DUMMY (me->me_devname, me->me_type);
             me->me_remote = ME_REMOTE (me->me_devname, me->me_type);
-            me->me_dev = (dev_t) (-1);  /* Magic; means not known yet. */
+            me->me_dev = (dev_t) (-1); /* Magic; means not known yet. */
 
             mount_list = g_slist_prepend (mount_list, me);
         }
@@ -958,7 +941,7 @@ read_file_system_list (void)
             me->me_devname = g_strdup (mnt.mt_dev);
             me->me_mountdir = g_strdup (mnt.mt_filsys);
             me->me_mntroot = NULL;
-            me->me_dev = (dev_t) (-1);  /* Magic; means not known yet. */
+            me->me_dev = (dev_t) (-1); /* Magic; means not known yet. */
             me->me_type = "";
             me->me_type_malloced = 0;
             {
@@ -993,7 +976,7 @@ read_file_system_list (void)
     }
 #endif /* MOUNTED_FREAD_FSTYP */
 
-#ifdef MOUNTED_GETEXTMNTENT     /* Solaris >= 8 */
+#ifdef MOUNTED_GETEXTMNTENT /* Solaris >= 8 */
     {
         struct extmnttab mnt;
         const char *table = MNTTAB;
@@ -1035,7 +1018,7 @@ read_file_system_list (void)
     }
 #endif /* MOUNTED_GETEXTMNTENT */
 
-#ifdef MOUNTED_GETMNTENT2       /* Solaris < 8, also (obsolete) SVR4 */
+#ifdef MOUNTED_GETMNTENT2 /* Solaris < 8, also (obsolete) SVR4 */
     {
         struct mnttab mnt;
         const char *table = MNTTAB;
@@ -1109,7 +1092,7 @@ read_file_system_list (void)
     }
 #endif /* MOUNTED_GETMNTENT2.  */
 
-#ifdef MOUNTED_VMOUNT           /* AIX */
+#ifdef MOUNTED_VMOUNT /* AIX */
     {
         int bufsize;
         void *entries;
@@ -1162,11 +1145,10 @@ read_file_system_list (void)
             me->me_type_malloced = 1;
             options = thisent + vmp->vmt_data[VMT_ARGS].vmt_off;
             ignore = strstr (options, "ignore");
-            me->me_dummy = (ignore
-                            && (ignore == options || ignore[-1] == ',')
+            me->me_dummy = (ignore && (ignore == options || ignore[-1] == ',')
                             && (ignore[sizeof ("ignore") - 1] == ','
                                 || ignore[sizeof ("ignore") - 1] == '\0'));
-            me->me_dev = (dev_t) (-1);  /* vmt_fsid might be the info we want.  */
+            me->me_dev = (dev_t) (-1); /* vmt_fsid might be the info we want.  */
 
             mount_list = g_slist_prepend (mount_list, me);
         }
@@ -1174,7 +1156,7 @@ read_file_system_list (void)
     }
 #endif /* MOUNTED_VMOUNT. */
 
-#ifdef MOUNTED_INTERIX_STATVFS  /* Interix */
+#ifdef MOUNTED_INTERIX_STATVFS /* Interix */
     {
         DIR *dirp = opendir ("/dev/fs");
         char node[9 + NAME_MAX];
@@ -1204,7 +1186,7 @@ read_file_system_list (void)
                 me->me_type_malloced = 1;
                 me->me_dummy = ME_DUMMY (me->me_devname, me->me_type);
                 me->me_remote = ME_REMOTE (me->me_devname, me->me_type);
-                me->me_dev = (dev_t) (-1);      /* Magic; means not known yet. */
+                me->me_dev = (dev_t) (-1); /* Magic; means not known yet. */
 
                 mount_list = g_slist_prepend (mount_list, me);
             }
@@ -1215,15 +1197,15 @@ read_file_system_list (void)
 
     return g_slist_reverse (mount_list);
 
-  free_then_fail:
-    {
-        int saved_errno = errno;
+free_then_fail:
+{
+    int saved_errno = errno;
 
-        g_slist_free_full (mount_list, (GDestroyNotify) free_mount_entry);
+    g_slist_free_full (mount_list, (GDestroyNotify) free_mount_entry);
 
-        errno = saved_errno;
-        return NULL;
-    }
+    errno = saved_errno;
+    return NULL;
+}
 }
 #endif /* HAVE_INFOMOUNT_LIST */
 
@@ -1340,7 +1322,7 @@ read_file_system_list (void)
 static int
 get_fs_usage (char const *file, char const *disk, struct fs_usage *fsp)
 {
-#ifdef STAT_STATVFS             /* POSIX, except pre-2.6.36 glibc/Linux */
+#ifdef STAT_STATVFS /* POSIX, except pre-2.6.36 glibc/Linux */
 
     if (statvfs_works ())
     {
@@ -1350,9 +1332,8 @@ get_fs_usage (char const *file, char const *disk, struct fs_usage *fsp)
             return -1;
 
         /* f_frsize isn't guaranteed to be supported.  */
-        fsp->fsu_blocksize = (vfsd.f_frsize
-                              ? PROPAGATE_ALL_ONES (vfsd.f_frsize)
-                              : PROPAGATE_ALL_ONES (vfsd.f_bsize));
+        fsp->fsu_blocksize = (vfsd.f_frsize ? PROPAGATE_ALL_ONES (vfsd.f_frsize)
+                                            : PROPAGATE_ALL_ONES (vfsd.f_bsize));
 
         fsp->fsu_blocks = PROPAGATE_ALL_ONES (vfsd.f_blocks);
         fsp->fsu_bfree = PROPAGATE_ALL_ONES (vfsd.f_bfree);
@@ -1365,7 +1346,7 @@ get_fs_usage (char const *file, char const *disk, struct fs_usage *fsp)
 #endif
 
     {
-#if defined STAT_STATVFS64      /* AIX */
+#if defined STAT_STATVFS64 /* AIX */
 
         struct statvfs64 fsd;
 
@@ -1374,9 +1355,8 @@ get_fs_usage (char const *file, char const *disk, struct fs_usage *fsp)
 
         /* f_frsize isn't guaranteed to be supported.  */
         /* *INDENT-OFF* */
-        fsp->fsu_blocksize = fsd.f_frsize
-            ? PROPAGATE_ALL_ONES (fsd.f_frsize)
-            : PROPAGATE_ALL_ONES (fsd.f_bsize);
+        fsp->fsu_blocksize
+            = fsd.f_frsize ? PROPAGATE_ALL_ONES (fsd.f_frsize) : PROPAGATE_ALL_ONES (fsd.f_bsize);
         /* *INDENT-ON* */
 
 #elif defined STAT_STATFS3_OSF1 /* OSF/1 */
@@ -1388,7 +1368,7 @@ get_fs_usage (char const *file, char const *disk, struct fs_usage *fsp)
 
         fsp->fsu_blocksize = PROPAGATE_ALL_ONES (fsd.f_fsize);
 
-#elif defined STAT_STATFS2_FRSIZE       /* 2.6 < glibc/Linux < 2.6.36 */
+#elif defined STAT_STATFS2_FRSIZE /* 2.6 < glibc/Linux < 2.6.36 */
 
         struct statfs fsd;
 
@@ -1397,9 +1377,9 @@ get_fs_usage (char const *file, char const *disk, struct fs_usage *fsp)
 
         fsp->fsu_blocksize = PROPAGATE_ALL_ONES (fsd.f_frsize);
 
-#elif defined STAT_STATFS2_BSIZE        /* glibc/Linux < 2.6, 4.3BSD, SunOS 4, \
-                                           Mac OS X < 10.4, FreeBSD < 5.0, \
-                                           NetBSD < 3.0, OpenBSD < 4.4 */
+#elif defined STAT_STATFS2_BSIZE /* glibc/Linux < 2.6, 4.3BSD, SunOS 4,                            \
+                                    Mac OS X < 10.4, FreeBSD < 5.0,                                \
+                                    NetBSD < 3.0, OpenBSD < 4.4 */
 
         struct statfs fsd;
 
@@ -1423,7 +1403,7 @@ get_fs_usage (char const *file, char const *disk, struct fs_usage *fsp)
         }
 #endif /* STATFS_TRUNCATES_BLOCK_COUNTS */
 
-#elif defined STAT_STATFS2_FSIZE        /* 4.4BSD and older NetBSD */
+#elif defined STAT_STATFS2_FSIZE /* 4.4BSD and older NetBSD */
 
         struct statfs fsd;
 
@@ -1432,7 +1412,7 @@ get_fs_usage (char const *file, char const *disk, struct fs_usage *fsp)
 
         fsp->fsu_blocksize = PROPAGATE_ALL_ONES (fsd.f_fsize);
 
-#elif defined STAT_STATFS4      /* SVR3, old Irix */
+#elif defined STAT_STATFS4 /* SVR3, old Irix */
 
         struct statfs fsd;
 
@@ -1445,9 +1425,8 @@ get_fs_usage (char const *file, char const *disk, struct fs_usage *fsp)
         fsp->fsu_blocksize = 512;
 #endif
 
-#if (defined STAT_STATVFS64 || defined STAT_STATFS3_OSF1 \
-     || defined STAT_STATFS2_FRSIZE || defined STAT_STATFS2_BSIZE \
-     || defined STAT_STATFS2_FSIZE || defined STAT_STATFS4)
+#if (defined STAT_STATVFS64 || defined STAT_STATFS3_OSF1 || defined STAT_STATFS2_FRSIZE            \
+     || defined STAT_STATFS2_BSIZE || defined STAT_STATFS2_FSIZE || defined STAT_STATFS4)
 
         fsp->fsu_blocks = PROPAGATE_ALL_ONES (fsd.f_blocks);
         fsp->fsu_bfree = PROPAGATE_ALL_ONES (fsd.f_bfree);
@@ -1459,7 +1438,7 @@ get_fs_usage (char const *file, char const *disk, struct fs_usage *fsp)
 #endif
     }
 
-    (void) disk;                /* avoid argument-unused warning */
+    (void) disk; /* avoid argument-unused warning */
 
     return 0;
 }
@@ -1506,8 +1485,8 @@ my_statfs (struct my_statfs *myfs_stats, const char *path)
 
         me = (struct mount_entry *) temp->data;
         i = strlen (me->me_mountdir);
-        if (i > len && (strncmp (path, me->me_mountdir, i) == 0) &&
-            (entry == NULL || IS_PATH_SEP (path[i]) || path[i] == '\0'))
+        if (i > len && (strncmp (path, me->me_mountdir, i) == 0)
+            && (entry == NULL || IS_PATH_SEP (path[i]) || path[i] == '\0'))
         {
             len = i;
             entry = me;
@@ -1524,9 +1503,9 @@ my_statfs (struct my_statfs *myfs_stats, const char *path)
         myfs_stats->mpoint = entry->me_mountdir;
         myfs_stats->mroot = entry->me_mntroot;
         myfs_stats->device = entry->me_devname;
-        myfs_stats->avail =
-            ((uintmax_t) (getuid ()? fs_use.fsu_bavail : fs_use.fsu_bfree) *
-             fs_use.fsu_blocksize) >> 10;
+        myfs_stats->avail = ((uintmax_t) (getuid () ? fs_use.fsu_bavail : fs_use.fsu_bfree)
+                             * fs_use.fsu_blocksize)
+                            >> 10;
         myfs_stats->total = ((uintmax_t) fs_use.fsu_blocks * fs_use.fsu_blocksize) >> 10;
         myfs_stats->nfree = (uintmax_t) fs_use.fsu_ffree;
         myfs_stats->nodes = (uintmax_t) fs_use.fsu_files;

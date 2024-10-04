@@ -60,10 +60,10 @@
 #include "lib/global.h"
 
 #include "lib/unixcompat.h"
-#include "lib/vfs/vfs.h"        /* VFS_ENCODING_PREFIX */
-#include "lib/strutil.h"        /* str_move(), str_tokenize() */
+#include "lib/vfs/vfs.h" /* VFS_ENCODING_PREFIX */
+#include "lib/strutil.h" /* str_move(), str_tokenize() */
 #include "lib/util.h"
-#include "lib/widget.h"         /* message() */
+#include "lib/widget.h" /* message() */
 #include "lib/vfs/xdirentry.h"
 
 #ifdef HAVE_CHARSET
@@ -356,7 +356,8 @@ my_exit (int status)
  * @parameter shell   shell (if flags contain EXECUTE_AS_SHELL), command to run otherwise.
  *                    Shell (or command) will be found in paths described in PATH variable
  *                    (if shell parameter doesn't begin from path delimiter)
- * @parameter command Command for shell (or first parameter for command, if flags contain EXECUTE_AS_SHELL)
+ * @parameter command Command for shell (or first parameter for command, if flags contain
+ * EXECUTE_AS_SHELL)
  * @return 0 if successful, -1 otherwise
  */
 
@@ -392,7 +393,7 @@ my_systeml (int flags, const char *shell, ...)
 
     va_start (vargs, shell);
     while ((one_arg = va_arg (vargs, char *)) != NULL)
-          g_ptr_array_add (args_array, one_arg);
+        g_ptr_array_add (args_array, one_arg);
     va_end (vargs);
 
     g_ptr_array_add (args_array, NULL);
@@ -429,15 +430,15 @@ my_systemv (const char *command, char *const argv[])
         status = -1;
         break;
     case FORK_CHILD:
-        {
-            signal (SIGINT, SIG_DFL);
-            signal (SIGQUIT, SIG_DFL);
-            signal (SIGTSTP, SIG_DFL);
-            signal (SIGCHLD, SIG_DFL);
+    {
+        signal (SIGINT, SIG_DFL);
+        signal (SIGQUIT, SIG_DFL);
+        signal (SIGTSTP, SIG_DFL);
+        signal (SIGCHLD, SIG_DFL);
 
-            execvp (command, argv);
-            my_exit (127);      /* Exec error */
-        }
+        execvp (command, argv);
+        my_exit (127); /* Exec error */
+    }
         MC_FALLTHROUGH;
         /* no break here, or unreachable-code warning by no returning my_exit() */
     default:
@@ -505,20 +506,20 @@ mc_popen (const char *command, gboolean read_out, gboolean read_err, GError **er
     if (p == NULL)
     {
         mc_replace_error (error, MC_PIPE_ERROR_CREATE_PIPE, "%s",
-                          _("Cannot create pipe descriptor"));
+                          _ ("Cannot create pipe descriptor"));
         goto ret_err;
     }
 
     p->out.fd = -1;
     p->err.fd = -1;
 
-    if (!g_spawn_async_with_pipes
-        (NULL, (gchar **) argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_FILE_AND_ARGV_ZERO, NULL,
-         NULL, &p->child_pid, NULL, read_out ? &p->out.fd : NULL, read_err ? &p->err.fd : NULL,
-         error))
+    if (!g_spawn_async_with_pipes (NULL, (gchar **) argv, NULL,
+                                   G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_FILE_AND_ARGV_ZERO, NULL,
+                                   NULL, &p->child_pid, NULL, read_out ? &p->out.fd : NULL,
+                                   read_err ? &p->err.fd : NULL, error))
     {
         mc_replace_error (error, MC_PIPE_ERROR_CREATE_PIPE_STREAM, "%s",
-                          _("Cannot create pipe streams"));
+                          _ ("Cannot create pipe streams"));
         goto ret_err;
     }
 
@@ -532,7 +533,7 @@ mc_popen (const char *command, gboolean read_out, gboolean read_err, GError **er
 
     return p;
 
-  ret_err:
+ret_err:
     g_free (p);
     return NULL;
 }
@@ -595,10 +596,10 @@ mc_pread (mc_pipe_t *p, GError **error)
     res = select (maxfd + 1, &fds, NULL, NULL, NULL);
     if (res < 0 && errno != EINTR)
     {
-        mc_propagate_error (error, MC_PIPE_ERROR_READ,
-                            _
-                            ("Unexpected error in select() reading data from a child process:\n%s"),
-                            unix_error_string (errno));
+        mc_propagate_error (
+            error, MC_PIPE_ERROR_READ,
+            _ ("Unexpected error in select() reading data from a child process:\n%s"),
+            unix_error_string (errno));
         return;
     }
 
@@ -673,7 +674,7 @@ mc_pclose (mc_pipe_t *p, GError **error)
     if (p == NULL)
     {
         mc_replace_error (error, MC_PIPE_ERROR_READ, "%s",
-                          _("Cannot close pipe descriptor (p == NULL)"));
+                          _ ("Cannot close pipe descriptor (p == NULL)"));
         return;
     }
 
@@ -691,7 +692,7 @@ mc_pclose (mc_pipe_t *p, GError **error)
     while (res < 0 && errno == EINTR);
 
     if (res < 0)
-        mc_replace_error (error, MC_PIPE_ERROR_READ, _("Unexpected error in waitpid():\n%s"),
+        mc_replace_error (error, MC_PIPE_ERROR_READ, _ ("Unexpected error in waitpid():\n%s"),
                           unix_error_string (errno));
 
     g_free (p);
@@ -762,7 +763,7 @@ void
 canonicalize_pathname_custom (char *path, canon_path_flags_t flags)
 {
     char *p, *s;
-    char *lpath = path;         /* path without leading UNC part */
+    char *lpath = path; /* path without leading UNC part */
     const size_t url_delim_len = strlen (VFS_PATH_URL_DELIMITER);
 
     /* Detect and preserve UNC paths: //server/... */
@@ -829,8 +830,8 @@ canonicalize_pathname_custom (char *path, canon_path_flags_t flags)
 
         if (IS_PATH_SEP (lpath[len - 1])
             && (len < url_delim_len
-                || strncmp (lpath + len - url_delim_len, VFS_PATH_URL_DELIMITER,
-                            url_delim_len) != 0))
+                || strncmp (lpath + len - url_delim_len, VFS_PATH_URL_DELIMITER, url_delim_len)
+                       != 0))
             lpath[len - 1] = '\0';
         else if (lpath[len - 1] == '.' && IS_PATH_SEP (lpath[len - 2]))
         {
@@ -1175,7 +1176,7 @@ get_user_permissions (struct stat *st)
 
         ngroups = getgroups (0, NULL);
         if (ngroups == -1)
-            ngroups = 0;        /* ignore errors */
+            ngroups = 0; /* ignore errors */
 
         /* allocate space for one element in addition to what
          * will be filled by getgroups(). */
@@ -1185,7 +1186,7 @@ get_user_permissions (struct stat *st)
         {
             ngroups = getgroups (ngroups, groups);
             if (ngroups == -1)
-                ngroups = 0;    /* ignore errors */
+                ngroups = 0; /* ignore errors */
         }
 
         /* getgroups() may or may not return the effective group ID,

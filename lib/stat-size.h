@@ -34,20 +34,17 @@
 #include <sys/param.h>
 #endif
 
-
 /* Get or fake the disk device blocksize.
    Usually defined by sys/param.h (if at all).  */
 #if !defined DEV_BSIZE && defined BSIZE
 #define DEV_BSIZE BSIZE
 #endif
-#if !defined DEV_BSIZE && defined BBSIZE        /* SGI sys/param.h */
+#if !defined DEV_BSIZE && defined BBSIZE /* SGI sys/param.h */
 #define DEV_BSIZE BBSIZE
 #endif
 #ifndef DEV_BSIZE
 #define DEV_BSIZE 4096
 #endif
-
-
 
 /* Extract or fake data from a 'struct stat'.
    ST_BLKSIZE: Preferred I/O blocksize for the file, in bytes.
@@ -55,15 +52,14 @@
    ST_NBLOCKSIZE: Size of blocks used when calculating ST_NBLOCKS.  */
 #ifndef HAVE_STRUCT_STAT_ST_BLOCKS
 #define ST_BLKSIZE(statbuf) DEV_BSIZE
-  /* coreutils' fileblocks.c also uses BSIZE.  */
+/* coreutils' fileblocks.c also uses BSIZE.  */
 #if defined _POSIX_SOURCE || !defined BSIZE
-#define ST_NBLOCKS(statbuf) \
-  ((statbuf).st_size / ST_NBLOCKSIZE + ((statbuf).st_size % ST_NBLOCKSIZE != 0))
+#define ST_NBLOCKS(statbuf)                                                                        \
+    ((statbuf).st_size / ST_NBLOCKSIZE + ((statbuf).st_size % ST_NBLOCKSIZE != 0))
 #else
-   /* This definition calls st_blocks, which is in the fileblocks module. */
-#define ST_NBLOCKS(statbuf) \
-  (S_ISREG ((statbuf).st_mode) || S_ISDIR ((statbuf).st_mode) ? \
-   st_blocks ((statbuf).st_size) : 0)
+/* This definition calls st_blocks, which is in the fileblocks module. */
+#define ST_NBLOCKS(statbuf)                                                                        \
+    (S_ISREG ((statbuf).st_mode) || S_ISDIR ((statbuf).st_mode) ? st_blocks ((statbuf).st_size) : 0)
 #endif
 #else
 /* When running 'rsh hpux11-system cat any-file', cat would
@@ -74,12 +70,13 @@
    suffice, since "cat" sometimes multiplies the result by 4.)  If
    anyone knows of a system for which this limit is too small, please
    report it as a bug in this code.  */
-#define ST_BLKSIZE(statbuf) ((0 < (statbuf).st_blksize \
-                               && (size_t) ((statbuf).st_blksize) <= ((size_t)-1) / 8 + 1) \
-                              ? (size_t) ((statbuf).st_blksize) : DEV_BSIZE)
+#define ST_BLKSIZE(statbuf)                                                                        \
+    ((0 < (statbuf).st_blksize && (size_t) ((statbuf).st_blksize) <= ((size_t) -1) / 8 + 1)        \
+         ? (size_t) ((statbuf).st_blksize)                                                         \
+         : DEV_BSIZE)
 #if defined hpux || defined __hpux__ || defined __hpux
-  /* HP-UX counts st_blocks in 1024-byte units.
-     This loses when mixing HP-UX and BSD file systems with NFS.  */
+/* HP-UX counts st_blocks in 1024-byte units.
+   This loses when mixing HP-UX and BSD file systems with NFS.  */
 #define ST_NBLOCKSIZE 1024
 #endif
 #endif

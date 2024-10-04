@@ -5,7 +5,6 @@
  * shell connections
  */
 
-
 #ifndef MC__VFS_SHELL_H
 #define MC__VFS_SHELL_H
 

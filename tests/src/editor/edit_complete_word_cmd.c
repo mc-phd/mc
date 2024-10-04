@@ -40,7 +40,7 @@
 #include "src/selcodepage.h"
 #endif
 #include "src/editor/editwidget.h"
-#include "src/editor/editmacros.h"      /* edit_load_macro_cmd() */
+#include "src/editor/editmacros.h" /* edit_load_macro_cmd() */
 #include "src/editor/editcomplete.h"
 
 static WGroup owner;
@@ -100,7 +100,7 @@ static char *edit_completion_dialog_show__return_value;
 
 /* @Mock */
 char *
-edit_completion_dialog_show (const WEdit *edit, GQueue *compl, int max_width)
+edit_completion_dialog_show (const WEdit *edit, GQueue * compl, int max_width)
 {
 
     edit_completion_dialog_show__edit = edit;
@@ -220,34 +220,15 @@ static const struct test_autocomplete_ds
     int expected_compl_word_count;
     int input_completed_word_start_pos;
     const char *expected_completed_word;
-} test_autocomplete_ds[] =
-{
+} test_autocomplete_ds[] = {
     { /* 0. */
-        102,
-        "KOI8-R",
-        0,
-        "UTF-8",
-        1,
-        "ÑÑŠÐ¹Ñ†ÑƒÐºÐµÐ½",
+      102, "KOI8-R", 0, "UTF-8", 1, "ÑÑŠÐ¹Ñ†ÑƒÐºÐµÐ½",
 
-        16,
-        2,
-        98,
-        "ÑÑŠÐ¹Ñ†ÑƒÐºÐµÐ½"
-    },
+      16, 2, 98, "ÑÑŠÐ¹Ñ†ÑƒÐºÐµÐ½" },
     { /* 1. */
-        138,
-        "UTF-8",
-        1,
-        "KOI8-R",
-        0,
-        "ÜßÊÃÕËÅÎ",
+      138, "UTF-8", 1, "KOI8-R", 0, "ÜßÊÃÕËÅÎ",
 
-        8,
-        2,
-        136,
-        "ÜßÊÃÕËÅÎ"
-    },
+      8, 2, 136, "ÜßÊÃÕËÅÎ" },
 };
 /* *INDENT-ON* */
 
@@ -258,7 +239,6 @@ START_PARAMETRIZED_TEST (test_autocomplete, test_autocomplete_ds)
 {
     /* given */
     edit_completion_dialog_show__return_value = g_strdup (data->input_completed_word);
-
 
     mc_global.source_codepage = data->input_source_codepage_id;
     mc_global.display_codepage = data->input_display_codepage_id;
@@ -288,9 +268,8 @@ START_PARAMETRIZED_TEST (test_autocomplete, test_autocomplete_ds)
         {
             int chr;
 
-            chr =
-                edit_buffer_get_byte (&test_edit->buffer,
-                                      data->input_completed_word_start_pos + i++);
+            chr = edit_buffer_get_byte (&test_edit->buffer,
+                                        data->input_completed_word_start_pos + i++);
             if (isspace (chr))
                 break;
             g_string_append_c (actual_completed_str, chr);
@@ -318,18 +297,11 @@ static const struct test_autocomplete_single_ds
     int input_completed_word_start_pos;
 
     const char *expected_completed_word;
-} test_autocomplete_single_ds[] =
-{
+} test_autocomplete_single_ds[] = {
     { /* 0. */
-        146,
-        "UTF-8",
-        1,
-        "KOI8-R",
-        0,
+      146, "UTF-8", 1, "KOI8-R", 0,
 
-        145,
-        "ÆÙ×Á"
-    },
+      145, "ÆÙ×Á" },
 };
 /* *INDENT-ON* */
 
@@ -362,9 +334,8 @@ START_PARAMETRIZED_TEST (test_autocomplete_single, test_autocomplete_single_ds)
         {
             int chr;
 
-            chr =
-                edit_buffer_get_byte (&test_edit->buffer,
-                                      data->input_completed_word_start_pos + i++);
+            chr = edit_buffer_get_byte (&test_edit->buffer,
+                                        data->input_completed_word_start_pos + i++);
             if (isspace (chr))
                 break;
             g_string_append_c (actual_completed_str, chr);
@@ -376,7 +347,6 @@ START_PARAMETRIZED_TEST (test_autocomplete_single, test_autocomplete_single_ds)
 /* *INDENT-OFF* */
 END_PARAMETRIZED_TEST
 /* *INDENT-ON* */
-
 
 #endif /* HAVE_CHARSET */
 

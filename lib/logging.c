@@ -43,8 +43,8 @@
 
 /*** file scope macro definitions ****************************************************************/
 
-#define CONFIG_GROUP_NAME "Development"
-#define CONFIG_KEY_NAME "logging"
+#define CONFIG_GROUP_NAME    "Development"
+#define CONFIG_KEY_NAME      "logging"
 #define CONFIG_KEY_NAME_FILE "logfile"
 
 /*** file scope type declarations ****************************************************************/
@@ -86,8 +86,8 @@ is_logging_enabled (void)
     if (is_logging_enabled_from_env ())
         return logging_enabled;
 
-    logging_enabled =
-        mc_config_get_bool (mc_global.main_config, CONFIG_GROUP_NAME, CONFIG_KEY_NAME, FALSE);
+    logging_enabled
+        = mc_config_get_bool (mc_global.main_config, CONFIG_GROUP_NAME, CONFIG_KEY_NAME, FALSE);
     logging_initialized = TRUE;
 
     return logging_enabled;
@@ -113,9 +113,7 @@ get_log_filename (void)
 
 /* --------------------------------------------------------------------------------------------- */
 
-static void
-G_GNUC_PRINTF (1, 0)
-mc_va_log (const char *fmt, va_list args)
+static void G_GNUC_PRINTF (1, 0) mc_va_log (const char *fmt, va_list args)
 {
     char *logfilename;
 
@@ -133,7 +131,6 @@ mc_va_log (const char *fmt, va_list args)
         }
         g_free (logfilename);
     }
-
 }
 
 /* --------------------------------------------------------------------------------------------- */

@@ -38,7 +38,7 @@
 #include "lib/global.h"
 #include "lib/strutil.h"
 #ifdef HAVE_CHARSET
-#include "lib/charsets.h"       /* cp_source */
+#include "lib/charsets.h" /* cp_source */
 #endif
 #include "lib/widget.h"
 
@@ -48,13 +48,11 @@
 
 /*** global variables ****************************************************************************/
 
-mcview_search_options_t mcview_search_options = {
-    .type = MC_SEARCH_T_NORMAL,
-    .case_sens = FALSE,
-    .backwards = FALSE,
-    .whole_words = FALSE,
-    .all_codepages = FALSE
-};
+mcview_search_options_t mcview_search_options = { .type = MC_SEARCH_T_NORMAL,
+                                                  .case_sens = FALSE,
+                                                  .backwards = FALSE,
+                                                  .whole_words = FALSE,
+                                                  .all_codepages = FALSE };
 
 /*** file scope macro definitions ****************************************************************/
 
@@ -62,7 +60,7 @@ mcview_search_options_t mcview_search_options = {
 
 typedef struct
 {
-    simple_status_msg_t status_msg;     /* base class */
+    simple_status_msg_t status_msg; /* base class */
 
     gboolean first;
     WView *view;
@@ -92,10 +90,10 @@ mcview_search_status_update_cb (status_msg_t *sm)
         percent = mcview_calc_percent (vsm->view, vsm->offset);
 
     if (percent >= 0)
-        label_set_textv (ssm->label, _("Searching %s: %3d%%"), vsm->view->last_search_string,
+        label_set_textv (ssm->label, _ ("Searching %s: %3d%%"), vsm->view->last_search_string,
                          percent);
     else
-        label_set_textv (ssm->label, _("Searching %s"), vsm->view->last_search_string);
+        label_set_textv (ssm->label, _ ("Searching %s"), vsm->view->last_search_string);
 
     if (vsm->first)
     {
@@ -125,7 +123,7 @@ mcview_search_update_steps (WView *view)
 
     if (filesize != 0)
         view->update_steps = filesize / 100;
-    else                        /* viewing a data stream, not a file */
+    else /* viewing a data stream, not a file */
         view->update_steps = 40000;
 
     /* Do not update the percent display but every 20 kb */
@@ -177,7 +175,7 @@ mcview_find (mcview_search_status_msg_t *ssm, off_t search_start, off_t search_e
             search_start--;
         }
 
-        mc_search_set_error (view->search, MC_SEARCH_E_NOTFOUND, "%s", _(STR_E_NOTFOUND));
+        mc_search_set_error (view->search, MC_SEARCH_E_NOTFOUND, "%s", _ (STR_E_NOTFOUND));
         return FALSE;
     }
     view->search_nroff_seq->index = search_start;
@@ -193,18 +191,19 @@ mcview_search_show_result (WView *view, size_t match_len)
 {
     int nroff_len;
 
-    nroff_len =
-        view->mode_flags.nroff
-        ? mcview__get_nroff_real_len (view, view->search->start_buffer,
-                                      view->search->normal_offset - view->search->start_buffer) : 0;
+    nroff_len = view->mode_flags.nroff
+                    ? mcview__get_nroff_real_len (view, view->search->start_buffer,
+                                                  view->search->normal_offset
+                                                      - view->search->start_buffer)
+                    : 0;
     view->search_start = view->search->normal_offset + nroff_len;
 
     if (!view->mode_flags.hex)
         view->search_start++;
 
-    nroff_len =
-        view->mode_flags.nroff ? mcview__get_nroff_real_len (view, view->search_start - 1,
-                                                             match_len) : 0;
+    nroff_len = view->mode_flags.nroff
+                    ? mcview__get_nroff_real_len (view, view->search_start - 1, match_len)
+                    : 0;
     view->search_end = view->search_start + match_len + nroff_len;
 
     mcview_moveto_match (view);
@@ -257,7 +256,7 @@ mcview_search_cmd_callback (const void *user_data, gsize char_offset, int *curre
 {
     WView *view = ((const mcview_search_status_msg_t *) user_data)->view;
 
-    /*    view_read_continue (view, &view->search_onechar_info); *//* AB:FIXME */
+    /*    view_read_continue (view, &view->search_onechar_info); */ /* AB:FIXME */
     if (!view->mode_flags.nroff)
     {
         mcview_get_byte (view, char_offset, current_char);
@@ -287,10 +286,11 @@ mcview_search_cmd_callback (const void *user_data, gsize char_offset, int *curre
             switch (view->search_nroff_seq->type)
             {
             case NROFF_TYPE_BOLD:
-                view->search_numNeedSkipChar = 1 + view->search_nroff_seq->char_length; /* real char length and 0x8 */
+                view->search_numNeedSkipChar
+                    = 1 + view->search_nroff_seq->char_length; /* real char length and 0x8 */
                 break;
             case NROFF_TYPE_UNDERLINE:
-                view->search_numNeedSkipChar = 2;       /* underline symbol and ox8 */
+                view->search_numNeedSkipChar = 2; /* underline symbol and ox8 */
                 break;
             default:
                 break;
@@ -340,7 +340,8 @@ mcview_search_update_cmd_callback (const void *user_data, gsize char_offset)
     if (do_update && sm->update (sm) == B_CANCEL)
         result = MC_SEARCH_CB_ABORT;
 
-    /* may be in future return from this callback will change current position in searching block. */
+    /* may be in future return from this callback will change current position in searching block.
+     */
 
     return result;
 }
@@ -373,9 +374,8 @@ mcview_do_search (WView *view, off_t want_search_start)
 
                 nroff = mcview_nroff_seq_new_num (view, view->search_start);
                 if (mcview_nroff_seq_prev (nroff) != -1)
-                    search_start =
-                        -(mcview__get_nroff_real_len (view, nroff->index - 1, 2) +
-                          nroff->char_length + 1);
+                    search_start = -(mcview__get_nroff_real_len (view, nroff->index - 1, 2)
+                                     + nroff->char_length + 1);
                 else
                     search_start = -2;
 
@@ -401,7 +401,7 @@ mcview_do_search (WView *view, off_t want_search_start)
     vsm.view = view;
     vsm.offset = search_start;
 
-    status_msg_init (STATUS_MSG (&vsm), _("Search"), 1.0, simple_status_msg_init_cb,
+    status_msg_init (STATUS_MSG (&vsm), _ ("Search"), 1.0, simple_status_msg_init_cb,
                      mcview_search_status_update_cb, NULL);
 
     do
@@ -448,9 +448,9 @@ mcview_do_search (WView *view, off_t want_search_start)
         view->search_start = orig_search_start;
         mcview_update (view);
 
-        if (query_dialog
-            (_("Search done"), _("Continue from beginning?"), D_NORMAL, 2, _("&Yes"),
-             _("&No")) != 0)
+        if (query_dialog (_ ("Search done"), _ ("Continue from beginning?"), D_NORMAL, 2,
+                          _ ("&Yes"), _ ("&No"))
+            != 0)
             found = TRUE;
         else
         {
@@ -461,7 +461,7 @@ mcview_do_search (WView *view, off_t want_search_start)
             vsm.view = view;
             vsm.offset = 0;
 
-            status_msg_init (STATUS_MSG (&vsm), _("Search"), 1.0, simple_status_msg_init_cb,
+            status_msg_init (STATUS_MSG (&vsm), _ ("Search"), 1.0, simple_status_msg_init_cb,
                              mcview_search_status_update_cb, NULL);
 
             /* search from file begin up to initial search start position */
@@ -481,9 +481,9 @@ mcview_do_search (WView *view, off_t want_search_start)
         mcview_update (view);
 
         if (view->search->error == MC_SEARCH_E_NOTFOUND)
-            query_dialog (_("Search"), _(STR_E_NOTFOUND), D_NORMAL, 1, _("&Dismiss"));
+            query_dialog (_ ("Search"), _ (STR_E_NOTFOUND), D_NORMAL, 1, _ ("&Dismiss"));
         else if (view->search->error_str != NULL)
-            query_dialog (_("Search"), view->search->error_str, D_NORMAL, 1, _("&Dismiss"));
+            query_dialog (_ ("Search"), view->search->error_str, D_NORMAL, 1, _ ("&Dismiss"));
     }
     view->dirty++;
 }

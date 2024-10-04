@@ -33,15 +33,14 @@
 #include <sys/types.h>
 
 #include "lib/global.h"
-#include "lib/tty/key.h"        /* KEY_M_ */
+#include "lib/tty/key.h" /* KEY_M_ */
 #include "lib/keybind.h"
 
 /*** global variables ****************************************************************************/
 
 /*** file scope macro definitions ****************************************************************/
 
-#define ADD_KEYMAP_NAME(name) \
-    { #name, CK_##name }
+#define ADD_KEYMAP_NAME(name) { #name, CK_##name }
 
 /*** file scope type declarations ****************************************************************/
 
@@ -152,7 +151,7 @@ static name_keymap_t command_names[] = {
     ADD_KEYMAP_NAME (QuitQuiet),
     ADD_KEYMAP_NAME (ExtendedKeyMap),
 
-    /* main commands */
+/* main commands */
 #ifdef USE_INTERNAL_EDIT
     ADD_KEYMAP_NAME (EditForceInternal),
 #endif
@@ -265,7 +264,7 @@ static name_keymap_t command_names[] = {
     /* tree */
     ADD_KEYMAP_NAME (Forget),
 
-#if defined (USE_INTERNAL_EDIT) || defined (USE_DIFF_VIEW)
+#if defined(USE_INTERNAL_EDIT) || defined(USE_DIFF_VIEW)
     ADD_KEYMAP_NAME (ShowNumbers),
 #endif
 
@@ -339,7 +338,7 @@ static name_keymap_t command_names[] = {
     ADD_KEYMAP_NAME (OptionsSaveMode),
     ADD_KEYMAP_NAME (About),
     /* An action to run external script from macro */
-    {"ExecuteScript", CK_PipeBlock (0)},
+    { "ExecuteScript", CK_PipeBlock (0) },
     ADD_KEYMAP_NAME (WindowMove),
     ADD_KEYMAP_NAME (WindowResize),
     ADD_KEYMAP_NAME (WindowFullscreen),
@@ -377,7 +376,7 @@ static name_keymap_t command_names[] = {
     ADD_KEYMAP_NAME (MergeOther),
 #endif /* USE_DIFF_VIEW */
 
-    {NULL, CK_IgnoreKey}
+    { NULL, CK_IgnoreKey }
 };
 
 /* *INDENT-OFF* */
@@ -406,8 +405,8 @@ sort_command_names (void)
 
     if (!has_been_sorted)
     {
-        qsort (command_names, num_command_names,
-               sizeof (command_names[0]), &name_keymap_comparator);
+        qsort (command_names, num_command_names, sizeof (command_names[0]),
+               &name_keymap_comparator);
         has_been_sorted = TRUE;
     }
 }
@@ -453,8 +452,8 @@ keybind_lookup_action (const char *name)
 
     sort_command_names ();
 
-    res = bsearch (&key, command_names, num_command_names,
-                   sizeof (command_names[0]), name_keymap_comparator);
+    res = bsearch (&key, command_names, num_command_names, sizeof (command_names[0]),
+                   name_keymap_comparator);
 
     return (res != NULL) ? res->val : CK_IgnoreKey;
 }

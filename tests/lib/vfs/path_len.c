@@ -75,25 +75,16 @@ static const struct test_path_length_ds
 {
     const char *input_path;
     const size_t expected_length;
-} test_path_length_ds[] =
-{
+} test_path_length_ds[] = {
     { /* 0. */
-        NULL,
-        0
-    },
+      NULL, 0 },
     { /* 1. */
-        "/",
-        1
-    },
+      "/", 1 },
     { /* 2. */
-        "/тестовый/путь",
-        26
-    },
+      "/тестовый/путь", 26 },
 #ifdef HAVE_CHARSET
     { /* 3. */
-        "/#enc:KOI8-R/тестовый/путь",
-        38
-    },
+      "/#enc:KOI8-R/тестовый/путь", 38 },
 #endif /* HAVE_CHARSET */
 };
 /* *INDENT-ON* */

@@ -29,7 +29,7 @@
 
 #include <config.h>
 
-#include <pwd.h>                /* for username in xterm title */
+#include <pwd.h> /* for username in xterm title */
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>

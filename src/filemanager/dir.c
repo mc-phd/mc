@@ -43,20 +43,20 @@
 #include "lib/strutil.h"
 #include "lib/util.h"
 
-#include "src/setup.h"          /* panels_options */
+#include "src/setup.h" /* panels_options */
 
 #include "treestore.h"
-#include "file.h"               /* file_is_symlink_to_dir() */
+#include "file.h" /* file_is_symlink_to_dir() */
 #include "dir.h"
 
 /*** global variables ****************************************************************************/
 
 /*** file scope macro definitions ****************************************************************/
 
-#define MY_ISDIR(x) (\
-    (is_exe (x->st.st_mode) && !(S_ISDIR (x->st.st_mode) || link_isdir (x)) && exec_first) \
-        ? 1 \
-        : ( (S_ISDIR (x->st.st_mode) || link_isdir (x)) ? 2 : 0) )
+#define MY_ISDIR(x)                                                                                \
+    ((is_exe (x->st.st_mode) && !(S_ISDIR (x->st.st_mode) || link_isdir (x)) && exec_first)        \
+         ? 1                                                                                       \
+         : ((S_ISDIR (x->st.st_mode) || link_isdir (x)) ? 2 : 0))
 
 /*** file scope type declarations ****************************************************************/
 
@@ -94,13 +94,13 @@ key_collate (const char *t1, const char *t2)
         ret = str_key_collate (t1, t2, case_sensitive) * reverse;
         break;
     case 1:
-        ret = -1;               /* t1 < t2 */
+        ret = -1; /* t1 < t2 */
         break;
     case 2:
-        ret = 1;                /* t1 > t2 */
+        ret = 1; /* t1 > t2 */
         break;
     default:
-        ret = 0;                /* it must not happen */
+        ret = 0; /* it must not happen */
     }
 
     return ret;
@@ -186,7 +186,7 @@ handle_dirent (struct vfs_dirent *dp, const file_filter_t *filter, struct stat *
         gboolean files_only = (filter->flags & SELECT_FILES_ONLY) != 0;
 
         ok = ((S_ISDIR (buf1->st_mode) || *link_to_dir) && files_only)
-            || mc_search_run (filter->handler, dp->d_name, 0, dp->d_len, NULL);
+             || mc_search_run (filter->handler, dp->d_name, 0, dp->d_len, NULL);
     }
 
     return ok;
@@ -296,8 +296,8 @@ dir_list_grow (dir_list *list, int delta)
  */
 
 gboolean
-dir_list_append (dir_list *list, const char *fname, const struct stat *st,
-                 gboolean link_to_dir, gboolean stale_link)
+dir_list_append (dir_list *list, const char *fname, const struct stat *st, gboolean link_to_dir,
+                 gboolean stale_link)
 {
     file_entry_t *fentry;
 
@@ -804,8 +804,9 @@ dir_list_reload (dir_list *list, const vfs_path_t *vpath, GCompareFunc sort,
              * to find matching file.  Decrease number of remaining marks if
              * we copied one.
              */
-            fentry->f.marked = (marked_cnt > 0
-                                && g_hash_table_lookup (marked_files, dp->d_name) != NULL) ? 1 : 0;
+            fentry->f.marked
+                = (marked_cnt > 0 && g_hash_table_lookup (marked_files, dp->d_name) != NULL) ? 1
+                                                                                             : 0;
             if (fentry->f.marked != 0)
                 marked_cnt--;
         }

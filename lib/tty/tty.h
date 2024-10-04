@@ -11,7 +11,7 @@
 #ifndef MC__TTY_H
 #define MC__TTY_H
 
-#include "lib/global.h"         /* include <glib.h> */
+#include "lib/global.h" /* include <glib.h> */
 
 #ifdef HAVE_SLANG
 #include "tty-slang.h"

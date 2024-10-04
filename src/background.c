@@ -41,22 +41,22 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <sys/wait.h>           /* waitpid() */
+#include <sys/wait.h> /* waitpid() */
 
 #include "lib/global.h"
 
 #include "lib/unixcompat.h"
-#include "lib/tty/key.h"        /* add_select_channel(), delete_select_channel() */
-#include "lib/widget.h"         /* message() */
+#include "lib/tty/key.h" /* add_select_channel(), delete_select_channel() */
+#include "lib/widget.h"  /* message() */
 #include "lib/event-types.h"
 
-#include "filemanager/fileopctx.h"      /* file_op_context_t */
+#include "filemanager/fileopctx.h" /* file_op_context_t */
 
 #include "background.h"
 
 /*** global variables ****************************************************************************/
 
-#define MAXCALLARGS 4           /* Number of arguments supported */
+#define MAXCALLARGS 4 /* Number of arguments supported */
 
 /*** file scope macro definitions ****************************************************************/
 
@@ -179,7 +179,7 @@ reading_failed (int i, char **data)
 {
     while (i >= 0)
         g_free (data[i--]);
-    message (D_ERROR, _("Background protocol error"), "%s", _("Reading failed"));
+    message (D_ERROR, _ ("Background protocol error"), "%s", _ ("Reading failed"));
     return 0;
 }
 
@@ -219,7 +219,7 @@ background_attention (int fd, void *closure)
     TaskList *p;
     int to_child_fd = -1;
     enum ReturnType type;
-    const char *background_process_error = _("Background process error");
+    const char *background_process_error = _ ("Background process error");
 
     ctx = closure;
 
@@ -232,7 +232,7 @@ background_attention (int fd, void *closure)
         {
             /* the process is still running, but it misbehaves - kill it */
             kill (ctx->pid, SIGTERM);
-            message (D_ERROR, background_process_error, "%s", _("Unknown error in child"));
+            message (D_ERROR, background_process_error, "%s", _ ("Unknown error in child"));
             return 0;
         }
 
@@ -240,20 +240,20 @@ background_attention (int fd, void *closure)
         if (WIFEXITED (status) && (WEXITSTATUS (status) == 0))
             return 0;
 
-        message (D_ERROR, background_process_error, "%s", _("Child died unexpectedly"));
+        message (D_ERROR, background_process_error, "%s", _ ("Child died unexpectedly"));
 
         return 0;
     }
 
-    if (read (fd, &argc, sizeof (argc)) != sizeof (argc) ||
-        read (fd, &type, sizeof (type)) != sizeof (type) ||
-        read (fd, &have_ctx, sizeof (have_ctx)) != sizeof (have_ctx))
+    if (read (fd, &argc, sizeof (argc)) != sizeof (argc)
+        || read (fd, &type, sizeof (type)) != sizeof (type)
+        || read (fd, &have_ctx, sizeof (have_ctx)) != sizeof (have_ctx))
         return reading_failed (-1, data);
 
     if (argc > MAXCALLARGS)
-        message (D_ERROR, _("Background protocol error"), "%s",
-                 _("Background process sent us a request for more arguments\n"
-                   "than we can handle."));
+        message (D_ERROR, _ ("Background protocol error"), "%s",
+                 _ ("Background process sent us a request for more arguments\n"
+                    "than we can handle."));
 
     if (have_ctx != 0 && read (fd, ctx, sizeof (*ctx)) != sizeof (*ctx))
         return reading_failed (-1, data);
@@ -270,7 +270,7 @@ background_attention (int fd, void *closure)
         if (read (fd, data[i], size) != size)
             return reading_failed (i, data);
 
-        data[i][size] = '\0';   /* NULL terminate the blocks (they could be strings) */
+        data[i][size] = '\0'; /* NULL terminate the blocks (they could be strings) */
     }
 
     /* Find child task info by descriptor */
@@ -283,7 +283,7 @@ background_attention (int fd, void *closure)
         to_child_fd = p->to_child_fd;
 
     if (to_child_fd == -1)
-        message (D_ERROR, background_process_error, "%s", _("Unknown error in child"));
+        message (D_ERROR, background_process_error, "%s", _ ("Unknown error in child"));
     else if (type == Return_Integer)
     {
         /* Handle the call */
@@ -327,8 +327,8 @@ background_attention (int fd, void *closure)
                 result = routine.non_have_ctx3 (ctx, Background, data[0], data[1], data[2]);
                 break;
             case 4:
-                result =
-                    routine.non_have_ctx4 (ctx, Background, data[0], data[1], data[2], data[3]);
+                result
+                    = routine.non_have_ctx4 (ctx, Background, data[0], data[1], data[2], data[3]);
                 break;
             default:
                 break;
@@ -467,8 +467,8 @@ parent_va_call_string (void *routine, int argc, va_list ap)
 
         len = va_arg (ap, int);
         value = va_arg (ap, void *);
-        if (write (parent_fd, &len, sizeof (len)) != sizeof (len) ||
-            write (parent_fd, value, len) != len)
+        if (write (parent_fd, &len, sizeof (len)) != sizeof (len)
+            || write (parent_fd, value, len) != len)
             return NULL;
     }
 
@@ -520,8 +520,8 @@ unregister_task_with_pid (pid_t pid)
 int
 do_background (file_op_context_t *ctx, char *info)
 {
-    int comm[2];                /* control connection stream */
-    int back_comm[2];           /* back connection */
+    int comm[2];      /* control connection stream */
+    int back_comm[2]; /* back connection */
     pid_t pid;
 
     if (pipe (comm) == -1)
@@ -625,8 +625,8 @@ parent_call_string (void *routine, int argc, ...)
 
 /* event callback */
 gboolean
-background_parent_call (const gchar *event_group_name, const gchar *event_name,
-                        gpointer init_data, gpointer data)
+background_parent_call (const gchar *event_group_name, const gchar *event_name, gpointer init_data,
+                        gpointer data)
 {
     ev_background_parent_call_t *event_data = (ev_background_parent_call_t *) data;
 
@@ -634,8 +634,8 @@ background_parent_call (const gchar *event_group_name, const gchar *event_name,
     (void) event_name;
     (void) init_data;
 
-    event_data->ret.i =
-        parent_va_call (event_data->routine, event_data->ctx, event_data->argc, event_data->ap);
+    event_data->ret.i
+        = parent_va_call (event_data->routine, event_data->ctx, event_data->argc, event_data->ap);
 
     return TRUE;
 }
@@ -653,8 +653,8 @@ background_parent_call_string (const gchar *event_group_name, const gchar *event
     (void) event_name;
     (void) init_data;
 
-    event_data->ret.s =
-        parent_va_call_string (event_data->routine, event_data->argc, event_data->ap);
+    event_data->ret.s
+        = parent_va_call_string (event_data->routine, event_data->argc, event_data->ap);
 
     return TRUE;
 }

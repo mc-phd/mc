@@ -10,15 +10,14 @@
 
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <inttypes.h>           /* uintmax_t */
+#include <inttypes.h> /* uintmax_t */
 
 #include "lib/global.h"
 #include "lib/vfs/vfs.h"
 
-
 /*** typedefs(not structures) and defined constants **********************************************/
 
-typedef int (*mc_stat_fn) (const vfs_path_t * vpath, struct stat * buf);
+typedef int (*mc_stat_fn) (const vfs_path_t *vpath, struct stat *buf);
 
 /*** enums ***************************************************************************************/
 
@@ -176,13 +175,13 @@ extern const char *op_names[3];
 /*** declarations of public functions ************************************************************/
 
 file_op_context_t *file_op_context_new (FileOperation op);
-void file_op_context_destroy (file_op_context_t * ctx);
+void file_op_context_destroy (file_op_context_t *ctx);
 
 file_op_total_context_t *file_op_total_context_new (void);
-void file_op_total_context_destroy (file_op_total_context_t * tctx);
+void file_op_total_context_destroy (file_op_total_context_t *tctx);
 
 /* The following functions are implemented separately by each port */
-FileProgressStatus file_progress_real_query_replace (file_op_context_t * ctx,
+FileProgressStatus file_progress_real_query_replace (file_op_context_t *ctx,
                                                      enum OperationMode mode, const char *src,
                                                      struct stat *src_stat, const char *dst,
                                                      struct stat *dst_stat);

@@ -40,10 +40,10 @@
 #include "lib/skin.h"
 #include "lib/tty/key.h"
 #include "lib/strutil.h"
-#include "lib/fileloc.h"        /* MC_HISTORY_FILE */
-#include "lib/event.h"          /* mc_event_raise() */
-#include "lib/util.h"           /* MC_PTR_FREE */
-#include "lib/mcconfig.h"       /* num_history_items_recorded */
+#include "lib/fileloc.h"  /* MC_HISTORY_FILE */
+#include "lib/event.h"    /* mc_event_raise() */
+#include "lib/util.h"     /* MC_PTR_FREE */
+#include "lib/mcconfig.h" /* num_history_items_recorded */
 
 #include "lib/widget.h"
 #include "lib/widget/mouse.h"
@@ -83,15 +83,15 @@ dlg_default_get_colors (const Widget *w)
 
 /* --------------------------------------------------------------------------------------------- */
 /**
-  * Read histories from the ${XDG_DATA_HOME}/mc/history file
-  */
+ * Read histories from the ${XDG_DATA_HOME}/mc/history file
+ */
 static void
 dlg_read_history (WDialog *h)
 {
     char *profile;
     ev_history_load_save_t event_data;
 
-    if (num_history_items_recorded == 0)        /* this is how to disable */
+    if (num_history_items_recorded == 0) /* this is how to disable */
         return;
 
     profile = mc_config_get_full_path (MC_HISTORY_FILE);
@@ -435,8 +435,8 @@ dlg_create (gboolean modal, int y1, int x1, int lines, int cols, widget_pos_flag
     {
         w->state |= WST_MODAL;
 
-        new_d->bg =
-            WIDGET (frame_new (0, 0, w->rect.lines, w->rect.cols, title, FALSE, new_d->compact));
+        new_d->bg
+            = WIDGET (frame_new (0, 0, w->rect.lines, w->rect.cols, title, FALSE, new_d->compact));
         group_add_widget (g, new_d->bg);
         frame_set_title (FRAME (new_d->bg), title);
     }
@@ -528,12 +528,12 @@ dlg_process_event (WDialog *h, int key, Gpm_Event *event)
         break;
 
     case EV_MOUSE:
-        {
-            Widget *w = WIDGET (h);
+    {
+        Widget *w = WIDGET (h);
 
-            GROUP (h)->mouse_status = w->mouse_handler (w, event);
-            break;
-        }
+        GROUP (h)->mouse_status = w->mouse_handler (w, event);
+        break;
+    }
 
     default:
         dlg_key_event (h, key);
@@ -578,15 +578,15 @@ dlg_run (WDialog *h)
 /* --------------------------------------------------------------------------------------------- */
 
 /**
-  * Write history to the ${XDG_DATA_HOME}/mc/history file
-  */
+ * Write history to the ${XDG_DATA_HOME}/mc/history file
+ */
 void
 dlg_save_history (WDialog *h)
 {
     char *profile;
     int i;
 
-    if (num_history_items_recorded == 0)        /* this is how to disable */
+    if (num_history_items_recorded == 0) /* this is how to disable */
         return;
 
     profile = mc_config_get_full_path (MC_HISTORY_FILE);

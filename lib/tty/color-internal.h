@@ -6,7 +6,7 @@
 #ifndef MC__COLOR_INTERNAL_H
 #define MC__COLOR_INTERNAL_H
 
-#include <sys/types.h>          /* size_t */
+#include <sys/types.h> /* size_t */
 
 #include "lib/global.h"
 
@@ -21,11 +21,12 @@
 /*** enums ***************************************************************************************/
 
 /* *INDENT-OFF* */
-typedef enum {
-    SPEC_A_REVERSE              = -100,
-    SPEC_A_BOLD                 = -101,
-    SPEC_A_BOLD_REVERSE         = -102,
-    SPEC_A_UNDERLINE            = -103
+typedef enum
+{
+    SPEC_A_REVERSE = -100,
+    SPEC_A_BOLD = -101,
+    SPEC_A_BOLD_REVERSE = -102,
+    SPEC_A_UNDERLINE = -103
 } tty_special_color_t;
 /* *INDENT-ON* */
 
@@ -55,7 +56,7 @@ int tty_attr_get_bits (const char *attrs);
 void tty_color_init_lib (gboolean disable, gboolean force);
 void tty_color_deinit_lib (void);
 
-void tty_color_try_alloc_lib_pair (tty_color_lib_pair_t * mc_color_pair);
+void tty_color_try_alloc_lib_pair (tty_color_lib_pair_t *mc_color_pair);
 
 /*** inline functions ****************************************************************************/
 

@@ -172,7 +172,7 @@ xstrtoumax (const char *s, char **ptr, int base, uintmax_t *val, const char *val
                     break;
 
                 case 'B':
-                case 'D':      /* 'D' is obsolescent */
+                case 'D': /* 'D' is obsolescent */
                     base = 1000;
                     suffixes++;
                     break;
@@ -202,39 +202,39 @@ xstrtoumax (const char *s, char **ptr, int base, uintmax_t *val, const char *val
             overflow = LONGINT_OK;
             break;
 
-        case 'E':              /* exa or exbi */
+        case 'E': /* exa or exbi */
             overflow = bkm_scale_by_power (&tmp, base, 6);
             break;
 
-        case 'G':              /* giga or gibi */
-        case 'g':              /* 'g' is undocumented; for compatibility only */
+        case 'G': /* giga or gibi */
+        case 'g': /* 'g' is undocumented; for compatibility only */
             overflow = bkm_scale_by_power (&tmp, base, 3);
             break;
 
-        case 'k':              /* kilo */
-        case 'K':              /* kibi */
+        case 'k': /* kilo */
+        case 'K': /* kibi */
             overflow = bkm_scale_by_power (&tmp, base, 1);
             break;
 
-        case 'M':              /* mega or mebi */
-        case 'm':              /* 'm' is undocumented; for compatibility only */
+        case 'M': /* mega or mebi */
+        case 'm': /* 'm' is undocumented; for compatibility only */
             overflow = bkm_scale_by_power (&tmp, base, 2);
             break;
 
-        case 'P':              /* peta or pebi */
+        case 'P': /* peta or pebi */
             overflow = bkm_scale_by_power (&tmp, base, 5);
             break;
 
-        case 'Q':              /* quetta or 2**100 */
+        case 'Q': /* quetta or 2**100 */
             overflow = bkm_scale_by_power (&tmp, base, 10);
             break;
 
-        case 'R':              /* ronna or 2**90 */
+        case 'R': /* ronna or 2**90 */
             overflow = bkm_scale_by_power (&tmp, base, 9);
             break;
 
-        case 'T':              /* tera or tebi */
-        case 't':              /* 't' is undocumented; for compatibility only */
+        case 'T': /* tera or tebi */
+        case 't': /* 't' is undocumented; for compatibility only */
             overflow = bkm_scale_by_power (&tmp, base, 4);
             break;
 
@@ -242,11 +242,11 @@ xstrtoumax (const char *s, char **ptr, int base, uintmax_t *val, const char *val
             overflow = bkm_scale (&tmp, 2);
             break;
 
-        case 'Y':              /* yotta or 2**80 */
+        case 'Y': /* yotta or 2**80 */
             overflow = bkm_scale_by_power (&tmp, base, 8);
             break;
 
-        case 'Z':              /* zetta or 2**70 */
+        case 'Z': /* zetta or 2**70 */
             overflow = bkm_scale_by_power (&tmp, base, 7);
             break;
 

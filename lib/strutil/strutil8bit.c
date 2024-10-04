@@ -48,11 +48,8 @@
  * you can write
  *    char_isspace (c);
  */
-#define DECLARE_CTYPE_WRAPPER(func_name)       \
-static inline int char_##func_name(char c)     \
-{                                              \
-    return func_name((int)(unsigned char)c);   \
-}
+#define DECLARE_CTYPE_WRAPPER(func_name)                                                           \
+    static inline int char_##func_name (char c) { return func_name ((int) (unsigned char) c); }
 
 /*** file scope type declarations ****************************************************************/
 
@@ -388,7 +385,7 @@ str_8bit_fit_to_term (const char *text, int width, align_crt_t just_mode)
             actual[0] = char_isprint (text[pos]) ? text[pos] : '.';
     }
 
-  finally:
+finally:
     if (actual >= result + sizeof (result))
         actual = result + sizeof (result) - 1;
     actual[0] = '\0';
@@ -529,7 +526,7 @@ str_8bit_trunc (const char *text, int width)
             actual[0] = char_isprint (text[pos]) ? text[pos] : '.';
     }
 
-  finally:
+finally:
     actual[0] = '\0';
     return result;
 }
@@ -688,13 +685,13 @@ str_8bit_casecmp (const char *s1, const char *s2)
         /* According to A. Cox, some platforms have islower's that
          * don't work right on non-uppercase
          */
-        c1 = isupper ((guchar) * s1) ? tolower ((guchar) * s1) : *s1;
-        c2 = isupper ((guchar) * s2) ? tolower ((guchar) * s2) : *s2;
+        c1 = isupper ((guchar) *s1) ? tolower ((guchar) *s1) : *s1;
+        c2 = isupper ((guchar) *s2) ? tolower ((guchar) *s2) : *s2;
         if (c1 != c2)
             return (c1 - c2);
     }
 
-    return (((gint) (guchar) * s1) - ((gint) (guchar) * s2));
+    return (((gint) (guchar) *s1) - ((gint) (guchar) *s2));
 #endif
 }
 
@@ -724,8 +721,8 @@ str_8bit_ncasecmp (const char *s1, const char *s2)
         /* According to A. Cox, some platforms have islower's that
          * don't work right on non-uppercase
          */
-        c1 = isupper ((guchar) * s1) ? tolower ((guchar) * s1) : *s1;
-        c2 = isupper ((guchar) * s2) ? tolower ((guchar) * s2) : *s2;
+        c1 = isupper ((guchar) *s1) ? tolower ((guchar) *s1) : *s1;
+        c2 = isupper ((guchar) *s2) ? tolower ((guchar) *s2) : *s2;
         if (c1 != c2)
             return (c1 - c2);
     }
@@ -733,7 +730,7 @@ str_8bit_ncasecmp (const char *s1, const char *s2)
     if (n == 0)
         return 0;
 
-    return (((gint) (guchar) * s1) - ((gint) (guchar) * s2));
+    return (((gint) (guchar) *s1) - ((gint) (guchar) *s2));
 
 #endif
 }
@@ -745,8 +742,9 @@ str_8bit_prefix (const char *text, const char *prefix)
 {
     int result;
 
-    for (result = 0; text[result] != '\0' && prefix[result] != '\0'
-         && text[result] == prefix[result]; result++);
+    for (result = 0;
+         text[result] != '\0' && prefix[result] != '\0' && text[result] == prefix[result]; result++)
+        ;
 
     return result;
 }
@@ -759,7 +757,9 @@ str_8bit_caseprefix (const char *text, const char *prefix)
     int result;
 
     for (result = 0; text[result] != '\0' && prefix[result] != '\0'
-         && char_toupper (text[result]) == char_toupper (prefix[result]); result++);
+                     && char_toupper (text[result]) == char_toupper (prefix[result]);
+         result++)
+        ;
 
     return result;
 }

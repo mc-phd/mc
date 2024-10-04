@@ -28,11 +28,11 @@
 
 #include <string.h>
 
-#include "lib/global.h"         /* <glib.h> */
+#include "lib/global.h" /* <glib.h> */
 
 #include "internal.h"
 #include "lib/fileloc.h"
-#include "lib/util.h"           /* exist_file() */
+#include "lib/util.h" /* exist_file() */
 
 /*** global variables ****************************************************************************/
 
@@ -182,8 +182,8 @@ mc_skin_ini_file_load (mc_skin_t *mc_skin)
 gboolean
 mc_skin_ini_file_parse (mc_skin_t *mc_skin)
 {
-    mc_skin->description =
-        mc_config_get_string (mc_skin->config, "skin", "description", "- no description -");
+    mc_skin->description
+        = mc_config_get_string (mc_skin->config, "skin", "description", "- no description -");
     if (!mc_skin_color_parse_ini_file (mc_skin))
         return FALSE;
 

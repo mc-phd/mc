@@ -42,11 +42,11 @@
 /*** global variables ****************************************************************************/
 
 /* *INDENT-OFF* */
-const char *STR_E_NOTFOUND = N_("Search string not found");
-const char *STR_E_UNKNOWN_TYPE = N_("Not implemented yet");
-const char *STR_E_RPL_NOT_EQ_TO_FOUND =
-            N_("Num of replace tokens not equal to num of found tokens");
-const char *STR_E_RPL_INVALID_TOKEN = N_("Invalid token number %d");
+const char *STR_E_NOTFOUND = N_ ("Search string not found");
+const char *STR_E_UNKNOWN_TYPE = N_ ("Not implemented yet");
+const char *STR_E_RPL_NOT_EQ_TO_FOUND
+    = N_ ("Num of replace tokens not equal to num of found tokens");
+const char *STR_E_RPL_INVALID_TOKEN = N_ ("Invalid token number %d");
 /* *INDENT-ON* */
 
 /*** file scope macro definitions ****************************************************************/
@@ -79,11 +79,11 @@ mc_search__change_case_str (const char *charset, const GString *str, case_conv_f
 
     converted_str = mc_search__recode_str (str->str, str->len, charset, cp_display);
 
-    dst_len = converted_str->len + 1;   /* +1 is required for str_toupper/str_tolower */
+    dst_len = converted_str->len + 1; /* +1 is required for str_toupper/str_tolower */
     dst_str = g_malloc (dst_len);
 
-    for (src_ptr = converted_str->str, dst_ptr = dst_str;
-         case_conv (src_ptr, &dst_ptr, &dst_len); src_ptr += str_length_char (src_ptr))
+    for (src_ptr = converted_str->str, dst_ptr = dst_str; case_conv (src_ptr, &dst_ptr, &dst_len);
+         src_ptr += str_length_char (src_ptr))
         ;
     *dst_ptr = '\0';
 
@@ -95,11 +95,11 @@ mc_search__change_case_str (const char *charset, const GString *str, case_conv_f
 #else
     (void) charset;
 
-    dst_len = str->len + 1;     /* +1 is required for str_toupper/str_tolower */
+    dst_len = str->len + 1; /* +1 is required for str_toupper/str_tolower */
     dst_str = g_malloc (dst_len);
 
-    for (src_ptr = str->str, dst_ptr = dst_str;
-         case_conv (src_ptr, &dst_ptr, &dst_len); src_ptr += str_length_char (src_ptr))
+    for (src_ptr = str->str, dst_ptr = dst_str; case_conv (src_ptr, &dst_ptr, &dst_len);
+         src_ptr += str_length_char (src_ptr))
         ;
     *dst_ptr = '\0';
 
@@ -175,8 +175,8 @@ mc_search__get_one_symbol (const char *charset, const char *str, gsize str_len,
     g_string_set_size (converted_str, (gsize) (next_char - converted_str->str));
 
 #ifdef HAVE_CHARSET
-    converted_str2 =
-        mc_search__recode_str (converted_str->str, converted_str->len, cp_display, charset);
+    converted_str2
+        = mc_search__recode_str (converted_str->str, converted_str->len, cp_display, charset);
 #endif
     if (just_letters != NULL)
         *just_letters = str_isalnum (converted_str->str) && !str_isdigit (converted_str->str);

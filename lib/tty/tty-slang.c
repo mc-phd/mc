@@ -34,7 +34,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/types.h>          /* size_t */
+#include <sys/types.h> /* size_t */
 #include <unistd.h>
 #ifdef HAVE_SYS_IOCTL_H
 #include <sys/ioctl.h>
@@ -42,18 +42,17 @@
 #include <termios.h>
 
 #include "lib/global.h"
-#include "lib/strutil.h"        /* str_term_form */
-#include "lib/util.h"           /* is_printable() */
+#include "lib/strutil.h" /* str_term_form */
+#include "lib/util.h"    /* is_printable() */
 
-#include "tty-internal.h"       /* mc_tty_normalize_from_utf8() */
+#include "tty-internal.h" /* mc_tty_normalize_from_utf8() */
 #include "tty.h"
 #include "color.h"
 #include "color-slang.h"
 #include "color-internal.h"
-#include "mouse.h"              /* Gpm_Event is required in key.h */
-#include "key.h"                /* define_sequence */
+#include "mouse.h" /* Gpm_Event is required in key.h */
+#include "key.h"   /* define_sequence */
 #include "win.h"
-
 
 /*** global variables ****************************************************************************/
 
@@ -96,38 +95,14 @@ static const struct
     const char *key_name;
 } key_table[] = {
     /* *INDENT-OFF* */
-    { KEY_F (0), "k0" },
-    { KEY_F (1), "k1" },
-    { KEY_F (2), "k2" },
-    { KEY_F (3), "k3" },
-    { KEY_F (4), "k4" },
-    { KEY_F (5), "k5" },
-    { KEY_F (6), "k6" },
-    { KEY_F (7), "k7" },
-    { KEY_F (8), "k8" },
-    { KEY_F (9), "k9" },
-    { KEY_F (10), "k;" },
-    { KEY_F (11), "F1" },
-    { KEY_F (12), "F2" },
-    { KEY_F (13), "F3" },
-    { KEY_F (14), "F4" },
-    { KEY_F (15), "F5" },
-    { KEY_F (16), "F6" },
-    { KEY_F (17), "F7" },
-    { KEY_F (18), "F8" },
-    { KEY_F (19), "F9" },
-    { KEY_F (20), "FA" },
-    { KEY_IC, "kI" },
-    { KEY_NPAGE, "kN" },
-    { KEY_PPAGE, "kP" },
-    { KEY_LEFT, "kl" },
-    { KEY_RIGHT, "kr" },
-    { KEY_UP, "ku" },
-    { KEY_DOWN, "kd" },
-    { KEY_DC, "kD" },
-    { KEY_BACKSPACE, "kb" },
-    { KEY_HOME, "kh" },
-    { KEY_END, "@7" },
+    { KEY_F (0), "k0" },  { KEY_F (1), "k1" },     { KEY_F (2), "k2" },  { KEY_F (3), "k3" },
+    { KEY_F (4), "k4" },  { KEY_F (5), "k5" },     { KEY_F (6), "k6" },  { KEY_F (7), "k7" },
+    { KEY_F (8), "k8" },  { KEY_F (9), "k9" },     { KEY_F (10), "k;" }, { KEY_F (11), "F1" },
+    { KEY_F (12), "F2" }, { KEY_F (13), "F3" },    { KEY_F (14), "F4" }, { KEY_F (15), "F5" },
+    { KEY_F (16), "F6" }, { KEY_F (17), "F7" },    { KEY_F (18), "F8" }, { KEY_F (19), "F9" },
+    { KEY_F (20), "FA" }, { KEY_IC, "kI" },        { KEY_NPAGE, "kN" },  { KEY_PPAGE, "kP" },
+    { KEY_LEFT, "kl" },   { KEY_RIGHT, "kr" },     { KEY_UP, "ku" },     { KEY_DOWN, "kd" },
+    { KEY_DC, "kD" },     { KEY_BACKSPACE, "kb" }, { KEY_HOME, "kh" },   { KEY_END, "@7" },
     { 0, NULL }
     /* *INDENT-ON* */
 };
@@ -234,21 +209,19 @@ mc_tty_normalize_lines_char (const char *str)
     {
         const char *line;
         int line_code;
-    } const lines_codes[] = {
-        {"\342\224\214", SLSMG_ULCORN_CHAR},
-        {"\342\224\220", SLSMG_URCORN_CHAR},
-        {"\342\224\224", SLSMG_LLCORN_CHAR},
-        {"\342\224\230", SLSMG_LRCORN_CHAR},
-        {"\342\224\234", SLSMG_LTEE_CHAR},
-        {"\342\224\244", SLSMG_RTEE_CHAR},
-        {"\342\224\254", SLSMG_UTEE_CHAR},
-        {"\342\224\264", SLSMG_DTEE_CHAR},
-        {"\342\224\200", SLSMG_HLINE_CHAR},
-        {"\342\224\202", SLSMG_VLINE_CHAR},
-        {"\342\224\274", SLSMG_PLUS_CHAR},
+    } const lines_codes[] = { { "\342\224\214", SLSMG_ULCORN_CHAR },
+                              { "\342\224\220", SLSMG_URCORN_CHAR },
+                              { "\342\224\224", SLSMG_LLCORN_CHAR },
+                              { "\342\224\230", SLSMG_LRCORN_CHAR },
+                              { "\342\224\234", SLSMG_LTEE_CHAR },
+                              { "\342\224\244", SLSMG_RTEE_CHAR },
+                              { "\342\224\254", SLSMG_UTEE_CHAR },
+                              { "\342\224\264", SLSMG_DTEE_CHAR },
+                              { "\342\224\200", SLSMG_HLINE_CHAR },
+                              { "\342\224\202", SLSMG_VLINE_CHAR },
+                              { "\342\224\274", SLSMG_PLUS_CHAR },
 
-        {NULL, 0}
-    };
+                              { NULL, 0 } };
 
     if (!str)
         return (int) ' ';
@@ -276,7 +249,7 @@ tty_init (gboolean mouse_enable, gboolean is_xterm)
 {
     SLtt_Ignore_Beep = 1;
 
-    SLutf8_enable (-1);         /* has to be called first before any of the other functions. */
+    SLutf8_enable (-1); /* has to be called first before any of the other functions. */
     SLtt_get_terminfo ();
     /*
      * If the terminal in not in terminfo but begins with a well-known
@@ -285,17 +258,19 @@ tty_init (gboolean mouse_enable, gboolean is_xterm)
      * (as of S-Lang 1.4.4). Detect it and abort. Also detect extremely
      * small screen dimensions.
      */
-    if ((COLS < 10) || (LINES < 5)
+    if ((COLS < 10)
+        || (LINES < 5)
 #if SLANG_VERSION < 20303
         /* Beginning from pre2.3.3-8 (55f58798c267d76a1b93d0d916027b71a10ac1ee),
            these limitations were eliminated. */
         || (COLS > SLTT_MAX_SCREEN_COLS) || (LINES > SLTT_MAX_SCREEN_ROWS)
 #endif
-        )
+    )
     {
         fprintf (stderr,
-                 _("Screen size %dx%d is not supported.\n"
-                   "Check the TERM environment variable.\n"), COLS, LINES);
+                 _ ("Screen size %dx%d is not supported.\n"
+                    "Check the TERM environment variable.\n"),
+                 COLS, LINES);
         exit (EXIT_FAILURE);
     }
 
@@ -329,7 +304,7 @@ tty_init (gboolean mouse_enable, gboolean is_xterm)
     slsmg_active = TRUE;
     if (!mouse_enable)
         use_mouse_p = MOUSE_DISABLED;
-    tty_init_xterm_support (is_xterm);  /* do it before tty_enter_ca_mode() call */
+    tty_init_xterm_support (is_xterm); /* do it before tty_enter_ca_mode() call */
     tty_enter_ca_mode ();
     tty_keypad (TRUE);
     tty_nodelay (FALSE);
@@ -353,8 +328,8 @@ tty_shutdown (void)
     SLang_reset_tty ();
     slsmg_active = FALSE;
 
-    /* Load the op capability to reset the colors to those that were 
-     * active when the program was started up 
+    /* Load the op capability to reset the colors to those that were
+     * active when the program was started up
      */
     op_cap = SLtt_tgetstr ((SLFUTURE_CONST char *) "op");
     if (op_cap != NULL)
@@ -443,7 +418,7 @@ tty_noecho (void)
 int
 tty_flush_input (void)
 {
-    return 0;                   /* OK */
+    return 0; /* OK */
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -489,9 +464,8 @@ tty_lowlevel_getch (void)
     c = SLang_getkey ();
     if (c == SLANG_GETKEY_ERROR)
     {
-        fprintf (stderr,
-                 "SLang_getkey returned SLANG_GETKEY_ERROR\n"
-                 "Assuming EOF on stdin and exiting\n");
+        fprintf (stderr, "SLang_getkey returned SLANG_GETKEY_ERROR\n"
+                         "Assuming EOF on stdin and exiting\n");
         exit (EXIT_FAILURE);
     }
 
@@ -505,7 +479,7 @@ tty_reset_screen (void)
 {
     SLsmg_reset_smg ();
     slsmg_active = FALSE;
-    return 0;                   /* OK */
+    return 0; /* OK */
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -659,9 +633,9 @@ tty_print_char (int c)
 void
 tty_print_alt_char (int c, gboolean single)
 {
-#define DRAW(x, y) (x == y) \
-       ? SLsmg_draw_object (SLsmg_get_row(), SLsmg_get_column(), x) \
-       : SLsmg_write_char ((unsigned int) y)
+#define DRAW(x, y)                                                                                 \
+    (x == y) ? SLsmg_draw_object (SLsmg_get_row (), SLsmg_get_column (), x)                        \
+             : SLsmg_write_char ((unsigned int) y)
     switch (c)
     {
     case ACS_VLINE:

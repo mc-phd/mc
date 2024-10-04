@@ -3,7 +3,7 @@
 
 #include <config.h>
 
-#include "lib/global.h"         /* <glib.h> */
+#include "lib/global.h" /* <glib.h> */
 
 #include <sys/types.h>
 
@@ -114,12 +114,13 @@ typedef struct mc_search_struct
     GString *regex_buffer;
 #ifdef SEARCH_TYPE_PCRE
 #ifdef HAVE_PCRE2
-    /* pcre2 will provide a pointer to a match_data structure that can be manipulated like an iovector */
+    /* pcre2 will provide a pointer to a match_data structure that can be manipulated like an
+     * iovector */
     size_t *iovector;
 #else
     int iovector[MC_SEARCH__NUM_REPLACE_ARGS * 2];
 #endif
-#endif                          /* SEARCH_TYPE_PCRE */
+#endif /* SEARCH_TYPE_PCRE */
 
     /* private data */
 
@@ -159,38 +160,38 @@ extern const char *STR_E_RPL_INVALID_TOKEN;
 
 /*** declarations of public functions ************************************************************/
 
-mc_search_t *mc_search_new (const gchar * original, const gchar * original_charset);
+mc_search_t *mc_search_new (const gchar *original, const gchar *original_charset);
 
-mc_search_t *mc_search_new_len (const gchar * original, gsize original_len,
-                                const gchar * original_charset);
+mc_search_t *mc_search_new_len (const gchar *original, gsize original_len,
+                                const gchar *original_charset);
 
-void mc_search_free (mc_search_t * lc_mc_search);
+void mc_search_free (mc_search_t *lc_mc_search);
 
-gboolean mc_search_prepare (mc_search_t * mc_search);
+gboolean mc_search_prepare (mc_search_t *mc_search);
 
-gboolean mc_search_run (mc_search_t * mc_search, const void *user_data, gsize start_search,
-                        gsize end_search, gsize * found_len);
+gboolean mc_search_run (mc_search_t *mc_search, const void *user_data, gsize start_search,
+                        gsize end_search, gsize *found_len);
 
 gboolean mc_search_is_type_avail (mc_search_type_t search_type);
 
 const mc_search_type_str_t *mc_search_types_list_get (size_t *num);
 
-GString *mc_search_prepare_replace_str (mc_search_t * mc_search, GString * replace_str);
-char *mc_search_prepare_replace_str2 (mc_search_t * lc_mc_search, const char *replace_str);
+GString *mc_search_prepare_replace_str (mc_search_t *mc_search, GString *replace_str);
+char *mc_search_prepare_replace_str2 (mc_search_t *lc_mc_search, const char *replace_str);
 
-gboolean mc_search_is_fixed_search_str (const mc_search_t * lc_mc_search);
+gboolean mc_search_is_fixed_search_str (const mc_search_t *lc_mc_search);
 
 gchar **mc_search_get_types_strings_array (size_t *num);
 
-gboolean mc_search (const gchar * pattern, const gchar * pattern_charset, const gchar * str,
+gboolean mc_search (const gchar *pattern, const gchar *pattern_charset, const gchar *str,
                     mc_search_type_t type);
 
-int mc_search_getstart_result_by_num (mc_search_t * lc_mc_search, int lc_index);
-int mc_search_getend_result_by_num (mc_search_t * lc_mc_search, int lc_index);
+int mc_search_getstart_result_by_num (mc_search_t *lc_mc_search, int lc_index);
+int mc_search_getend_result_by_num (mc_search_t *lc_mc_search, int lc_index);
 
 /* *INDENT-OFF* */
-void mc_search_set_error (mc_search_t * lc_mc_search, mc_search_error_t code, const gchar * format, ...)
-     G_GNUC_PRINTF (3, 4);
+void mc_search_set_error (mc_search_t *lc_mc_search, mc_search_error_t code, const gchar *format,
+                          ...) G_GNUC_PRINTF (3, 4);
 /* *INDENT-ON* */
 
 #endif /* MC__SEARCH_H */

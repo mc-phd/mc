@@ -157,8 +157,8 @@ verrevcmp (const char *s1, ssize_t s1_len, const char *s2, ssize_t s2_len)
         while (s2_pos < s2_len && s2[s2_pos] == '0')
             s2_pos++;
 
-        while (s1_pos < s1_len && s2_pos < s2_len
-               && g_ascii_isdigit (s1[s1_pos]) && g_ascii_isdigit (s2[s2_pos]))
+        while (s1_pos < s1_len && s2_pos < s2_len && g_ascii_isdigit (s1[s1_pos])
+               && g_ascii_isdigit (s2[s2_pos]))
         {
             if (first_diff == 0)
                 first_diff = s1[s1_pos] - s2[s2_pos];

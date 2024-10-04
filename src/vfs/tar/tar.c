@@ -36,7 +36,7 @@
 #include <config.h>
 
 #include <errno.h>
-#include <string.h>             /* memset() */
+#include <string.h> /* memset() */
 
 #ifdef hpux
 /* major() and minor() macros (among other things) defined here for hpux */
@@ -45,12 +45,12 @@
 
 #include "lib/global.h"
 #include "lib/util.h"
-#include "lib/unixcompat.h"     /* makedev() */
-#include "lib/widget.h"         /* message() */
+#include "lib/unixcompat.h" /* makedev() */
+#include "lib/widget.h"     /* message() */
 
 #include "lib/vfs/vfs.h"
 #include "lib/vfs/utilvfs.h"
-#include "lib/vfs/gc.h"         /* vfs_rmstamp */
+#include "lib/vfs/gc.h" /* vfs_rmstamp */
 
 #include "tar-internal.h"
 #include "tar.h"
@@ -63,9 +63,9 @@ const int blocking_factor = DEFAULT_BLOCKING;
 const size_t record_size = DEFAULT_BLOCKING * BLOCKSIZE;
 
 /* As we open one archive at a time, it is safe to have these static */
-union block *record_end;        /* last+1 block of archive record */
-union block *current_block;     /* current block of archive */
-off_t record_start_block;       /* block ordinal at record_start */
+union block *record_end;    /* last+1 block of archive record */
+union block *current_block; /* current block of archive */
+off_t record_start_block;   /* block ordinal at record_start */
 
 union block *current_header;
 
@@ -81,60 +81,58 @@ struct tar_stat_info current_stat_info;
 /* tar Header Block, from POSIX 1003.1-1990.  */
 
 /* The magic field is filled with this if uname and gname are valid. */
-#define TMAGIC "ustar"          /* ustar and a null */
+#define TMAGIC  "ustar" /* ustar and a null */
 
-#define XHDTYPE 'x'             /* Extended header referring to the next file in the archive */
-#define XGLTYPE 'g'             /* Global extended header */
+#define XHDTYPE 'x' /* Extended header referring to the next file in the archive */
+#define XGLTYPE 'g' /* Global extended header */
 
 /* Values used in typeflag field.  */
-#define REGTYPE  '0'            /* regular file */
-#define AREGTYPE '\0'           /* regular file */
-#define LNKTYPE  '1'            /* link */
-#define SYMTYPE  '2'            /* symbolic link */
-#define CHRTYPE  '3'            /* character special */
-#define BLKTYPE  '4'            /* block special */
-#define DIRTYPE  '5'            /* directory */
-#define FIFOTYPE '6'            /* FIFO special */
-
+#define REGTYPE  '0'  /* regular file */
+#define AREGTYPE '\0' /* regular file */
+#define LNKTYPE  '1'  /* link */
+#define SYMTYPE  '2'  /* symbolic link */
+#define CHRTYPE  '3'  /* character special */
+#define BLKTYPE  '4'  /* block special */
+#define DIRTYPE  '5'  /* directory */
+#define FIFOTYPE '6'  /* FIFO special */
 
 /* OLDGNU_MAGIC uses both magic and version fields, which are contiguous.
    Found in an archive, it indicates an old GNU header format, which will be
    hopefully become obsolescent.  With OLDGNU_MAGIC, uname and gname are
    valid, though the header is not truly POSIX conforming.  */
-#define OLDGNU_MAGIC "ustar  "  /* 7 chars and a null */
-
+#define OLDGNU_MAGIC "ustar  " /* 7 chars and a null */
 
 /* Bits used in the mode field, values in octal.  */
-#define TSUID    04000          /* set UID on execution */
-#define TSGID    02000          /* set GID on execution */
-#define TSVTX    01000          /* reserved */
-                                /* file permissions */
-#define TUREAD   00400          /* read by owner */
-#define TUWRITE  00200          /* write by owner */
-#define TUEXEC   00100          /* execute/search by owner */
-#define TGREAD   00040          /* read by group */
-#define TGWRITE  00020          /* write by group */
-#define TGEXEC   00010          /* execute/search by group */
-#define TOREAD   00004          /* read by other */
-#define TOWRITE  00002          /* write by other */
-#define TOEXEC   00001          /* execute/search by other */
+#define TSUID 04000                          /* set UID on execution */
+#define TSGID 02000                          /* set GID on execution */
+#define TSVTX 01000                          /* reserved */
+                                             /* file permissions */
+#define TUREAD                         00400 /* read by owner */
+#define TUWRITE                        00200 /* write by owner */
+#define TUEXEC                         00100 /* execute/search by owner */
+#define TGREAD                         00040 /* read by group */
+#define TGWRITE                        00020 /* write by group */
+#define TGEXEC                         00010 /* execute/search by group */
+#define TOREAD                         00004 /* read by other */
+#define TOWRITE                        00002 /* write by other */
+#define TOEXEC                         00001 /* execute/search by other */
 
-#define GID_FROM_HEADER(where) gid_from_header (where, sizeof (where))
-#define MAJOR_FROM_HEADER(where) major_from_header (where, sizeof (where))
-#define MINOR_FROM_HEADER(where) minor_from_header (where, sizeof (where))
-#define MODE_FROM_HEADER(where,hbits) mode_from_header (where, sizeof (where), hbits)
-#define TIME_FROM_HEADER(where) time_from_header (where, sizeof (where))
-#define UID_FROM_HEADER(where) uid_from_header (where, sizeof (where))
+#define GID_FROM_HEADER(where)         gid_from_header (where, sizeof (where))
+#define MAJOR_FROM_HEADER(where)       major_from_header (where, sizeof (where))
+#define MINOR_FROM_HEADER(where)       minor_from_header (where, sizeof (where))
+#define MODE_FROM_HEADER(where, hbits) mode_from_header (where, sizeof (where), hbits)
+#define TIME_FROM_HEADER(where)        time_from_header (where, sizeof (where))
+#define UID_FROM_HEADER(where)         uid_from_header (where, sizeof (where))
 
 /*** file scope type declarations ****************************************************************/
 
 typedef enum
 {
-    HEADER_STILL_UNREAD,        /* for when read_header has not been called */
-    HEADER_SUCCESS,             /* header successfully read and checksummed */
-    HEADER_ZERO_BLOCK,          /* zero block where header expected */
-    HEADER_END_OF_FILE,         /* true end of file while header expected */
-    HEADER_FAILURE              /* ill-formed header, or bad checksum */
+    HEADER_STILL_UNREAD, /* for when read_header has not been called */
+    HEADER_SUCCESS,      /* header successfully read and checksummed */
+    HEADER_ZERO_BLOCK,   /* zero block where header expected */
+    HEADER_END_OF_FILE,  /* true end of file while header expected */
+    HEADER_FAILURE       /* ill-formed header, or bad checksum */
 } read_header;
 
 /*** forward declarations (file scope functions) *************************************************/
@@ -210,18 +208,11 @@ mode_from_header (const char *p, size_t s, gboolean *hbits)
     u = tar_from_header (p, s, "mode_t", INTMAX_MIN, UINTMAX_MAX, FALSE);
 
     /* *INDENT-OFF* */
-    mode = ((u & TSUID ? S_ISUID : 0)
-          | (u & TSGID ? S_ISGID : 0)
-          | (u & TSVTX ? S_ISVTX : 0)
-          | (u & TUREAD ? S_IRUSR : 0)
-          | (u & TUWRITE ? S_IWUSR : 0)
-          | (u & TUEXEC ? S_IXUSR : 0)
-          | (u & TGREAD ? S_IRGRP : 0)
-          | (u & TGWRITE ? S_IWGRP : 0)
-          | (u & TGEXEC ? S_IXGRP : 0)
-          | (u & TOREAD ? S_IROTH : 0)
-          | (u & TOWRITE ? S_IWOTH : 0)
-          | (u & TOEXEC ? S_IXOTH : 0));
+    mode
+        = ((u & TSUID ? S_ISUID : 0) | (u & TSGID ? S_ISGID : 0) | (u & TSVTX ? S_ISVTX : 0)
+           | (u & TUREAD ? S_IRUSR : 0) | (u & TUWRITE ? S_IWUSR : 0) | (u & TUEXEC ? S_IXUSR : 0)
+           | (u & TGREAD ? S_IRGRP : 0) | (u & TGWRITE ? S_IWGRP : 0) | (u & TGEXEC ? S_IXGRP : 0)
+           | (u & TOREAD ? S_IROTH : 0) | (u & TOWRITE ? S_IWOTH : 0) | (u & TOEXEC ? S_IXOTH : 0));
     /* *INDENT-ON* */
 
     if (hbits != NULL)
@@ -328,8 +319,8 @@ static read_header
 tar_checksum (const union block *header)
 {
     size_t i;
-    int unsigned_sum = 0;       /* the POSIX one :-) */
-    int signed_sum = 0;         /* the Sun one :-( */
+    int unsigned_sum = 0; /* the POSIX one :-) */
+    int signed_sum = 0;   /* the Sun one :-( */
     int recorded_sum;
     int parsed_sum;
     const char *p = header->buffer;
@@ -353,9 +344,8 @@ tar_checksum (const union block *header)
     unsigned_sum += ' ' * sizeof (header->header.chksum);
     signed_sum += ' ' * sizeof (header->header.chksum);
 
-    parsed_sum =
-        tar_from_header (header->header.chksum, sizeof (header->header.chksum), NULL, 0,
-                         INT_MAX, TRUE);
+    parsed_sum = tar_from_header (header->header.chksum, sizeof (header->header.chksum), NULL, 0,
+                                  INT_MAX, TRUE);
     if (parsed_sum < 0)
         return HEADER_FAILURE;
 
@@ -459,11 +449,11 @@ tar_fill_stat (struct vfs_s_super *archive, union block *header)
     case TAR_OLDGNU:
         /* *INDENT-OFF* */
         current_stat_info.stat.st_uid = *header->header.uname != '\0'
-            ? (uid_t) vfs_finduid (header->header.uname)
-            : UID_FROM_HEADER (header->header.uid);
+                                            ? (uid_t) vfs_finduid (header->header.uname)
+                                            : UID_FROM_HEADER (header->header.uid);
         current_stat_info.stat.st_gid = *header->header.gname != '\0'
-            ? (gid_t) vfs_findgid (header->header.gname)
-            : GID_FROM_HEADER (header->header.gid);
+                                            ? (gid_t) vfs_findgid (header->header.gname)
+                                            : GID_FROM_HEADER (header->header.gid);
         /* *INDENT-ON* */
 
         switch (header->header.typeflag)
@@ -471,9 +461,8 @@ tar_fill_stat (struct vfs_s_super *archive, union block *header)
         case BLKTYPE:
         case CHRTYPE:
 #ifdef HAVE_STRUCT_STAT_ST_RDEV
-            current_stat_info.stat.st_rdev =
-                makedev (MAJOR_FROM_HEADER (header->header.devmajor),
-                         MINOR_FROM_HEADER (header->header.devminor));
+            current_stat_info.stat.st_rdev = makedev (MAJOR_FROM_HEADER (header->header.devmajor),
+                                                      MINOR_FROM_HEADER (header->header.devminor));
 #endif
             break;
         default:
@@ -506,7 +495,7 @@ tar_fill_stat (struct vfs_s_super *archive, union block *header)
         current_stat_info.atime = current_stat_info.ctime = start_time;
 
 #ifdef HAVE_STRUCT_STAT_ST_BLKSIZE
-    current_stat_info.stat.st_blksize = 8 * 1024;       /* FIXME */
+    current_stat_info.stat.st_blksize = 8 * 1024; /* FIXME */
 #endif
     vfs_adjust_stat (&current_stat_info.stat);
 }
@@ -541,7 +530,7 @@ tar_insert_entry (struct vfs_class *me, struct vfs_s_super *archive, union block
     {
         len = strlen (file_name);
         p = file_name;
-        q = file_name + len;    /* "" */
+        q = file_name + len; /* "" */
     }
     else
     {
@@ -652,7 +641,7 @@ tar_read_header (struct vfs_class *me, struct vfs_s_super *archive)
                 size += BLOCKSIZE - n;
             if ((off_t) name_size != current_stat_info.stat.st_size || size < (off_t) name_size)
             {
-                message (D_ERROR, MSG_ERROR, _("Inconsistent tar archive"));
+                message (D_ERROR, MSG_ERROR, _ ("Inconsistent tar archive"));
                 status = HEADER_FAILURE;
                 goto ret;
             }
@@ -682,7 +671,7 @@ tar_read_header (struct vfs_class *me, struct vfs_s_super *archive)
                 if (data_block == NULL)
                 {
                     g_free (header_copy);
-                    message (D_ERROR, MSG_ERROR, _("Unexpected EOF on archive file"));
+                    message (D_ERROR, MSG_ERROR, _ ("Unexpected EOF on archive file"));
                     status = HEADER_FAILURE;
                     goto ret;
                 }
@@ -702,10 +691,10 @@ tar_read_header (struct vfs_class *me, struct vfs_s_super *archive)
         {
             if (arch->type == TAR_UNKNOWN)
                 arch->type = TAR_POSIX;
-            if (!tar_xheader_read
-                (arch, &current_stat_info.xhdr, header, OFF_FROM_HEADER (header->header.size)))
+            if (!tar_xheader_read (arch, &current_stat_info.xhdr, header,
+                                   OFF_FROM_HEADER (header->header.size)))
             {
-                message (D_ERROR, MSG_ERROR, _("Unexpected EOF on archive file"));
+                message (D_ERROR, MSG_ERROR, _ ("Unexpected EOF on archive file"));
                 status = HEADER_FAILURE;
                 goto ret;
             }
@@ -725,7 +714,7 @@ tar_read_header (struct vfs_class *me, struct vfs_s_super *archive)
 
             if (!ok)
             {
-                message (D_ERROR, MSG_ERROR, _("Inconsistent tar archive"));
+                message (D_ERROR, MSG_ERROR, _ ("Inconsistent tar archive"));
                 status = HEADER_FAILURE;
                 goto ret;
             }
@@ -822,7 +811,7 @@ tar_read_header (struct vfs_class *me, struct vfs_s_super *archive)
         status = tar_insert_entry (me, archive, header, &inode);
         if (status != HEADER_SUCCESS)
         {
-            message (D_ERROR, MSG_ERROR, _("Inconsistent tar archive"));
+            message (D_ERROR, MSG_ERROR, _ ("Inconsistent tar archive"));
             goto ret;
         }
 
@@ -840,7 +829,7 @@ tar_read_header (struct vfs_class *me, struct vfs_s_super *archive)
             status = HEADER_FAILURE;
     }
 
-  ret:
+ret:
     g_free (next_long_name);
     g_free (next_long_link);
 
@@ -863,7 +852,7 @@ tar_new_archive (struct vfs_class *me)
     /* Prepare global data needed for tar_find_next_block: */
     record_start_block = 0;
     arch->record_start = g_malloc (record_size);
-    record_end = arch->record_start;    /* set up for 1st record = # 0 */
+    record_end = arch->record_start; /* set up for 1st record = # 0 */
     current_block = arch->record_start;
     hit_eof = FALSE;
 
@@ -909,7 +898,7 @@ tar_open_archive_int (struct vfs_class *me, const vfs_path_t *vpath, struct vfs_
     result = mc_open (vpath, O_RDONLY);
     if (result == -1)
     {
-        message (D_ERROR, MSG_ERROR, _("Cannot open tar archive\n%s"), vfs_path_as_str (vpath));
+        message (D_ERROR, MSG_ERROR, _ ("Cannot open tar archive\n%s"), vfs_path_as_str (vpath));
         ERRNOR (ENOENT, FALSE);
     }
 
@@ -931,7 +920,7 @@ tar_open_archive_int (struct vfs_class *me, const vfs_path_t *vpath, struct vfs_
         result = mc_open (tmp_vpath, O_RDONLY);
         vfs_path_free (tmp_vpath, TRUE);
         if (result == -1)
-            message (D_ERROR, MSG_ERROR, _("Cannot open tar archive\n%s"), s);
+            message (D_ERROR, MSG_ERROR, _ ("Cannot open tar archive\n%s"), s);
         g_free (s);
         if (result == -1)
         {
@@ -991,7 +980,7 @@ tar_open_archive (struct vfs_s_super *archive, const vfs_path_t *vpath,
         switch (status)
         {
         case HEADER_STILL_UNREAD:
-            message (D_ERROR, MSG_ERROR, _("%s\ndoesn't look like a tar archive"),
+            message (D_ERROR, MSG_ERROR, _ ("%s\ndoesn't look like a tar archive"),
                      vfs_path_as_str (vpath));
             return -1;
 
@@ -1016,14 +1005,14 @@ tar_open_archive (struct vfs_s_super *archive, const vfs_path_t *vpath,
             switch (prev_status)
             {
             case HEADER_STILL_UNREAD:
-                message (D_ERROR, MSG_ERROR, _("%s\ndoesn't look like a tar archive"),
+                message (D_ERROR, MSG_ERROR, _ ("%s\ndoesn't look like a tar archive"),
                          vfs_path_as_str (vpath));
                 return -1;
 
             case HEADER_ZERO_BLOCK:
             case HEADER_SUCCESS:
                 /* Skipping to next header. */
-                break;          /* AB: FIXME */
+                break; /* AB: FIXME */
 
             case HEADER_END_OF_FILE:
             case HEADER_FAILURE:
@@ -1154,7 +1143,7 @@ tar_read_sparse (vfs_file_handler_t *fh, char *buffer, size_t count)
             /* FIXME: can remain be negative? */
             remain = MAX (remain, 0);
         }
-        else                    /* chunk_idx < 0 */
+        else /* chunk_idx < 0 */
         {
             /* we are in the hole -- return zeros until next chunk start */
             chunk = &g_array_index (sm, struct sp_array, -chunk_idx - 1);

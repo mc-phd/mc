@@ -84,19 +84,19 @@ mcdiffview_dialog_search (WDiff *dview)
     {
         quick_widget_t quick_widgets[] = {
             /* *INDENT-OFF* */
-            QUICK_LABELED_INPUT (N_("Enter search string:"), input_label_above, INPUT_LAST_TEXT,
+            QUICK_LABELED_INPUT (N_ ("Enter search string:"), input_label_above, INPUT_LAST_TEXT,
                                  MC_HISTORY_SHARED_SEARCH, &exp, NULL, FALSE, FALSE,
                                  INPUT_COMPLETE_NONE),
             QUICK_SEPARATOR (TRUE),
             QUICK_START_COLUMNS,
-                QUICK_RADIO (num_of_types, (const char **) list_of_types,
-                             (int *) &mcdiffview_search_options.type, NULL),
+            QUICK_RADIO (num_of_types, (const char **) list_of_types,
+                         (int *) &mcdiffview_search_options.type, NULL),
             QUICK_NEXT_COLUMN,
-                QUICK_CHECKBOX (N_("Cas&e sensitive"), &mcdiffview_search_options.case_sens, NULL),
-                QUICK_CHECKBOX (N_("&Backwards"), &mcdiffview_search_options.backwards, NULL),
-                QUICK_CHECKBOX (N_("&Whole words"), &mcdiffview_search_options.whole_words, NULL),
+            QUICK_CHECKBOX (N_ ("Cas&e sensitive"), &mcdiffview_search_options.case_sens, NULL),
+            QUICK_CHECKBOX (N_ ("&Backwards"), &mcdiffview_search_options.backwards, NULL),
+            QUICK_CHECKBOX (N_ ("&Whole words"), &mcdiffview_search_options.whole_words, NULL),
 #ifdef HAVE_CHARSET
-                QUICK_CHECKBOX (N_("&All charsets"), &mcdiffview_search_options.all_codepages, NULL),
+            QUICK_CHECKBOX (N_ ("&All charsets"), &mcdiffview_search_options.all_codepages, NULL),
 #endif
             QUICK_STOP_COLUMNS,
             QUICK_BUTTONS_OK_CANCEL,
@@ -106,10 +106,7 @@ mcdiffview_dialog_search (WDiff *dview)
 
         WRect r = { -1, -1, 0, 58 };
 
-        quick_dialog_t qdlg = {
-            r, N_("Search"), "[Input Line Keys]",
-            quick_widgets, NULL, NULL
-        };
+        quick_dialog_t qdlg = { r, N_ ("Search"), "[Input Line Keys]", quick_widgets, NULL, NULL };
 
         qd_result = quick_dialog (&qdlg);
     }
@@ -161,14 +158,14 @@ mcdiffview_do_search_backward (WDiff *dview)
     {
         DIFFLN *p;
 
-        p = (DIFFLN *) & g_array_index (dview->a[dview->ord], DIFFLN, (size_t) ind);
+        p = (DIFFLN *) &g_array_index (dview->a[dview->ord], DIFFLN, (size_t) ind);
         if (p->u.len == 0)
             continue;
 
         if (mc_search_run (dview->search.handle, p->p, 0, p->u.len, NULL))
         {
-            dview->skip_rows = dview->search.last_found_line =
-                dview->search.last_accessed_num_line = ind;
+            dview->skip_rows = dview->search.last_found_line = dview->search.last_accessed_num_line
+                = ind;
             return TRUE;
         }
     }
@@ -176,7 +173,6 @@ mcdiffview_do_search_backward (WDiff *dview)
 }
 
 /* --------------------------------------------------------------------------------------------- */
-
 
 static gboolean
 mcdiffview_do_search_forward (WDiff *dview)
@@ -196,14 +192,14 @@ mcdiffview_do_search_forward (WDiff *dview)
     {
         DIFFLN *p;
 
-        p = (DIFFLN *) & g_array_index (dview->a[dview->ord], DIFFLN, ind);
+        p = (DIFFLN *) &g_array_index (dview->a[dview->ord], DIFFLN, ind);
         if (p->u.len == 0)
             continue;
 
         if (mc_search_run (dview->search.handle, p->p, 0, p->u.len, NULL))
         {
-            dview->skip_rows = dview->search.last_found_line =
-                dview->search.last_accessed_num_line = (ssize_t) ind;
+            dview->skip_rows = dview->search.last_found_line = dview->search.last_accessed_num_line
+                = (ssize_t) ind;
             return TRUE;
         }
     }
@@ -233,7 +229,7 @@ mcdiffview_do_search (WDiff *dview)
     if (!present_result)
     {
         dview->search.last_found_line = -1;
-        query_dialog (_("Search"), _(STR_E_NOTFOUND), D_NORMAL, 1, _("&Dismiss"));
+        query_dialog (_ ("Search"), _ (STR_E_NOTFOUND), D_NORMAL, 1, _ ("&Dismiss"));
     }
 }
 
@@ -246,7 +242,7 @@ dview_search_cmd (WDiff *dview)
 {
     if (dview->dsrc != DATA_SRC_MEM)
     {
-        error_dialog (_("Search"), _("Search is disabled"));
+        error_dialog (_ ("Search"), _ ("Search is disabled"));
         return;
     }
 
@@ -279,7 +275,7 @@ void
 dview_continue_search_cmd (WDiff *dview)
 {
     if (dview->dsrc != DATA_SRC_MEM)
-        error_dialog (_("Search"), _("Search is disabled"));
+        error_dialog (_ ("Search"), _ ("Search is disabled"));
     else if (dview->search.handle == NULL)
         dview_search_cmd (dview);
     else

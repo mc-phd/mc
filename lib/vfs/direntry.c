@@ -59,7 +59,7 @@
 #include <config.h>
 
 #include <errno.h>
-#include <inttypes.h>           /* uintmax_t */
+#include <inttypes.h> /* uintmax_t */
 #include <stdarg.h>
 #ifdef HAVE_SYS_SELECT_H
 #include <sys/select.h>
@@ -69,24 +69,24 @@
 
 #include "lib/global.h"
 
-#include "lib/tty/tty.h"        /* enable/disable interrupt key */
-#include "lib/util.h"           /* canonicalize_pathname_custom() */
+#include "lib/tty/tty.h" /* enable/disable interrupt key */
+#include "lib/util.h"    /* canonicalize_pathname_custom() */
 #if 0
-#include "lib/widget.h"         /* message() */
+#include "lib/widget.h" /* message() */
 #endif
 
 #include "vfs.h"
 #include "utilvfs.h"
 #include "xdirentry.h"
-#include "gc.h"                 /* vfs_rmstamp */
+#include "gc.h" /* vfs_rmstamp */
 
 /*** global variables ****************************************************************************/
 
 /*** file scope macro definitions ****************************************************************/
 
-#define CALL(x) \
-        if (VFS_SUBCLASS (me)->x != NULL) \
-            VFS_SUBCLASS (me)->x
+#define CALL(x)                                                                                    \
+    if (VFS_SUBCLASS (me)->x != NULL)                                                              \
+    VFS_SUBCLASS (me)->x
 
 /*** file scope type declarations ****************************************************************/
 
@@ -162,8 +162,8 @@ vfs_s_resolve_symlink (struct vfs_class *me, struct vfs_s_entry *entry, int foll
         }
     }
 
-    target =
-        VFS_SUBCLASS (me)->find_entry (me, entry->dir->super->root, linkname, follow - 1, FL_NONE);
+    target = VFS_SUBCLASS (me)->find_entry (me, entry->dir->super->root, linkname, follow - 1,
+                                            FL_NONE);
     g_free (fullname);
     return target;
 }
@@ -175,8 +175,8 @@ vfs_s_resolve_symlink (struct vfs_class *me, struct vfs_s_entry *entry, int foll
  */
 
 static struct vfs_s_entry *
-vfs_s_find_entry_tree (struct vfs_class *me, struct vfs_s_inode *root,
-                       const char *a_path, int follow, int flags)
+vfs_s_find_entry_tree (struct vfs_class *me, struct vfs_s_inode *root, const char *a_path,
+                       int follow, int flags)
 {
     size_t pseg;
     struct vfs_s_entry *ent = NULL;
@@ -190,7 +190,7 @@ vfs_s_find_entry_tree (struct vfs_class *me, struct vfs_s_inode *root,
     {
         GList *iter;
 
-        while (IS_PATH_SEP (*path))     /* Strip leading '/' */
+        while (IS_PATH_SEP (*path)) /* Strip leading '/' */
             path++;
 
         if (path[0] == '\0')
@@ -229,7 +229,7 @@ vfs_s_find_entry_tree (struct vfs_class *me, struct vfs_s_inode *root,
             goto cleanup;
         root = ent->ino;
     }
-  cleanup:
+cleanup:
     g_free (pathref);
     return NULL;
 }
@@ -237,8 +237,8 @@ vfs_s_find_entry_tree (struct vfs_class *me, struct vfs_s_inode *root,
 /* --------------------------------------------------------------------------------------------- */
 
 static struct vfs_s_entry *
-vfs_s_find_entry_linear (struct vfs_class *me, struct vfs_s_inode *root,
-                         const char *a_path, int follow, int flags)
+vfs_s_find_entry_linear (struct vfs_class *me, struct vfs_s_inode *root, const char *a_path,
+                         int follow, int flags)
 {
     struct vfs_s_entry *ent = NULL;
     char *const path = g_strdup (a_path);
@@ -271,7 +271,7 @@ vfs_s_find_entry_linear (struct vfs_class *me, struct vfs_s_inode *root,
     if (ent != NULL && !VFS_SUBCLASS (me)->dir_uptodate (me, ent->ino))
     {
 #if 1
-        vfs_print_message (_("Directory cache expired for %s"), path);
+        vfs_print_message (_ ("Directory cache expired for %s"), path);
 #endif
         vfs_s_free_entry (me, ent);
         ent = NULL;
@@ -404,16 +404,13 @@ vfs_s_inode_from_path (const vfs_path_t *vpath, int flags)
 
     me = VFS_CLASS (vfs_path_get_last_path_vfs (vpath));
 
-    ino =
-        vfs_s_find_inode (me, super, q,
-                          (flags & FL_FOLLOW) != 0 ? LINK_FOLLOW : LINK_NO_FOLLOW,
-                          flags & ~FL_FOLLOW);
+    ino = vfs_s_find_inode (me, super, q, (flags & FL_FOLLOW) != 0 ? LINK_FOLLOW : LINK_NO_FOLLOW,
+                            flags & ~FL_FOLLOW);
     if (ino == NULL && *q == '\0')
         /* We are asking about / directory of ftp server: assume it exists */
-        ino =
-            vfs_s_find_inode (me, super, q,
-                              (flags & FL_FOLLOW) != 0 ? LINK_FOLLOW : LINK_NO_FOLLOW,
-                              FL_DIR | (flags & ~FL_FOLLOW));
+        ino = vfs_s_find_inode (me, super, q,
+                                (flags & FL_FOLLOW) != 0 ? LINK_FOLLOW : LINK_NO_FOLLOW,
+                                FL_DIR | (flags & ~FL_FOLLOW));
     return ino;
 }
 
@@ -623,7 +620,7 @@ vfs_s_lseek (void *fh, off_t offset, int whence)
         vfs_die ("cannot lseek() after linear_read!");
 
     if (file->handle != -1)
-    {                           /* If we have local file opened, we want to work with it */
+    { /* If we have local file opened, we want to work with it */
         off_t retval;
 
         retval = lseek (file->handle, offset, whence);
@@ -705,14 +702,14 @@ vfs_s_close (void *fh)
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-vfs_s_print_stats (const char *fs_name, const char *action,
-                   const char *file_name, off_t have, off_t need)
+vfs_s_print_stats (const char *fs_name, const char *action, const char *file_name, off_t have,
+                   off_t need)
 {
     if (need != 0)
-        vfs_print_message (_("%s: %s: %s %3d%% (%lld) bytes transferred"), fs_name, action,
+        vfs_print_message (_ ("%s: %s: %s %3d%% (%lld) bytes transferred"), fs_name, action,
                            file_name, (int) ((double) have * 100 / need), (long long) have);
     else
-        vfs_print_message (_("%s: %s: %s %lld bytes transferred"), fs_name, action, file_name,
+        vfs_print_message (_ ("%s: %s: %s %lld bytes transferred"), fs_name, action, file_name,
                            (long long) have);
 }
 
@@ -802,21 +799,21 @@ vfs_s_setctl (const vfs_path_t *vpath, int ctlop, void *arg)
     switch (ctlop)
     {
     case VFS_SETCTL_STALE_DATA:
-        {
-            struct vfs_s_inode *ino;
+    {
+        struct vfs_s_inode *ino;
 
-            ino = vfs_s_inode_from_path (vpath, 0);
-            if (ino == NULL)
-                return 0;
-            if (arg != NULL)
-                ino->super->want_stale = TRUE;
-            else
-            {
-                ino->super->want_stale = FALSE;
-                vfs_s_invalidate (me, ino->super);
-            }
-            return 1;
+        ino = vfs_s_inode_from_path (vpath, 0);
+        if (ino == NULL)
+            return 0;
+        if (arg != NULL)
+            ino->super->want_stale = TRUE;
+        else
+        {
+            ino->super->want_stale = FALSE;
+            vfs_s_invalidate (me, ino->super);
         }
+        return 1;
+    }
     case VFS_SETCTL_LOGFILE:
         me->logfile = fopen ((char *) arg, "w");
         return 1;
@@ -1089,8 +1086,8 @@ vfs_s_generate_entry (struct vfs_class *me, const char *name, struct vfs_s_inode
 /* --------------------------------------------------------------------------------------------- */
 
 struct vfs_s_inode *
-vfs_s_find_inode (struct vfs_class *me, const struct vfs_s_super *super,
-                  const char *path, int follow, int flags)
+vfs_s_find_inode (struct vfs_class *me, const struct vfs_s_super *super, const char *path,
+                  int follow, int flags)
 {
     struct vfs_s_entry *ent;
 
@@ -1153,7 +1150,7 @@ vfs_get_super_by_vpath (const vfs_path_t *vpath)
         super = NULL;
     }
 
-  ret:
+ret:
     vfs_path_free (vpath_archive, TRUE);
     return super;
 }
@@ -1194,8 +1191,8 @@ vfs_s_get_path (const vfs_path_t *vpath, struct vfs_s_super **archive, int flags
 
     subclass = VFS_SUBCLASS (path_element->class);
 
-    super = subclass->new_archive != NULL ?
-        subclass->new_archive (path_element->class) : vfs_s_new_super (path_element->class);
+    super = subclass->new_archive != NULL ? subclass->new_archive (path_element->class)
+                                          : vfs_s_new_super (path_element->class);
 
     if (subclass->open_archive != NULL)
     {
@@ -1221,7 +1218,7 @@ vfs_s_get_path (const vfs_path_t *vpath, struct vfs_s_super **archive, int flags
     vfs_s_insert_super (path_element->class, super);
     vfs_stamp_create (path_element->class, super);
 
-  return_success:
+return_success:
     *archive = super;
     return retval;
 }
@@ -1367,7 +1364,7 @@ vfs_s_open (const vfs_path_t *vpath, int flags, mode_t mode)
     {
         if (s->linear_start != NULL)
         {
-            vfs_print_message ("%s", _("Starting linear transfer..."));
+            vfs_print_message ("%s", _ ("Starting linear transfer..."));
             fh->linear = LS_LINEAR_PREOPEN;
         }
     }
@@ -1466,7 +1463,7 @@ vfs_s_retrieve_file (struct vfs_class *me, struct vfs_s_inode *ino)
             goto error_1;
 
         total += n;
-        vfs_s_print_stats (me->name, _("Getting file"), ino->ent->name, total, stat_size);
+        vfs_s_print_stats (me->name, _ ("Getting file"), ino->ent->name, total, stat_size);
 
         if (tty_got_interrupt ())
             goto error_1;
@@ -1486,13 +1483,13 @@ vfs_s_retrieve_file (struct vfs_class *me, struct vfs_s_inode *ino)
     vfs_s_free_fh (s, fh);
     return 0;
 
-  error_1:
+error_1:
     s->linear_close (me, fh);
-  error_3:
+error_3:
     tty_disable_interrupt_key ();
     close (handle);
     unlink (ino->localname);
-  error_4:
+error_4:
     MC_PTR_FREE (ino->localname);
     if (fh != NULL)
         vfs_s_free_fh (s, fh);
@@ -1697,7 +1694,7 @@ vfs_s_get_line_interruptible (struct vfs_class *me, char *buffer, int size, int 
 
     buffer[size - 1] = '\0';
 
-  ret:
+ret:
     tty_disable_interrupt_key ();
 
     return res;

@@ -31,14 +31,13 @@
  * \date 2011
  */
 
-
 #include <config.h>
 
 #include <errno.h>
 
 #include "lib/global.h"
 #include "lib/strutil.h"
-#include "lib/util.h"           /* mc_build_filename() */
+#include "lib/util.h" /* mc_build_filename() */
 #include "lib/serialize.h"
 
 #include "vfs.h"
@@ -207,7 +206,7 @@ vfs_get_encoding (const char *path, ssize_t len)
     {
         char *slash;
 
-        semi += strlen (VFS_ENCODING_PREFIX);   /* skip "#enc:" */
+        semi += strlen (VFS_ENCODING_PREFIX); /* skip "#enc:" */
         slash = strchr (semi, PATH_SEP);
         if (slash != NULL)
             return g_strndup (semi, slash - semi);
@@ -372,7 +371,7 @@ vfs_path_is_str_path_deprecated (const char *path_str)
  * @param path_str VFS-path
  *
  * @return pointer to newly created vfs_path_t object with filled path elements array.
-*/
+ */
 
 static vfs_path_t *
 vfs_path_from_str_deprecated_parser (char *path)
@@ -395,11 +394,11 @@ vfs_path_from_str_deprecated_parser (char *path)
 
 #ifdef HAVE_CHARSET
         element->encoding = vfs_get_encoding (local, -1);
-        element->dir.converter =
-            (element->encoding != NULL) ? str_crt_conv_from (element->encoding) : INVALID_CONV;
+        element->dir.converter
+            = (element->encoding != NULL) ? str_crt_conv_from (element->encoding) : INVALID_CONV;
 #endif
 
-        url_params = strchr (op, ':');  /* skip VFS prefix */
+        url_params = strchr (op, ':'); /* skip VFS prefix */
         if (url_params != NULL)
         {
             *url_params = '\0';
@@ -420,8 +419,8 @@ vfs_path_from_str_deprecated_parser (char *path)
 
 #ifdef HAVE_CHARSET
         element->encoding = vfs_get_encoding (path, -1);
-        element->dir.converter =
-            (element->encoding != NULL) ? str_crt_conv_from (element->encoding) : INVALID_CONV;
+        element->dir.converter
+            = (element->encoding != NULL) ? str_crt_conv_from (element->encoding) : INVALID_CONV;
 #endif
         g_array_prepend_val (vpath->path, element);
     }
@@ -436,7 +435,7 @@ vfs_path_from_str_deprecated_parser (char *path)
  * @param flags    flags for converter
  *
  * @return pointer to newly created vfs_path_t object with filled path elements array.
-*/
+ */
 
 static vfs_path_t *
 vfs_path_from_str_uri_parser (char *path)
@@ -501,13 +500,13 @@ vfs_path_from_str_uri_parser (char *path)
 #endif
         }
 #ifdef HAVE_CHARSET
-        element->dir.converter =
-            (element->encoding != NULL) ? str_crt_conv_from (element->encoding) : INVALID_CONV;
+        element->dir.converter
+            = (element->encoding != NULL) ? str_crt_conv_from (element->encoding) : INVALID_CONV;
 #endif
         g_array_prepend_val (vpath->path, element);
 
-        if ((real_vfs_prefix_start > path && IS_PATH_SEP (*real_vfs_prefix_start)) ||
-            (real_vfs_prefix_start == path && !IS_PATH_SEP (*real_vfs_prefix_start)))
+        if ((real_vfs_prefix_start > path && IS_PATH_SEP (*real_vfs_prefix_start))
+            || (real_vfs_prefix_start == path && !IS_PATH_SEP (*real_vfs_prefix_start)))
             *real_vfs_prefix_start = '\0';
         else
             *(real_vfs_prefix_start + 1) = '\0';
@@ -520,8 +519,8 @@ vfs_path_from_str_uri_parser (char *path)
         element->path = vfs_translate_path_n (path);
 #ifdef HAVE_CHARSET
         element->encoding = vfs_get_encoding (path, -1);
-        element->dir.converter =
-            (element->encoding != NULL) ? str_crt_conv_from (element->encoding) : INVALID_CONV;
+        element->dir.converter
+            = (element->encoding != NULL) ? str_crt_conv_from (element->encoding) : INVALID_CONV;
 #endif
         g_array_prepend_val (vpath->path, element);
     }
@@ -605,24 +604,24 @@ vfs_path_strip_home (const char *dir)
 /*** public functions ****************************************************************************/
 /* --------------------------------------------------------------------------------------------- */
 
-#define vfs_append_from_path(appendfrom, is_relative) \
-{ \
-    if ((flags & VPF_STRIP_HOME) && element_index == 0 && \
-        (element->class->flags & VFSF_LOCAL) != 0) \
-    { \
-        char *stripped_home_str; \
-        stripped_home_str = vfs_path_strip_home (appendfrom); \
-        g_string_append (buffer, stripped_home_str); \
-        g_free (stripped_home_str); \
-    } \
-    else \
-    { \
-        if (!is_relative && !IS_PATH_SEP (*appendfrom) && *appendfrom != '\0' \
-            && (buffer->len == 0 || !IS_PATH_SEP (buffer->str[buffer->len - 1]))) \
-            g_string_append_c (buffer, PATH_SEP); \
-        g_string_append (buffer, appendfrom); \
-    } \
-}
+#define vfs_append_from_path(appendfrom, is_relative)                                              \
+    {                                                                                              \
+        if ((flags & VPF_STRIP_HOME) && element_index == 0                                         \
+            && (element->class->flags & VFSF_LOCAL) != 0)                                          \
+        {                                                                                          \
+            char *stripped_home_str;                                                               \
+            stripped_home_str = vfs_path_strip_home (appendfrom);                                  \
+            g_string_append (buffer, stripped_home_str);                                           \
+            g_free (stripped_home_str);                                                            \
+        }                                                                                          \
+        else                                                                                       \
+        {                                                                                          \
+            if (!is_relative && !IS_PATH_SEP (*appendfrom) && *appendfrom != '\0'                  \
+                && (buffer->len == 0 || !IS_PATH_SEP (buffer->str[buffer->len - 1])))              \
+                g_string_append_c (buffer, PATH_SEP);                                              \
+            g_string_append (buffer, appendfrom);                                                  \
+        }                                                                                          \
+    }
 
 /**
  * Convert first elements_count elements from vfs_path_t to string representation with flags.
@@ -1017,7 +1016,8 @@ vfs_path_free (vfs_path_t *vpath, gboolean free_str)
  * Remove one path element by index
  *
  * @param vpath pointer to vfs_path_t object
- * @param element_index element index. May have negative value (in this case count was started at the end of list).
+ * @param element_index element index. May have negative value (in this case count was started at
+ * the end of list).
  *
  */
 
@@ -1229,8 +1229,8 @@ vfs_path_deserialize (const char *data, GError **mcerror)
 
 #ifdef HAVE_CHARSET
         element->encoding = mc_config_get_string_raw (cpath, groupname, "encoding", NULL);
-        element->dir.converter =
-            (element->encoding != NULL) ? str_crt_conv_from (element->encoding) : INVALID_CONV;
+        element->dir.converter
+            = (element->encoding != NULL) ? str_crt_conv_from (element->encoding) : INVALID_CONV;
 #endif
 
         element->vfs_prefix = mc_config_get_string_raw (cpath, groupname, "vfs_prefix", NULL);
@@ -1314,7 +1314,6 @@ vfs_path_append_new (const vfs_path_t *vpath, const char *first_element, ...)
     g_free (str_path);
 
     return ret_vpath;
-
 }
 
 /* --------------------------------------------------------------------------------------------- */

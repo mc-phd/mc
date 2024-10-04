@@ -34,7 +34,7 @@
 #include <signal.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#include <string.h>             /* memset() */
+#include <string.h> /* memset() */
 
 #ifdef HAVE_SYS_SELECT_H
 #include <sys/select.h>
@@ -42,7 +42,7 @@
 #include <sys/time.h>
 #include <sys/types.h>
 #endif
-#include <unistd.h>             /* exit() */
+#include <unistd.h> /* exit() */
 
 #ifdef HAVE_SYS_IOCTL_H
 #include <sys/ioctl.h>
@@ -56,8 +56,8 @@
 
 #include "tty.h"
 #include "tty-internal.h"
-#include "color.h"              /* tty_set_normal_attrs() */
-#include "mouse.h"              /* use_mouse_p */
+#include "color.h" /* tty_set_normal_attrs() */
+#include "mouse.h" /* use_mouse_p */
 #include "win.h"
 
 /*** global variables ****************************************************************************/
@@ -114,22 +114,17 @@ tty_check_term (gboolean force_xterm)
     termvalue = getenv ("TERM");
     if (termvalue == NULL || *termvalue == '\0')
     {
-        fputs (_("The TERM environment variable is unset!\n"), stderr);
+        fputs (_ ("The TERM environment variable is unset!\n"), stderr);
         exit (EXIT_FAILURE);
     }
 
     /* *INDENT-OFF* */
-    return force_xterm
-        || strncmp (termvalue, "xterm", 5) == 0
-        || strncmp (termvalue, "konsole", 7) == 0
-        || strncmp (termvalue, "rxvt", 4) == 0
-        || strcmp (termvalue, "Eterm") == 0
-        || strcmp (termvalue, "dtterm") == 0
-        || strncmp (termvalue, "alacritty", 9) == 0
-        || strncmp (termvalue, "foot", 4) == 0
-        || strncmp (termvalue, "screen", 6) == 0
-        || strncmp (termvalue, "tmux", 4) == 0
-        || strncmp (termvalue, "contour", 7) == 0;
+    return force_xterm || strncmp (termvalue, "xterm", 5) == 0
+           || strncmp (termvalue, "konsole", 7) == 0 || strncmp (termvalue, "rxvt", 4) == 0
+           || strcmp (termvalue, "Eterm") == 0 || strcmp (termvalue, "dtterm") == 0
+           || strncmp (termvalue, "alacritty", 9) == 0 || strncmp (termvalue, "foot", 4) == 0
+           || strncmp (termvalue, "screen", 6) == 0 || strncmp (termvalue, "tmux", 4) == 0
+           || strncmp (termvalue, "contour", 7) == 0;
     /* *INDENT-ON* */
 }
 
@@ -206,7 +201,7 @@ tty_got_winch (void)
     while ((ok = select (sigwinch_pipe[0] + 1, &fdset, NULL, NULL, &timeout)) < 0)
         if (errno != EINTR)
         {
-            perror (_("Cannot check SIGWINCH pipe"));
+            perror (_ ("Cannot check SIGWINCH pipe"));
             exit (EXIT_FAILURE);
         }
 
@@ -391,9 +386,9 @@ tty_init_xterm_support (gboolean is_xterm)
             {
                 /* FIXME: this dirty hack to set supported type of tracking the mouse */
                 const char *color_term = getenv ("COLORTERM");
-                if (strncmp (termvalue, "rxvt", 4) == 0 ||
-                    (color_term != NULL && strncmp (color_term, "rxvt", 4) == 0) ||
-                    strcmp (termvalue, "Eterm") == 0)
+                if (strncmp (termvalue, "rxvt", 4) == 0
+                    || (color_term != NULL && strncmp (color_term, "rxvt", 4) == 0)
+                    || strcmp (termvalue, "Eterm") == 0)
                     use_mouse_p = MOUSE_XTERM_NORMAL_TRACKING;
                 else
                     use_mouse_p = MOUSE_XTERM_BUTTON_EVENT_TRACKING;

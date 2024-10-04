@@ -49,22 +49,22 @@
 #include "lib/global.h"
 
 #include "lib/tty/tty.h"
-#include "lib/tty/key.h"        /* is_idle() */
-#include "lib/lock.h"           /* lock_file() */
+#include "lib/tty/key.h" /* is_idle() */
+#include "lib/lock.h"    /* lock_file() */
 #include "lib/file-entry.h"
 #include "lib/widget.h"
 #ifdef HAVE_CHARSET
 #include "lib/charsets.h"
 #endif
-#include "lib/event.h"          /* mc_event_raise() */
-#include "lib/mcconfig.h"       /* mc_config_history_get_recent_item() */
+#include "lib/event.h"    /* mc_event_raise() */
+#include "lib/mcconfig.h" /* mc_config_history_get_recent_item() */
 
 #include "src/filemanager/layout.h"
-#include "src/filemanager/filemanager.h"        /* current_panel */
-#include "src/filemanager/ext.h"        /* regex_command_for() */
+#include "src/filemanager/filemanager.h" /* current_panel */
+#include "src/filemanager/ext.h"         /* regex_command_for() */
 
-#include "src/history.h"        /* MC_HISTORY_SHARED_SEARCH */
-#include "src/file_history.h"   /* show_file_history() */
+#include "src/history.h"      /* MC_HISTORY_SHARED_SEARCH */
+#include "src/file_history.h" /* show_file_history() */
 #include "src/execute.h"
 #include "src/keymap.h"
 
@@ -284,8 +284,8 @@ mcview_load_next_prev_init (WView *view)
         view->dir = g_new0 (dir_list, 1);
         view->dir_idx = g_new (int, 1);
 
-        if (dir_list_load
-            (view->dir, view->workdir_vpath, (GCompareFunc) sort_name, &sort_op, NULL))
+        if (dir_list_load (view->dir, view->workdir_vpath, (GCompareFunc) sort_name, &sort_op,
+                           NULL))
         {
             const char *fname;
             size_t fname_len;
@@ -307,7 +307,7 @@ mcview_load_next_prev_init (WView *view)
         }
         else
         {
-            message (D_ERROR, MSG_ERROR, _("Cannot read directory contents"));
+            message (D_ERROR, MSG_ERROR, _ ("Cannot read directory contents"));
             MC_PTR_FREE (view->dir);
             MC_PTR_FREE (view->dir_idx);
         }
@@ -352,8 +352,8 @@ mcview_load_next_prev (WView *view, int direction)
     dir_idx = view->dir_idx;
     view->dir = NULL;
     view->dir_idx = NULL;
-    vfile =
-        vfs_path_append_new (view->workdir_vpath, dir->list[*dir_idx].fname->str, (char *) NULL);
+    vfile
+        = vfs_path_append_new (view->workdir_vpath, dir->list[*dir_idx].fname->str, (char *) NULL);
     mcview_done (view);
     mcview_remove_ext_script (view);
     mcview_init (view);
@@ -364,7 +364,7 @@ mcview_load_next_prev (WView *view, int direction)
     view->dir_idx = dir_idx;
     view->ext_script = ext_script;
 
-    view->dpy_bbar_dirty = FALSE;       /* FIXME */
+    view->dpy_bbar_dirty = FALSE; /* FIXME */
     view->dirty++;
 }
 
@@ -385,7 +385,7 @@ mcview_load_file_from_history (WView *view)
 
         mcview_load (view, NULL, filename, 0, 0, 0);
 
-        view->dpy_bbar_dirty = FALSE;   /* FIXME */
+        view->dpy_bbar_dirty = FALSE; /* FIXME */
         view->dirty++;
     }
 
@@ -422,21 +422,21 @@ mcview_execute_cmd (WView *view, long command)
             mcview_move_right (view, 10);
         break;
     case CK_Goto:
-        {
-            off_t addr;
+    {
+        off_t addr;
 
-            if (mcview_dialog_goto (view, &addr))
+        if (mcview_dialog_goto (view, &addr))
+        {
+            if (addr >= 0)
+                mcview_moveto_offset (view, addr);
+            else
             {
-                if (addr >= 0)
-                    mcview_moveto_offset (view, addr);
-                else
-                {
-                    message (D_ERROR, _("Warning"), "%s", _("Invalid value"));
-                    view->dirty++;
-                }
+                message (D_ERROR, _ ("Warning"), "%s", _ ("Invalid value"));
+                view->dirty++;
             }
-            break;
         }
+        break;
+    }
     case CK_Save:
         mcview_hexedit_save_changes (view);
         break;
@@ -463,15 +463,15 @@ mcview_execute_cmd (WView *view, long command)
         mcview_continue_search_cmd (view);
         break;
     case CK_SearchOppositeContinue:
-        {
-            gboolean direction;
+    {
+        gboolean direction;
 
-            direction = mcview_search_options.backwards;
-            mcview_search_options.backwards = !direction;
-            mcview_continue_search_cmd (view);
-            mcview_search_options.backwards = direction;
-        }
-        break;
+        direction = mcview_search_options.backwards;
+        mcview_search_options.backwards = !direction;
+        mcview_continue_search_cmd (view);
+        mcview_search_options.backwards = direction;
+    }
+    break;
     case CK_WrapMode:
         /* Toggle between wrapped and unwrapped view */
         mcview_toggle_wrap_mode (view);
@@ -526,7 +526,7 @@ mcview_execute_cmd (WView *view, long command)
         break;
     case CK_Bookmark:
         view->dpy_start = view->marks[view->marker];
-        view->dpy_paragraph_skip_lines = 0;     /* TODO: remember this value in the marker? */
+        view->dpy_paragraph_skip_lines = 0; /* TODO: remember this value in the marker? */
         view->dpy_wrap_dirty = TRUE;
         view->dirty++;
         break;
@@ -593,7 +593,7 @@ mcview_handle_key (WView *view, int key)
 
 #ifdef MC_ENABLE_DEBUGGING_CODE
     if (key == 't')
-    {                           /* mnemonic: "test" */
+    { /* mnemonic: "test" */
         mcview_ccache_dump (view);
         return MSG_HANDLED;
     }
@@ -604,7 +604,6 @@ mcview_handle_key (WView *view, int key)
     /* Key not used */
     return MSG_NOT_HANDLED;
 }
-
 
 /* --------------------------------------------------------------------------------------------- */
 
@@ -629,15 +628,14 @@ mcview_ok_to_quit (WView *view)
     if (!mc_global.midnight_shutdown)
     {
         query_set_sel (2);
-        r = query_dialog (_("Quit"),
-                          _("File was modified. Save with exit?"), D_NORMAL, 3,
-                          _("&Yes"), _("&No"), _("&Cancel quit"));
+        r = query_dialog (_ ("Quit"), _ ("File was modified. Save with exit?"), D_NORMAL, 3,
+                          _ ("&Yes"), _ ("&No"), _ ("&Cancel quit"));
     }
     else
     {
-        r = query_dialog (_("Quit"),
-                          _("Midnight Commander is being shut down.\nSave modified file?"),
-                          D_NORMAL, 2, _("&Yes"), _("&No"));
+        r = query_dialog (_ ("Quit"),
+                          _ ("Midnight Commander is being shut down.\nSave modified file?"),
+                          D_NORMAL, 2, _ ("&Yes"), _ ("&No"));
         /* Esc is No */
         if (r == -1)
             r = 1;
@@ -645,9 +643,9 @@ mcview_ok_to_quit (WView *view)
 
     switch (r)
     {
-    case 0:                    /* Yes */
+    case 0: /* Yes */
         return mcview_hexedit_save_changes (view) || mc_global.midnight_shutdown;
-    case 1:                    /* No */
+    case 1: /* No */
         mcview_hexedit_free_change_list (view);
         return TRUE;
     default:

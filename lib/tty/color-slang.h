@@ -6,7 +6,7 @@
 #ifndef MC__COLOR_SLANG_H
 #define MC__COLOR_SLANG_H
 
-#include "tty-slang.h"          /* S-Lang headers */
+#include "tty-slang.h" /* S-Lang headers */
 
 /*** typedefs(not structures) and defined constants **********************************************/
 
@@ -16,8 +16,8 @@
 
 #ifndef A_BOLD
 #define A_BOLD SLTT_BOLD_MASK
-#endif /* A_BOLD */
-#ifdef SLTT_ITALIC_MASK         /* available since slang-pre2.3.0-107 */
+#endif                  /* A_BOLD */
+#ifdef SLTT_ITALIC_MASK /* available since slang-pre2.3.0-107 */
 #ifndef A_ITALIC
 #define A_ITALIC SLTT_ITALIC_MASK
 #endif /* A_ITALIC */

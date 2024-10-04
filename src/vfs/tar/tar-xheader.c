@@ -30,13 +30,13 @@
 
 #include <config.h>
 
-#include <ctype.h>              /* isdigit() */
+#include <ctype.h> /* isdigit() */
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "lib/global.h"
-#include "lib/util.h"           /* MC_PTR_FREE */
+#include "lib/util.h" /* MC_PTR_FREE */
 
 #include "tar-internal.h"
 
@@ -56,7 +56,8 @@
 struct xhdr_tab
 {
     const char *keyword;
-    gboolean (*decoder) (struct tar_stat_info * st, const char *keyword, const char *arg, size_t size);
+    gboolean (*decoder) (struct tar_stat_info *st, const char *keyword, const char *arg,
+                         size_t size);
     int flags;
 };
 /* *INDENT-ON* */
@@ -131,46 +132,44 @@ enum
 };
 
 /* *INDENT-OFF* */
-static struct xhdr_tab xhdr_tab[] =
-{
-    { "atime",                atime_decoder,            0  },
-    { "comment",              dummy_decoder,            0  },
-    { "charset",              dummy_decoder,            0  },
-    { "ctime",                ctime_decoder,            0  },
-    { "gid",                  gid_decoder,              0  },
+static struct xhdr_tab xhdr_tab[]
+    = { { "atime", atime_decoder, 0 },
+        { "comment", dummy_decoder, 0 },
+        { "charset", dummy_decoder, 0 },
+        { "ctime", ctime_decoder, 0 },
+        { "gid", gid_decoder, 0 },
 #if 0
     { "gname",                gname_decoder,            0  },
 #endif
-    { "linkpath",             linkpath_decoder,         0  },
-    { "mtime",                mtime_decoder,            0  },
-    { "path",                 path_decoder,             0  },
-    { "size",                 size_decoder,             0  },
-    { "uid",                  uid_decoder,              0  },
+        { "linkpath", linkpath_decoder, 0 },
+        { "mtime", mtime_decoder, 0 },
+        { "path", path_decoder, 0 },
+        { "size", size_decoder, 0 },
+        { "uid", uid_decoder, 0 },
 #if 0
     { "uname",                uname_decoder,            0  },
 #endif
 
-    /* Sparse file handling */
-    { "GNU.sparse.name",      sparse_path_decoder,      XHDR_PROTECTED },
-    { "GNU.sparse.major",     sparse_major_decoder,     XHDR_PROTECTED },
-    { "GNU.sparse.minor",     sparse_minor_decoder,     XHDR_PROTECTED },
-    { "GNU.sparse.realsize",  sparse_size_decoder,      XHDR_PROTECTED },
-    { "GNU.sparse.numblocks", sparse_numblocks_decoder, XHDR_PROTECTED },
+        /* Sparse file handling */
+        { "GNU.sparse.name", sparse_path_decoder, XHDR_PROTECTED },
+        { "GNU.sparse.major", sparse_major_decoder, XHDR_PROTECTED },
+        { "GNU.sparse.minor", sparse_minor_decoder, XHDR_PROTECTED },
+        { "GNU.sparse.realsize", sparse_size_decoder, XHDR_PROTECTED },
+        { "GNU.sparse.numblocks", sparse_numblocks_decoder, XHDR_PROTECTED },
 
-    { "GNU.sparse.size",      sparse_size_decoder,      XHDR_PROTECTED },
-    /* tar 1.14 - 1.15.1 keywords. Multiple instances of these appeared in 'x'
-       headers, and each of them was meaningful. It confilcted with POSIX specs,
-       which requires that "when extended header records conflict, the last one
-       given in the header shall take precedence." */
-    { "GNU.sparse.offset",    sparse_offset_decoder,    XHDR_PROTECTED },
-    { "GNU.sparse.numbytes",  sparse_numbytes_decoder,  XHDR_PROTECTED },
-    /* tar 1.15.90 keyword, introduced to remove the above-mentioned conflict. */
-    { "GNU.sparse.map",       sparse_map_decoder,       0 },
+        { "GNU.sparse.size", sparse_size_decoder, XHDR_PROTECTED },
+        /* tar 1.14 - 1.15.1 keywords. Multiple instances of these appeared in 'x'
+           headers, and each of them was meaningful. It confilcted with POSIX specs,
+           which requires that "when extended header records conflict, the last one
+           given in the header shall take precedence." */
+        { "GNU.sparse.offset", sparse_offset_decoder, XHDR_PROTECTED },
+        { "GNU.sparse.numbytes", sparse_numbytes_decoder, XHDR_PROTECTED },
+        /* tar 1.15.90 keyword, introduced to remove the above-mentioned conflict. */
+        { "GNU.sparse.map", sparse_map_decoder, 0 },
 
-    { "GNU.dumpdir",          dumpdir_decoder,          XHDR_PROTECTED },
+        { "GNU.dumpdir", dumpdir_decoder, XHDR_PROTECTED },
 
-    { NULL,                   NULL,                     0 }
-};
+        { NULL, NULL, 0 } };
 /* *INDENT-ON* */
 
 /* List of keyword/value pairs decoded from the last 'g' type header */
@@ -182,9 +181,9 @@ static GSList *global_header_override_list = NULL;
 
 /* Convert a prefix of the string @arg to a system integer type whose minimum value is @minval
    and maximum @maxval. If @minval is negative, negative integers @minval .. -1 are assumed
-   to be represented using leading '-' in the usual way. If the represented value exceeds INTMAX_MAX,
-   return a negative integer V such that (uintmax_t) V yields the represented value. If @arglim is
-   nonnull, store into *@arglim a pointer to the first character after the prefix.
+   to be represented using leading '-' in the usual way. If the represented value exceeds
+   INTMAX_MAX, return a negative integer V such that (uintmax_t) V yields the represented value. If
+   @arglim is nonnull, store into *@arglim a pointer to the first character after the prefix.
 
    This is the inverse of sysinttostr.
 
@@ -192,7 +191,7 @@ static GSList *global_header_override_list = NULL;
    On conversion error, return 0 and set errno = EINVAL.
    On overflow, return an extreme value and set errno = ERANGE.
  */
-#if ! (INTMAX_MAX <= UINTMAX_MAX)
+#if !(INTMAX_MAX <= UINTMAX_MAX)
 #error "strtosysint: nonnegative intmax_t does not fit in uintmax_t"
 #endif
 static intmax_t
@@ -260,7 +259,7 @@ keyword_item_run (gpointer data, gpointer user_data)
     if (t != NULL)
         return t->decoder (st, t->keyword, kp->value, strlen (kp->value));
 
-    return TRUE;                /* FIXME */
+    return TRUE; /* FIXME */
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -433,15 +432,15 @@ decode_signed_num (intmax_t *num, const char *arg, intmax_t minval, uintmax_t ma
     (void) keyword;
 
     if (!isdigit (*arg))
-        return FALSE;           /* malformed extended header */
+        return FALSE; /* malformed extended header */
 
     u = strtosysint (arg, &arg_lim, minval, maxval);
 
     if (errno == EINVAL || *arg_lim != '\0')
-        return FALSE;           /* malformed extended header */
+        return FALSE; /* malformed extended header */
 
     if (errno == ERANGE)
-        return FALSE;           /* out of range */
+        return FALSE; /* out of range */
 
     *num = u;
     return TRUE;
@@ -589,7 +588,7 @@ path_decoder (struct tar_stat_info *st, const char *keyword, const char *arg, si
     if (!st->sparse_name_done)
         return raw_path_decoder (st, arg);
 
-    return TRUE;                /* FIXME */
+    return TRUE; /* FIXME */
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -645,7 +644,7 @@ dumpdir_decoder (struct tar_stat_info *st, const char *keyword, const char *arg,
 {
     (void) keyword;
 
-#if GLIB_CHECK_VERSION (2, 68, 0)
+#if GLIB_CHECK_VERSION(2, 68, 0)
     st->dumpdir = g_memdup2 (arg, size);
 #else
     st->dumpdir = g_memdup (arg, size);
@@ -666,7 +665,8 @@ dumpdir_decoder (struct tar_stat_info *st, const char *keyword, const char *arg,
 static enum decode_record_status
 decode_record (struct xheader *xhdr, char **ptr,
                gboolean (*handler) (void *data, const char *keyword, const char *value,
-                                    size_t size), void *data)
+                                    size_t size),
+               void *data)
 {
     char *start = *ptr;
     char *p = start;
@@ -706,7 +706,7 @@ decode_record (struct xheader *xhdr, char **ptr,
         return decode_record_fail;
 
     *p = nextp[-1] = '\0';
-    ret = handler (data, keyword, p + 1, nextp - p - 2);        /* '=' + trailing '\n' */
+    ret = handler (data, keyword, p + 1, nextp - p - 2); /* '=' + trailing '\n' */
     *p = '=';
     nextp[-1] = '\n';
     *ptr = nextp;
@@ -741,10 +741,7 @@ decg (void *data, const char *keyword, const char *value, size_t size)
 static gboolean
 decx (void *data, const char *keyword, const char *value, size_t size)
 {
-    struct keyword_item kp = {
-        .pattern = (char *) keyword,
-        .value = (char *) value
-    };
+    struct keyword_item kp = { .pattern = (char *) keyword, .value = (char *) value };
 
     (void) size;
 
@@ -773,7 +770,7 @@ sparse_major_decoder (struct tar_stat_info *st, const char *keyword, const char 
     (void) size;
 
     if (!decode_num (&u, arg, TYPE_MAXIMUM (unsigned), keyword))
-          return FALSE;
+        return FALSE;
 
     st->sparse_major = u;
     return TRUE;
@@ -789,7 +786,7 @@ sparse_minor_decoder (struct tar_stat_info *st, const char *keyword, const char 
     (void) size;
 
     if (!decode_num (&u, arg, TYPE_MAXIMUM (unsigned), keyword))
-          return FALSE;
+        return FALSE;
 
     st->sparse_minor = u;
     return TRUE;
@@ -1005,7 +1002,7 @@ tar_xheader_read (tar_super_t *archive, struct xheader *xhdr, union block *p, of
         size_t len;
 
         if (p == NULL)
-            return FALSE;       /* Unexpected EOF in archive */
+            return FALSE; /* Unexpected EOF in archive */
 
         len = MIN (size, BLOCKSIZE);
 

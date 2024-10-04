@@ -28,7 +28,7 @@
 
 #include "tests/mctest.h"
 
-#include "glob.c"               /* for testing static functions */
+#include "glob.c" /* for testing static functions */
 
 /* --------------------------------------------------------------------------------------------- */
 
@@ -38,30 +38,18 @@ static const struct test_translate_replace_glob_to_regex_ds
 {
     const char *input_value;
     const char *expected_result;
-} test_translate_replace_glob_to_regex_ds[] =
-{
-    {
-        "a&a?a",
-        "a\\&a\\1a"
-    },
-    {
-        "a\\&a?a",
-        "a\\&a\\1a"
-    },
-    {
-        "a&a\\?a",
-        "a\\&a\\?a"
-    },
-    {
-        "a\\&a\\?a",
-        "a\\&a\\?a"
-    },
+} test_translate_replace_glob_to_regex_ds[] = {
+    { "a&a?a", "a\\&a\\1a" },
+    { "a\\&a?a", "a\\&a\\1a" },
+    { "a&a\\?a", "a\\&a\\?a" },
+    { "a\\&a\\?a", "a\\&a\\?a" },
 };
 /* *INDENT-ON* */
 
 /* @Test(dataSource = "test_translate_replace_glob_to_regex_ds") */
 /* *INDENT-OFF* */
-START_PARAMETRIZED_TEST (test_translate_replace_glob_to_regex, test_translate_replace_glob_to_regex_ds)
+START_PARAMETRIZED_TEST (test_translate_replace_glob_to_regex,
+                         test_translate_replace_glob_to_regex_ds)
 /* *INDENT-ON* */
 {
     /* given */
