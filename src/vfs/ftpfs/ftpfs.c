@@ -471,8 +471,9 @@ ftpfs_reconnect (struct vfs_class *me, struct vfs_s_super *super)
 
 /* --------------------------------------------------------------------------------------------- */
 
-static int G_GNUC_PRINTF (4, 5) ftpfs_command (struct vfs_class *me, struct vfs_s_super *super,
-                                               int wait_reply, const char *fmt, ...)
+static int G_GNUC_PRINTF (4, 5)
+ftpfs_command (struct vfs_class *me, struct vfs_s_super *super, int wait_reply, const char *fmt,
+               ...)
 {
     ftp_super_t *ftp_super = FTP_SUPER (super);
     va_list ap;

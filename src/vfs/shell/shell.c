@@ -304,8 +304,8 @@ shell_command (struct vfs_class *me, struct vfs_s_super *super, int wait_reply, 
 /* --------------------------------------------------------------------------------------------- */
 
 static int G_GNUC_PRINTF (5, 0)
-    shell_command_va (struct vfs_class *me, struct vfs_s_super *super, int wait_reply,
-                      const char *scr, const char *vars, va_list ap)
+shell_command_va (struct vfs_class *me, struct vfs_s_super *super, int wait_reply, const char *scr,
+                  const char *vars, va_list ap)
 {
     int r;
     GString *command;
@@ -322,8 +322,8 @@ static int G_GNUC_PRINTF (5, 0)
 /* --------------------------------------------------------------------------------------------- */
 
 static int G_GNUC_PRINTF (5, 6)
-    shell_command_v (struct vfs_class *me, struct vfs_s_super *super, int wait_reply,
-                     const char *scr, const char *vars, ...)
+shell_command_v (struct vfs_class *me, struct vfs_s_super *super, int wait_reply, const char *scr,
+                 const char *vars, ...)
 {
     int r;
     va_list ap;
@@ -338,8 +338,8 @@ static int G_GNUC_PRINTF (5, 6)
 /* --------------------------------------------------------------------------------------------- */
 
 static int G_GNUC_PRINTF (5, 6)
-    shell_send_command (struct vfs_class *me, struct vfs_s_super *super, int flags, const char *scr,
-                        const char *vars, ...)
+shell_send_command (struct vfs_class *me, struct vfs_s_super *super, int flags, const char *scr,
+                    const char *vars, ...)
 {
     int r;
     va_list ap;
