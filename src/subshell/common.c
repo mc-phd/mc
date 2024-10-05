@@ -1655,7 +1655,7 @@ exit_subshell (void)
     if (subshell_state != INACTIVE && subshell_alive)
         subshell_quit = query_dialog (_ ("Warning"), _ ("The shell is still active. Quit anyway?"),
                                       D_NORMAL, 2, _ ("&Yes"), _ ("&No"))
-                        == 0;
+            == 0;
 
     if (subshell_quit)
     {

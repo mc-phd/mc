@@ -155,7 +155,7 @@ sftpfs_open_file (vfs_file_handler_t *fh, int flags, mode_t mode, GError **mcerr
         sftp_open_flags |= (flags & O_TRUNC) != 0 ? LIBSSH2_FXF_TRUNC : 0;
 
         sftp_open_mode = LIBSSH2_SFTP_S_IRUSR | LIBSSH2_SFTP_S_IWUSR | LIBSSH2_SFTP_S_IRGRP
-                         | LIBSSH2_SFTP_S_IROTH;
+            | LIBSSH2_SFTP_S_IROTH;
     }
     else
         sftp_open_flags = LIBSSH2_FXF_READ;

@@ -1130,7 +1130,7 @@ search_content (WDialog *h, const char *directory, const char *filename)
 
                 g_snprintf (result, sizeof (result), "%d:%s", line, filename);
                 found_start = off + search_content_handle->normal_offset
-                              + 1; /* off by one: ticket 3280 */
+                    + 1; /* off by one: ticket 3280 */
                 find_add_match (directory, result, found_start, found_start + found_len);
                 found = TRUE;
             }
@@ -1733,8 +1733,8 @@ run_process (void)
     search_content_handle = mc_search_new (content_pattern, NULL);
     if (search_content_handle)
     {
-        search_content_handle->search_type = options.content_regexp ? MC_SEARCH_T_REGEX
-                                                                    : MC_SEARCH_T_NORMAL;
+        search_content_handle->search_type = options.content_regexp ? MC_SEARCH_T_REGEX :
+                                                                      MC_SEARCH_T_NORMAL;
         search_content_handle->is_case_sensitive = options.content_case_sens;
         search_content_handle->whole_words = options.content_whole_words;
 #ifdef HAVE_CHARSET

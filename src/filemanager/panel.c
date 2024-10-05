@@ -1081,9 +1081,9 @@ show_free_space (const WPanel *panel)
         size_trunc_len (buffer2, sizeof (buffer2) - 1, myfs_stats.total, 1,
                         panels_options.kilobyte_si);
         g_snprintf (tmp, sizeof (tmp), " %s / %s (%d%%) ", buffer1, buffer2,
-                    myfs_stats.total == 0
-                        ? 0
-                        : (int) (100 * (long double) myfs_stats.avail / myfs_stats.total));
+                    myfs_stats.total == 0 ?
+                        0 :
+                        (int) (100 * (long double) myfs_stats.avail / myfs_stats.total));
         widget_gotoyx (w, w->rect.lines - 1, w->rect.cols - 2 - (int) strlen (tmp));
         tty_setcolor (NORMAL_COLOR);
         tty_print_string (tmp);
@@ -1439,8 +1439,8 @@ panel_paint_sort_info (const WPanel *panel)
 {
     if (*panel->sort_field->hotkey != '\0')
     {
-        const char *sort_sign = panel->sort_info.reverse ? panel_sort_up_char
-                                                         : panel_sort_down_char;
+        const char *sort_sign = panel->sort_info.reverse ? panel_sort_up_char :
+                                                           panel_sort_down_char;
         char *str;
 
         str = g_strdup_printf ("%s%s", sort_sign, Q_ (panel->sort_field->hotkey));
@@ -1504,8 +1504,9 @@ panel_print_header (const WPanel *panel)
                 g_string_set_size (format_txt, 0);
 
                 if (panel->list_format == list_long && strcmp (fi->id, panel->sort_field->id) == 0)
-                    g_string_append (format_txt, panel->sort_info.reverse ? panel_sort_up_char
-                                                                          : panel_sort_down_char);
+                    g_string_append (format_txt,
+                                     panel->sort_info.reverse ? panel_sort_up_char :
+                                                                panel_sort_down_char);
 
                 g_string_append (format_txt, fi->title);
 
@@ -2814,7 +2815,7 @@ do_enter_on_file_entry (WPanel *panel, file_entry_t *fe)
     if (confirm_execute
         && query_dialog (_ ("The Midnight Commander"), _ ("Do you really want to execute?"),
                          D_NORMAL, 2, _ ("&Yes"), _ ("&No"))
-               != 0)
+            != 0)
         return TRUE;
 
     if (!vfs_current_is_local ())
@@ -3078,7 +3079,7 @@ panel_toggle_sort_order_next (WPanel *panel)
     {
         /* search for prev sortable column in panel format */
         for (i = lc_index; i != format_field_count
-                           && (pfield = panel_get_sortable_field_by_format (panel, i)) == NULL;
+             && (pfield = panel_get_sortable_field_by_format (panel, i)) == NULL;
              i++)
             ;
     }
@@ -3087,7 +3088,7 @@ panel_toggle_sort_order_next (WPanel *panel)
     {
         /* Sortable field not found. Try to search in each array */
         for (i = 0; i != format_field_count
-                    && (pfield = panel_get_sortable_field_by_format (panel, i)) == NULL;
+             && (pfield = panel_get_sortable_field_by_format (panel, i)) == NULL;
              i++)
             ;
     }

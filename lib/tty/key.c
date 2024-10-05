@@ -2108,7 +2108,7 @@ tty_get_event (struct Gpm_Event *event, gboolean redo_event, gboolean block)
 
 #ifdef KEY_MOUSE
         extended = extended
-                   || (c == KEY_MOUSE && xmouse_seq == NULL && xmouse_extended_seq != NULL);
+            || (c == KEY_MOUSE && xmouse_seq == NULL && xmouse_extended_seq != NULL);
 #endif /* KEY_MOUSE */
 
         xmouse_get_event (event, extended);

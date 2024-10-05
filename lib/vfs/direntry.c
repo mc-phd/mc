@@ -1191,8 +1191,8 @@ vfs_s_get_path (const vfs_path_t *vpath, struct vfs_s_super **archive, int flags
 
     subclass = VFS_SUBCLASS (path_element->class);
 
-    super = subclass->new_archive != NULL ? subclass->new_archive (path_element->class)
-                                          : vfs_s_new_super (path_element->class);
+    super = subclass->new_archive != NULL ? subclass->new_archive (path_element->class) :
+                                            vfs_s_new_super (path_element->class);
 
     if (subclass->open_archive != NULL)
     {

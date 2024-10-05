@@ -247,8 +247,8 @@ str_crt_conv_to (const char *to_enc)
 GIConv
 str_crt_conv_from (const char *from_enc)
 {
-    return (!str_test_not_convert (from_enc)) ? g_iconv_open (codeset, from_enc)
-                                              : str_cnv_not_convert;
+    return (!str_test_not_convert (from_enc)) ? g_iconv_open (codeset, from_enc) :
+                                                str_cnv_not_convert;
 }
 
 /* --------------------------------------------------------------------------------------------- */

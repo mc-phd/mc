@@ -206,9 +206,10 @@ init_listmode (char *oldlistformat)
     add_widget (listmode_dlg, groupbox_new (UY + 4, UX + 20, 11, 43, "Item options"));
 
     for (i = 0; i < sizeof (listmode_but) / sizeof (struct listmode_button); i++)
-        add_widget (listmode_dlg, button_new (listmode_but[i].y, listmode_but[i].x,
-                                              listmode_but[i].ret_cmd, listmode_but[i].flags,
-                                              listmode_but[i].text, listmode_but[i].callback));
+        add_widget (listmode_dlg,
+                    button_new (listmode_but[i].y, listmode_but[i].x, listmode_but[i].ret_cmd,
+                                listmode_but[i].flags, listmode_but[i].text,
+                                listmode_but[i].callback));
 
     /* We add the labels. */
     for (i = 0; i < sizeof (listmode_labels) / sizeof (struct listmode_label); i++)

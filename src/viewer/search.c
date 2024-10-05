@@ -191,19 +191,18 @@ mcview_search_show_result (WView *view, size_t match_len)
 {
     int nroff_len;
 
-    nroff_len = view->mode_flags.nroff
-                    ? mcview__get_nroff_real_len (view, view->search->start_buffer,
-                                                  view->search->normal_offset
-                                                      - view->search->start_buffer)
-                    : 0;
+    nroff_len = view->mode_flags.nroff ?
+        mcview__get_nroff_real_len (view, view->search->start_buffer,
+                                    view->search->normal_offset - view->search->start_buffer) :
+        0;
     view->search_start = view->search->normal_offset + nroff_len;
 
     if (!view->mode_flags.hex)
         view->search_start++;
 
-    nroff_len = view->mode_flags.nroff
-                    ? mcview__get_nroff_real_len (view, view->search_start - 1, match_len)
-                    : 0;
+    nroff_len = view->mode_flags.nroff ?
+        mcview__get_nroff_real_len (view, view->search_start - 1, match_len) :
+        0;
     view->search_end = view->search_start + match_len + nroff_len;
 
     mcview_moveto_match (view);
@@ -287,8 +286,7 @@ mcview_search_cmd_callback (const void *user_data, gsize char_offset, int *curre
             {
             case NROFF_TYPE_BOLD:
                 view->search_numNeedSkipChar = 1
-                                               + view->search_nroff_seq
-                                                     ->char_length; /* real char length and 0x8 */
+                    + view->search_nroff_seq->char_length; /* real char length and 0x8 */
                 break;
             case NROFF_TYPE_UNDERLINE:
                 view->search_numNeedSkipChar = 2; /* underline symbol and ox8 */

@@ -120,11 +120,11 @@ tty_check_term (gboolean force_xterm)
 
     /* *INDENT-OFF* */
     return force_xterm || strncmp (termvalue, "xterm", 5) == 0
-           || strncmp (termvalue, "konsole", 7) == 0 || strncmp (termvalue, "rxvt", 4) == 0
-           || strcmp (termvalue, "Eterm") == 0 || strcmp (termvalue, "dtterm") == 0
-           || strncmp (termvalue, "alacritty", 9) == 0 || strncmp (termvalue, "foot", 4) == 0
-           || strncmp (termvalue, "screen", 6) == 0 || strncmp (termvalue, "tmux", 4) == 0
-           || strncmp (termvalue, "contour", 7) == 0;
+        || strncmp (termvalue, "konsole", 7) == 0 || strncmp (termvalue, "rxvt", 4) == 0
+        || strcmp (termvalue, "Eterm") == 0 || strcmp (termvalue, "dtterm") == 0
+        || strncmp (termvalue, "alacritty", 9) == 0 || strncmp (termvalue, "foot", 4) == 0
+        || strncmp (termvalue, "screen", 6) == 0 || strncmp (termvalue, "tmux", 4) == 0
+        || strncmp (termvalue, "contour", 7) == 0;
     /* *INDENT-ON* */
 }
 

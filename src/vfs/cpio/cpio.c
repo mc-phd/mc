@@ -605,7 +605,7 @@ cpio_read_bin_head (struct vfs_class *me, struct vfs_s_super *super)
     vfs_zero_stat_times (&st);
 
     st.st_atime = st.st_mtime = st.st_ctime = ((time_t) u.buf.c_mtimes[0] << 16)
-                                              | u.buf.c_mtimes[1];
+        | u.buf.c_mtimes[1];
 
     return cpio_create_entry (me, super, &st, name);
 }

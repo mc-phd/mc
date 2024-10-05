@@ -133,7 +133,7 @@ is_localized_month (const char *month)
         return FALSE;
 
     for (i = 0; i < 3 && *month != '\0' && !isdigit ((unsigned char) *month)
-                && !iscntrl ((unsigned char) *month) && !ispunct ((unsigned char) *month);
+         && !iscntrl ((unsigned char) *month) && !ispunct ((unsigned char) *month);
          i++, month++)
         ;
 

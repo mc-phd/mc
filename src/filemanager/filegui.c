@@ -113,12 +113,12 @@ statfs (char const *filename, struct fs_info *buf)
 
     if (device < 0)
     {
-        errno = (device == B_ENTRY_NOT_FOUND ? ENOENT
-                 : device == B_BAD_VALUE     ? EINVAL
-                 : device == B_NAME_TOO_LONG ? ENAMETOOLONG
-                 : device == B_NO_MEMORY     ? ENOMEM
-                 : device == B_FILE_ERROR    ? EIO
-                                             : 0);
+        errno = (device == B_ENTRY_NOT_FOUND   ? ENOENT :
+                     device == B_BAD_VALUE     ? EINVAL :
+                     device == B_NAME_TOO_LONG ? ENAMETOOLONG :
+                     device == B_NO_MEMORY     ? ENOMEM :
+                     device == B_FILE_ERROR    ? EIO :
+                                                 0);
         return -1;
     }
     /* If successful, buf->dev will be == device.  */
@@ -572,7 +572,7 @@ overwrite_query_dialog (file_op_context_t *ctx, enum OperationMode mode)
     /* will "Append" and "Reget" buttons be in the dialog? */
     do_append = !S_ISDIR (ui->dst_stat->st_mode);
     do_reget = do_append && ui->dst_stat->st_size != 0
-               && ui->src_stat->st_size > ui->dst_stat->st_size;
+        && ui->src_stat->st_size > ui->dst_stat->st_size;
 
     NEW_LABEL (8, dlg_widgets[8].text);
     NEW_BUTTON (9);
@@ -945,8 +945,7 @@ file_op_context_create_ui (file_op_context_t *ctx, gboolean with_eta,
     group_add_widget (g, progress_buttons[3].w);
 
     buttons_width = 2 + progress_buttons[0].len
-                    + MAX (progress_buttons[1].len, progress_buttons[2].len)
-                    + progress_buttons[3].len;
+        + MAX (progress_buttons[1].len, progress_buttons[2].len) + progress_buttons[3].len;
 
     /* adjust dialog sizes  */
     r = w->rect;
@@ -1230,8 +1229,8 @@ file_progress_real_query_replace (file_op_context_t *ctx, enum OperationMode mod
         ui->replace_result = overwrite_query_dialog (ctx, mode);
     }
 
-    replace_with_zero = (src_stat->st_size == 0 && ui->dont_overwrite_with_zero) ? FILE_SKIP
-                                                                                 : FILE_CONT;
+    replace_with_zero = (src_stat->st_size == 0 && ui->dont_overwrite_with_zero) ? FILE_SKIP :
+                                                                                   FILE_CONT;
 
     switch (ui->replace_result)
     {

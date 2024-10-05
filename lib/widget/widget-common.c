@@ -254,7 +254,7 @@ hotkey_equal (const hotkey_t hotkey1, const hotkey_t hotkey2)
 {
     /* *INDENT-OFF* */
     return (strcmp (hotkey1.start, hotkey2.start) == 0)
-           && hotkey_cmp (hotkey1.hotkey, hotkey2.hotkey) && hotkey_cmp (hotkey1.end, hotkey2.end);
+        && hotkey_cmp (hotkey1.hotkey, hotkey2.hotkey) && hotkey_cmp (hotkey1.end, hotkey2.end);
     /* *INDENT-ON* */
 }
 
@@ -726,8 +726,8 @@ widget_default_make_local (Widget *w, const WRect *delta)
 GList *
 widget_default_find (const Widget *w, const Widget *what)
 {
-    return (w != what || w->owner == NULL) ? NULL
-                                           : g_list_find (CONST_GROUP (w->owner)->widgets, what);
+    return (w != what || w->owner == NULL) ? NULL :
+                                             g_list_find (CONST_GROUP (w->owner)->widgets, what);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -898,7 +898,7 @@ mouse_global_in_widget (const Gpm_Event *event, const Widget *w)
     const WRect *r = &w->rect;
 
     return (event->x > r->x) && (event->y > r->y) && (event->x <= r->x + r->cols)
-           && (event->y <= r->y + r->lines);
+        && (event->y <= r->y + r->lines);
 }
 
 /* --------------------------------------------------------------------------------------------- */

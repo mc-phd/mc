@@ -93,7 +93,7 @@ typedef enum
                                            removing portions of the path */
     CANON_PATH_GUARDUNC = 1L << 4,      /**< Detect and preserve UNC paths: //server/... */
     CANON_PATH_ALL = CANON_PATH_JOINSLASHES | CANON_PATH_REMSLASHDOTS | CANON_PATH_REMDOUBLEDOTS
-                     | CANON_PATH_GUARDUNC /**< All flags */
+        | CANON_PATH_GUARDUNC /**< All flags */
 } canon_path_flags_t;
 /* *INDENT-ON* */
 

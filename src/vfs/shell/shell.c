@@ -722,9 +722,9 @@ shell_archive_same (const vfs_path_element_t *vpath_element, struct vfs_s_super 
 
     result = ((strcmp (path_element->host, super->path_element->host) == 0)
               && (strcmp (path_element->user, super->path_element->user) == 0)
-              && (path_element->port == super->path_element->port))
-                 ? 1
-                 : 0;
+              && (path_element->port == super->path_element->port)) ?
+        1 :
+        0;
 
     vfs_path_element_free (path_element);
 

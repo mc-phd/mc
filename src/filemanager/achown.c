@@ -188,13 +188,13 @@ get_perm (char *s, int base)
 {
     mode_t m = 0;
 
-    m |= (s[0] == '-')
-             ? 0
-             : ((s[0] == '+') ? (mode_t) (1 << (base + 2)) : (1 << (base + 2)) & ch_cmode);
+    m |= (s[0] == '-') ?
+        0 :
+        ((s[0] == '+') ? (mode_t) (1 << (base + 2)) : (1 << (base + 2)) & ch_cmode);
 
-    m |= (s[1] == '-')
-             ? 0
-             : ((s[1] == '+') ? (mode_t) (1 << (base + 1)) : (1 << (base + 1)) & ch_cmode);
+    m |= (s[1] == '-') ?
+        0 :
+        ((s[1] == '+') ? (mode_t) (1 << (base + 1)) : (1 << (base + 1)) & ch_cmode);
 
     m |= (s[2] == '-') ? 0 : ((s[2] == '+') ? (mode_t) (1 << base) : (1 << base) & ch_cmode);
 
@@ -781,9 +781,10 @@ advanced_chown_dlg_create (WPanel *panel)
         i = BUTTONS_PERM;
         group_add_widget (ch_grp, hline_new (y++, -1, -1));
         advanced_chown_but[i].id = group_add_widget (
-            ch_grp, button_new (y, WIDGET (ch_dlg)->rect.cols / 2 - advanced_chown_but[i].len,
-                                advanced_chown_but[i].ret_cmd, advanced_chown_but[i].flags,
-                                advanced_chown_but[i].text, NULL));
+            ch_grp,
+            button_new (y, WIDGET (ch_dlg)->rect.cols / 2 - advanced_chown_but[i].len,
+                        advanced_chown_but[i].ret_cmd, advanced_chown_but[i].flags,
+                        advanced_chown_but[i].text, NULL));
         i++;
         advanced_chown_but[i].id = group_add_widget (
             ch_grp,
@@ -795,13 +796,15 @@ advanced_chown_dlg_create (WPanel *panel)
     i = BUTTONS_PERM + 2;
     group_add_widget (ch_grp, hline_new (y++, -1, -1));
     advanced_chown_but[i].id = group_add_widget (
-        ch_grp, button_new (y, WIDGET (ch_dlg)->rect.cols / 2 - advanced_chown_but[i].len,
-                            advanced_chown_but[i].ret_cmd, advanced_chown_but[i].flags,
-                            advanced_chown_but[i].text, NULL));
+        ch_grp,
+        button_new (y, WIDGET (ch_dlg)->rect.cols / 2 - advanced_chown_but[i].len,
+                    advanced_chown_but[i].ret_cmd, advanced_chown_but[i].flags,
+                    advanced_chown_but[i].text, NULL));
     i++;
     advanced_chown_but[i].id = group_add_widget (
-        ch_grp, button_new (y, WIDGET (ch_dlg)->rect.cols / 2 + 1, advanced_chown_but[i].ret_cmd,
-                            advanced_chown_but[i].flags, advanced_chown_but[i].text, NULL));
+        ch_grp,
+        button_new (y, WIDGET (ch_dlg)->rect.cols / 2 + 1, advanced_chown_but[i].ret_cmd,
+                    advanced_chown_but[i].flags, advanced_chown_but[i].text, NULL));
 
     widget_select (WIDGET (b_att[0]));
 

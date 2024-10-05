@@ -214,8 +214,9 @@ mc_search_prepare (mc_search_t *lc_mc_search)
     ret = g_ptr_array_new_with_free_func (mc_search__cond_struct_free);
 #ifdef HAVE_CHARSET
     if (!lc_mc_search->is_all_charsets)
-        g_ptr_array_add (ret, mc_search__cond_struct_new (lc_mc_search, lc_mc_search->original.str,
-                                                          lc_mc_search->original.charset));
+        g_ptr_array_add (ret,
+                         mc_search__cond_struct_new (lc_mc_search, lc_mc_search->original.str,
+                                                     lc_mc_search->original.charset));
     else
     {
         gsize loop1;
@@ -226,9 +227,10 @@ mc_search_prepare (mc_search_t *lc_mc_search)
 
             id = ((codepage_desc *) g_ptr_array_index (codepages, loop1))->id;
             if (g_ascii_strcasecmp (id, lc_mc_search->original.charset) == 0)
-                g_ptr_array_add (ret, mc_search__cond_struct_new (lc_mc_search,
-                                                                  lc_mc_search->original.str,
-                                                                  lc_mc_search->original.charset));
+                g_ptr_array_add (ret,
+                                 mc_search__cond_struct_new (lc_mc_search,
+                                                             lc_mc_search->original.str,
+                                                             lc_mc_search->original.charset));
             else
             {
                 GString *buffer;
@@ -242,8 +244,9 @@ mc_search_prepare (mc_search_t *lc_mc_search)
         }
     }
 #else
-    g_ptr_array_add (ret, mc_search__cond_struct_new (lc_mc_search, lc_mc_search->original.str,
-                                                      str_detect_termencoding ()));
+    g_ptr_array_add (ret,
+                     mc_search__cond_struct_new (lc_mc_search, lc_mc_search->original.str,
+                                                 str_detect_termencoding ()));
 #endif
     lc_mc_search->prepared.conditions = ret;
     lc_mc_search->prepared.result = (lc_mc_search->error == MC_SEARCH_E_OK);

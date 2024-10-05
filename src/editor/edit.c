@@ -1096,8 +1096,8 @@ edit_move_updown (WEdit *edit, long lines, gboolean do_scroll, gboolean directio
             edit_scroll_downward (edit, lines);
     }
     p = edit_buffer_get_current_bol (&edit->buffer);
-    p = direction ? edit_buffer_get_backward_offset (&edit->buffer, p, lines)
-                  : edit_buffer_get_forward_offset (&edit->buffer, p, lines, 0);
+    p = direction ? edit_buffer_get_backward_offset (&edit->buffer, p, lines) :
+                    edit_buffer_get_forward_offset (&edit->buffer, p, lines, 0);
     edit_cursor_move (edit, p - edit->buffer.curs1);
     edit_move_to_prev_col (edit, p);
 
@@ -2300,8 +2300,8 @@ edit_set_codeset (WEdit *edit)
 {
     const char *cp_id;
 
-    cp_id = get_codepage_id (mc_global.source_codepage >= 0 ? mc_global.source_codepage
-                                                            : mc_global.display_codepage);
+    cp_id = get_codepage_id (mc_global.source_codepage >= 0 ? mc_global.source_codepage :
+                                                              mc_global.display_codepage);
 
     if (cp_id != NULL)
     {
@@ -3160,9 +3160,9 @@ eval_marks (WEdit *edit, off_t *start_mark, off_t *end_mark)
         col2 = MAX (edit->column1, edit->column2);
 
         diff1 = edit_move_forward3 (edit, start_bol, col2, 0)
-                - edit_move_forward3 (edit, start_bol, col1, 0);
+            - edit_move_forward3 (edit, start_bol, col1, 0);
         diff2 = edit_move_forward3 (edit, end_bol, col2, 0)
-                - edit_move_forward3 (edit, end_bol, col1, 0);
+            - edit_move_forward3 (edit, end_bol, col1, 0);
 
         *start_mark -= diff1;
         *end_mark += diff2;

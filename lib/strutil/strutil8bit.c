@@ -757,7 +757,7 @@ str_8bit_caseprefix (const char *text, const char *prefix)
     int result;
 
     for (result = 0; text[result] != '\0' && prefix[result] != '\0'
-                     && char_toupper (text[result]) == char_toupper (prefix[result]);
+         && char_toupper (text[result]) == char_toupper (prefix[result]);
          result++)
         ;
 

@@ -542,7 +542,7 @@ mc_search_regex__process_replace_str (const GString *replace_str, const gsize cu
         }
 
         for (*skip_len = 0; current_pos + *skip_len + 2 < replace_str->len
-                            && (curr_str[2 + *skip_len] & (char) 0xf0) == 0x30;
+             && (curr_str[2 + *skip_len] & (char) 0xf0) == 0x30;
              (*skip_len)++)
             ;
 

@@ -146,7 +146,7 @@ status_string (WEdit *edit, char *s, int w)
 #ifdef HAVE_CHARSET
                     mc_global.source_codepage >= 0 ? get_codepage_id (mc_global.source_codepage) :
 #endif
-                                                   "");
+                                                     "");
     else
         g_snprintf (s, w, "[%c%c%c%c] %2ld L:[%3ld+%2ld %3ld/%3ld] *(%-4ld/%4ldb) %s  %s",
                     edit->mark1 != edit->mark2 ? (edit->column_highlight ? 'C' : 'B') : '-',
@@ -158,7 +158,7 @@ status_string (WEdit *edit, char *s, int w)
 #ifdef HAVE_CHARSET
                     mc_global.source_codepage >= 0 ? get_codepage_id (mc_global.source_codepage) :
 #endif
-                                                   "");
+                                                     "");
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -1017,9 +1017,9 @@ edit_status (WEdit *edit, gboolean active)
     }
     else
     {
-        color = edit->drag_state != MCEDIT_DRAG_NONE ? EDITOR_FRAME_DRAG
-                : active                             ? EDITOR_FRAME_ACTIVE
-                                                     : EDITOR_FRAME;
+        color = edit->drag_state != MCEDIT_DRAG_NONE ? EDITOR_FRAME_DRAG :
+            active                                   ? EDITOR_FRAME_ACTIVE :
+                                                       EDITOR_FRAME;
         edit_draw_frame (edit, color, active);
         edit_status_window (edit);
     }

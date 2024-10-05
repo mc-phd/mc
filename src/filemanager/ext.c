@@ -684,10 +684,9 @@ regex_check_type (const vfs_path_t *filename_vpath, const char *ptr, gboolean ca
         }
 
 #ifdef HAVE_CHARSET
-        got_encoding_data = is_autodetect_codeset_enabled
-                                ? get_file_encoding_local (localfile_vpath, encoding_id,
-                                                           sizeof (encoding_id))
-                                : 0;
+        got_encoding_data = is_autodetect_codeset_enabled ?
+            get_file_encoding_local (localfile_vpath, encoding_id, sizeof (encoding_id)) :
+            0;
 
         if (got_encoding_data > 0)
         {
@@ -959,8 +958,8 @@ regex_command_for (void *target, const vfs_path_t *filename_vpath, const char *a
         if (pattern != NULL)
         {
             found = S_ISDIR (mystat.st_mode)
-                    && mc_search (pattern, DEFAULT_CHARSET, vfs_path_as_str (filename_vpath),
-                                  MC_SEARCH_T_REGEX);
+                && mc_search (pattern, DEFAULT_CHARSET, vfs_path_as_str (filename_vpath),
+                              MC_SEARCH_T_REGEX);
             g_free (pattern);
 
             continue; /* stop if found */
@@ -976,9 +975,9 @@ regex_command_for (void *target, const vfs_path_t *filename_vpath, const char *a
 
                 ignore_case = mc_config_get_bool (ext_ini, g, "TypeIgnoreCase", FALSE);
                 type_state = regex_check_type (filename_vpath, pattern, ignore_case, &have_type,
-                                               &mcerror)
-                                 ? TYPE_FOUND
-                                 : TYPE_NOT_FOUND;
+                                               &mcerror) ?
+                    TYPE_FOUND :
+                    TYPE_NOT_FOUND;
                 g_free (pattern);
 
                 if (mc_error_message (&mcerror, NULL))
@@ -1023,10 +1022,10 @@ regex_command_for (void *target, const vfs_path_t *filename_vpath, const char *a
 
                 if (*pattern == '.' && filename_len >= pattern_len)
                     found = cmp_func (pattern, filename + filename_len - pattern_len, pattern_len)
-                            == 0;
+                        == 0;
                 else
                     found = pattern_len == filename_len
-                            && cmp_func (pattern, filename, filename_len) == 0;
+                        && cmp_func (pattern, filename, filename_len) == 0;
 
                 g_free (pattern);
 

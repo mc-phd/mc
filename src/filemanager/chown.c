@@ -247,8 +247,9 @@ chown_dlg_create (WPanel *panel)
 
         for (i = 0; i < BUTTONS - 2; i++)
         {
-            group_add_widget (g, button_new (y, x, chown_but[i].ret_cmd, chown_but[i].flags,
-                                             chown_but[i].text, NULL));
+            group_add_widget (g,
+                              button_new (y, x, chown_but[i].ret_cmd, chown_but[i].flags,
+                                          chown_but[i].text, NULL));
             x += chown_but[i].len + 1;
         }
     }
@@ -256,12 +257,14 @@ chown_dlg_create (WPanel *panel)
     i = BUTTONS - 2;
     y = lines - chown_but[i].y;
     group_add_widget (g, hline_new (y - 1, -1, -1));
-    group_add_widget (g, button_new (y, WIDGET (ch_dlg)->rect.cols / 2 - chown_but[i].len,
-                                     chown_but[i].ret_cmd, chown_but[i].flags, chown_but[i].text,
-                                     NULL));
+    group_add_widget (g,
+                      button_new (y, WIDGET (ch_dlg)->rect.cols / 2 - chown_but[i].len,
+                                  chown_but[i].ret_cmd, chown_but[i].flags, chown_but[i].text,
+                                  NULL));
     i++;
-    group_add_widget (g, button_new (y, WIDGET (ch_dlg)->rect.cols / 2 + 1, chown_but[i].ret_cmd,
-                                     chown_but[i].flags, chown_but[i].text, NULL));
+    group_add_widget (g,
+                      button_new (y, WIDGET (ch_dlg)->rect.cols / 2 + 1, chown_but[i].ret_cmd,
+                                  chown_but[i].flags, chown_but[i].text, NULL));
 
     /* select first listbox */
     widget_select (WIDGET (l_user));

@@ -71,9 +71,9 @@
    anyone knows of a system for which this limit is too small, please
    report it as a bug in this code.  */
 #define ST_BLKSIZE(statbuf)                                                                        \
-    ((0 < (statbuf).st_blksize && (size_t) ((statbuf).st_blksize) <= ((size_t) -1) / 8 + 1)        \
-         ? (size_t) ((statbuf).st_blksize)                                                         \
-         : DEV_BSIZE)
+    ((0 < (statbuf).st_blksize && (size_t) ((statbuf).st_blksize) <= ((size_t) -1) / 8 + 1) ?      \
+         (size_t) ((statbuf).st_blksize) :                                                         \
+         DEV_BSIZE)
 #if defined hpux || defined __hpux__ || defined __hpux
 /* HP-UX counts st_blocks in 1024-byte units.
    This loses when mixing HP-UX and BSD file systems with NFS.  */

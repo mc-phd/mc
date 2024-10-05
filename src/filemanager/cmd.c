@@ -144,7 +144,7 @@ do_view_cmd (WPanel *panel, gboolean plain_view)
         if (confirm_view_dir && (panel->marked != 0 || panel->dirs_marked != 0)
             && query_dialog (_ ("Confirmation"), _ ("Files tagged, want to cd?"), D_NORMAL, 2,
                              _ ("&Yes"), _ ("&No"))
-                   != 0)
+                != 0)
             return;
 
         fname_vpath = vfs_path_from_str (fe->fname->str);

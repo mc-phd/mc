@@ -308,7 +308,7 @@ compare_word_to_right (const WEdit *edit, off_t i, const GString *text, const ch
                 }
                 if (j != 0
                     && strchr ((const char *) p + 1, c)
-                           != NULL) /* c exists further down, so it will get matched later */
+                        != NULL) /* c exists further down, so it will get matched later */
                     break;
                 if (whiteness (c) || (whole_right != NULL && strchr (whole_right, c) == NULL))
                 {
@@ -431,7 +431,7 @@ apply_rules_going_right (WEdit *edit, off_t i)
             && r->right->len != 0
             && (e = compare_word_to_right (edit, i, r->right, r->whole_word_chars_left,
                                            r->whole_word_chars_right, r->line_start_right))
-                   > 0)
+                > 0)
         {
             _rule.end = e;
             found_right = TRUE;

@@ -394,8 +394,9 @@ vfs_path_from_str_deprecated_parser (char *path)
 
 #ifdef HAVE_CHARSET
         element->encoding = vfs_get_encoding (local, -1);
-        element->dir.converter = (element->encoding != NULL) ? str_crt_conv_from (element->encoding)
-                                                             : INVALID_CONV;
+        element->dir.converter = (element->encoding != NULL) ?
+            str_crt_conv_from (element->encoding) :
+            INVALID_CONV;
 #endif
 
         url_params = strchr (op, ':'); /* skip VFS prefix */
@@ -419,8 +420,9 @@ vfs_path_from_str_deprecated_parser (char *path)
 
 #ifdef HAVE_CHARSET
         element->encoding = vfs_get_encoding (path, -1);
-        element->dir.converter = (element->encoding != NULL) ? str_crt_conv_from (element->encoding)
-                                                             : INVALID_CONV;
+        element->dir.converter = (element->encoding != NULL) ?
+            str_crt_conv_from (element->encoding) :
+            INVALID_CONV;
 #endif
         g_array_prepend_val (vpath->path, element);
     }
@@ -500,8 +502,9 @@ vfs_path_from_str_uri_parser (char *path)
 #endif
         }
 #ifdef HAVE_CHARSET
-        element->dir.converter = (element->encoding != NULL) ? str_crt_conv_from (element->encoding)
-                                                             : INVALID_CONV;
+        element->dir.converter = (element->encoding != NULL) ?
+            str_crt_conv_from (element->encoding) :
+            INVALID_CONV;
 #endif
         g_array_prepend_val (vpath->path, element);
 
@@ -519,8 +522,9 @@ vfs_path_from_str_uri_parser (char *path)
         element->path = vfs_translate_path_n (path);
 #ifdef HAVE_CHARSET
         element->encoding = vfs_get_encoding (path, -1);
-        element->dir.converter = (element->encoding != NULL) ? str_crt_conv_from (element->encoding)
-                                                             : INVALID_CONV;
+        element->dir.converter = (element->encoding != NULL) ?
+            str_crt_conv_from (element->encoding) :
+            INVALID_CONV;
 #endif
         g_array_prepend_val (vpath->path, element);
     }
@@ -1229,8 +1233,9 @@ vfs_path_deserialize (const char *data, GError **mcerror)
 
 #ifdef HAVE_CHARSET
         element->encoding = mc_config_get_string_raw (cpath, groupname, "encoding", NULL);
-        element->dir.converter = (element->encoding != NULL) ? str_crt_conv_from (element->encoding)
-                                                             : INVALID_CONV;
+        element->dir.converter = (element->encoding != NULL) ?
+            str_crt_conv_from (element->encoding) :
+            INVALID_CONV;
 #endif
 
         element->vfs_prefix = mc_config_get_string_raw (cpath, groupname, "vfs_prefix", NULL);

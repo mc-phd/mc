@@ -716,7 +716,7 @@ str_ascii_caseprefix (const char *text, const char *prefix)
     int result;
 
     for (result = 0; text[result] != '\0' && prefix[result] != '\0'
-                     && g_ascii_toupper (text[result]) == g_ascii_toupper (prefix[result]);
+         && g_ascii_toupper (text[result]) == g_ascii_toupper (prefix[result]);
          result++)
         ;
 

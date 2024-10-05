@@ -284,8 +284,8 @@ query_dialog (const char *header, const char *text, int flags, int count, ...)
     int result = -1;
     int cols, lines;
     const int *query_colors = (flags & D_ERROR) != 0 ? alarm_colors : dialog_colors;
-    widget_pos_flags_t pos_flags = (flags & D_CENTER) != 0 ? (WPOS_CENTER | WPOS_TRYUP)
-                                                           : WPOS_KEEP_DEFAULT;
+    widget_pos_flags_t pos_flags = (flags & D_CENTER) != 0 ? (WPOS_CENTER | WPOS_TRYUP) :
+                                                             WPOS_KEEP_DEFAULT;
 
     if (header == MSG_ERROR)
         header = _ ("Error");

@@ -552,9 +552,9 @@ extfs_open_archive (int fstype, const char *name, struct extfs_super_t **pparc, 
     }
 
     cmd = g_strconcat (info->path, info->prefix, " list ",
-                       vfs_path_get_last_path_str (local_name_vpath) != NULL
-                           ? vfs_path_get_last_path_str (local_name_vpath)
-                           : tmp,
+                       vfs_path_get_last_path_str (local_name_vpath) != NULL ?
+                           vfs_path_get_last_path_str (local_name_vpath) :
+                           tmp,
                        (char *) NULL);
     g_free (tmp);
 
@@ -1645,7 +1645,7 @@ extfs_get_plugins (const char *where, gboolean silent)
 
                     /* 2 files with same names cannot be in a directory */
                     found = strcmp (info.path, p->path) != 0
-                            && strcmp (info.prefix, p->prefix) == 0;
+                        && strcmp (info.prefix, p->prefix) == 0;
                 }
 
                 if (found)

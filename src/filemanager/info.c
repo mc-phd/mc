@@ -172,9 +172,9 @@ info_show_info (WInfo *info)
         else
             tty_printf ("%s %" PRIuMAX " / %" PRIuMAX " (%d%%)", _ ("Free nodes:"),
                         myfs_stats.nfree, myfs_stats.nodes,
-                        myfs_stats.nodes == 0
-                            ? 0
-                            : (int) (100 * (long double) myfs_stats.nfree / myfs_stats.nodes));
+                        myfs_stats.nodes == 0 ?
+                            0 :
+                            (int) (100 * (long double) myfs_stats.nfree / myfs_stats.nodes));
         MC_FALLTHROUGH;
     case 16:
         widget_gotoyx (w, 16, 3);
@@ -187,9 +187,9 @@ info_show_info (WInfo *info)
             size_trunc_len (buffer1, 5, myfs_stats.avail, 1, panels_options.kilobyte_si);
             size_trunc_len (buffer2, 5, myfs_stats.total, 1, panels_options.kilobyte_si);
             tty_printf (_ ("Free space: %s / %s (%d%%)"), buffer1, buffer2,
-                        myfs_stats.total == 0
-                            ? 0
-                            : (int) (100 * (long double) myfs_stats.avail / myfs_stats.total));
+                        myfs_stats.total == 0 ?
+                            0 :
+                            (int) (100 * (long double) myfs_stats.avail / myfs_stats.total));
         }
         MC_FALLTHROUGH;
     case 15:

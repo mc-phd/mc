@@ -156,9 +156,9 @@ mcview_display_status (WView *view)
     tty_setcolor (STATUSBAR_COLOR);
     tty_draw_hline (WIDGET (view)->rect.y + r->y, WIDGET (view)->rect.x + r->x, ' ', r->cols);
 
-    file_label = view->filename_vpath != NULL ? vfs_path_get_last_path_str (view->filename_vpath)
-                 : view->command != NULL      ? view->command
-                                              : "";
+    file_label = view->filename_vpath != NULL ? vfs_path_get_last_path_str (view->filename_vpath) :
+        view->command != NULL                 ? view->command :
+                                                "";
 
     if (r->cols > 40)
     {
@@ -174,10 +174,10 @@ mcview_display_status (WView *view)
             tty_printf ("%9" PRIuMAX "/%s%s %s", (uintmax_t) view->dpy_end, buffer,
                         mcview_may_still_grow (view) ? "+" : " ",
 #ifdef HAVE_CHARSET
-                        mc_global.source_codepage >= 0 ? get_codepage_id (mc_global.source_codepage)
-                                                       :
+                        mc_global.source_codepage >= 0 ?
+                            get_codepage_id (mc_global.source_codepage) :
 #endif
-                                                       "");
+                            "");
         }
     }
     widget_gotoyx (view, r->y, r->x);

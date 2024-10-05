@@ -831,7 +831,7 @@ canonicalize_pathname_custom (char *path, canon_path_flags_t flags)
         if (IS_PATH_SEP (lpath[len - 1])
             && (len < url_delim_len
                 || strncmp (lpath + len - url_delim_len, VFS_PATH_URL_DELIMITER, url_delim_len)
-                       != 0))
+                    != 0))
             lpath[len - 1] = '\0';
         else if (lpath[len - 1] == '.' && IS_PATH_SEP (lpath[len - 2]))
         {

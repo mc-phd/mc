@@ -152,10 +152,10 @@
 #define _GL_ADD_OVERFLOW(a, b, min, max) __builtin_add_overflow_p (a, b, (__typeof__ ((a) + (b))) 0)
 #else
 #define _GL_ADD_OVERFLOW(a, b, min, max)                                                           \
-    ((min) < 0 ? INT_ADD_RANGE_OVERFLOW (a, b, min, max)                                           \
-     : (a) < 0 ? (b) <= (a) + (b)                                                                  \
-     : (b) < 0 ? (a) <= (a) + (b)                                                                  \
-               : (a) + (b) < (b))
+    ((min) < 0   ? INT_ADD_RANGE_OVERFLOW (a, b, min, max) :                                       \
+         (a) < 0 ? (b) <= (a) + (b) :                                                              \
+         (b) < 0 ? (a) <= (a) + (b) :                                                              \
+                   (a) + (b) < (b))
 #endif
 
 /* Bound on length of the string representing an integer type or expression T.
@@ -634,7 +634,7 @@ static gboolean
 pax_sparse_member_p (struct tar_sparse_file *file)
 {
     return file->stat_info->sparse_map != NULL && file->stat_info->sparse_map->len > 0
-           && file->stat_info->sparse_major > 0;
+        && file->stat_info->sparse_major > 0;
 }
 
 /* --------------------------------------------------------------------------------------------- */

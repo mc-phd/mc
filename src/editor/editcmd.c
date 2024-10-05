@@ -375,7 +375,7 @@ edit_check_newline (const edit_buffer_t *buf)
              && edit_query_dialog2 (_ ("Warning"),
                                     _ ("The file you are saving does not end with a newline."),
                                     _ ("C&ontinue"), _ ("&Cancel"))
-                    != 0);
+                 != 0);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -512,7 +512,7 @@ edit_block_delete (WEdit *edit, off_t start_mark, off_t end_mark)
         && edit_query_dialog2 (_ ("Warning"),
                                ("Block is large, you may not be able to undo this action"),
                                _ ("C&ontinue"), _ ("&Cancel"))
-               != 0)
+            != 0)
         return FALSE;
 
     c1 = MIN (edit->column1, edit->column2);
@@ -1959,7 +1959,7 @@ edit_load_forward_cmd (WEdit *edit)
                                _ ("Current text was modified without a file save.\n"
                                   "Continue discards these changes."),
                                _ ("C&ontinue"), _ ("&Cancel"))
-               == 1)
+            == 1)
     {
         edit->force |= REDRAW_COMPLETELY;
         return TRUE;
@@ -1988,7 +1988,7 @@ edit_load_back_cmd (WEdit *edit)
                                _ ("Current text was modified without a file save.\n"
                                   "Continue discards these changes."),
                                _ ("C&ontinue"), _ ("&Cancel"))
-               == 1)
+            == 1)
     {
         edit->force |= REDRAW_COMPLETELY;
         return TRUE;

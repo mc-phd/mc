@@ -363,7 +363,7 @@ layout_callback (Widget *w, Widget *sender, widget_msg_t msg, int parm, void *da
 
         if (mc_global.tty.console_flag == '\0')
             height = mw->rect.lines - (_keybar_visible ? 1 : 0) - (_command_prompt ? 1 : 0)
-                     - (_menubar_visible ? 1 : 0) - _output_lines - (_message_visible ? 1 : 0);
+                - (_menubar_visible ? 1 : 0) - _output_lines - (_message_visible ? 1 : 0);
         else
         {
             int minimum;
@@ -371,7 +371,7 @@ layout_callback (Widget *w, Widget *sender, widget_msg_t msg, int parm, void *da
             if (_output_lines < 0)
                 _output_lines = 0;
             height = mw->rect.lines - (_keybar_visible ? 1 : 0) - (_command_prompt ? 1 : 0)
-                     - (_menubar_visible ? 1 : 0) - _output_lines - (_message_visible ? 1 : 0);
+                - (_menubar_visible ? 1 : 0) - _output_lines - (_message_visible ? 1 : 0);
             minimum = MINHEIGHT * (1 + (panels_layout.horizontal_split ? 1 : 0));
             if (height < minimum)
             {
@@ -570,8 +570,8 @@ layout_dlg_create (void)
     check_options[0].widget = check_new (5, 5, XTRACT (0));
     group_add_widget (g, check_options[0].widget);
 
-    equal_split = panels_layout.horizontal_split ? panels_layout.horizontal_equal
-                                                 : panels_layout.vertical_equal;
+    equal_split = panels_layout.horizontal_split ? panels_layout.horizontal_equal :
+                                                   panels_layout.vertical_equal;
 
     bleft_widget = button_new (6, 8, B_2LEFT, NARROW_BUTTON, "&<", b_left_right_cback);
     widget_disable (WIDGET (bleft_widget), equal_split);
@@ -824,7 +824,7 @@ setup_panels (void)
 
     /* initial height of panels */
     height = r->lines - (menubar_visible ? 1 : 0) - (mc_global.message_visible ? 1 : 0)
-             - (command_prompt ? 1 : 0) - (mc_global.keybar_visible ? 1 : 0);
+        - (command_prompt ? 1 : 0) - (mc_global.keybar_visible ? 1 : 0);
 
     if (mc_global.tty.console_flag != '\0')
     {

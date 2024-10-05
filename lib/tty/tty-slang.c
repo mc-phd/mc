@@ -464,8 +464,9 @@ tty_lowlevel_getch (void)
     c = SLang_getkey ();
     if (c == SLANG_GETKEY_ERROR)
     {
-        fprintf (stderr, "SLang_getkey returned SLANG_GETKEY_ERROR\n"
-                         "Assuming EOF on stdin and exiting\n");
+        fprintf (stderr,
+                 "SLang_getkey returned SLANG_GETKEY_ERROR\n"
+                 "Assuming EOF on stdin and exiting\n");
         exit (EXIT_FAILURE);
     }
 
@@ -634,8 +635,8 @@ void
 tty_print_alt_char (int c, gboolean single)
 {
 #define DRAW(x, y)                                                                                 \
-    (x == y) ? SLsmg_draw_object (SLsmg_get_row (), SLsmg_get_column (), x)                        \
-             : SLsmg_write_char ((unsigned int) y)
+    (x == y) ? SLsmg_draw_object (SLsmg_get_row (), SLsmg_get_column (), x) :                      \
+               SLsmg_write_char ((unsigned int) y)
     switch (c)
     {
     case ACS_VLINE:

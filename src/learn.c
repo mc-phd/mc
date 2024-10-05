@@ -324,10 +324,11 @@ init_learn (void)
 
     group_add_widget (g, hline_new (dlg_height - 8, -1, -1));
     group_add_widget (
-        g, label_new (dlg_height - 7, 5,
-                      _ ("Press all the keys mentioned here. After you have done it, check\n"
-                         "which keys are not marked with OK. Press space on the missing\n"
-                         "key, or click with the mouse to define it. Move around with Tab.")));
+        g,
+        label_new (dlg_height - 7, 5,
+                   _ ("Press all the keys mentioned here. After you have done it, check\n"
+                      "which keys are not marked with OK. Press space on the missing\n"
+                      "key, or click with the mouse to define it. Move around with Tab.")));
     group_add_widget (g, hline_new (dlg_height - 4, -1, -1));
     /* buttons */
     bl0 = str_term_width1 (b0) + 5; /* default button */

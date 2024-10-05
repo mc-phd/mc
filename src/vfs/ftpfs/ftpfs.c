@@ -654,8 +654,8 @@ ftpfs_login_server (struct vfs_class *me, struct vfs_s_super *super, const char 
     /* Proxy server accepts: username@host-we-want-to-connect */
     if (ftp_super->proxy != NULL)
         name = g_strconcat (super->path_element->user, "@",
-                            super->path_element->host[0] == '!' ? super->path_element->host + 1
-                                                                : super->path_element->host,
+                            super->path_element->host[0] == '!' ? super->path_element->host + 1 :
+                                                                  super->path_element->host,
                             (char *) NULL);
     else
         name = g_strdup (super->path_element->user);
@@ -1045,9 +1045,9 @@ ftpfs_archive_same (const vfs_path_element_t *vpath_element, struct vfs_s_super 
 
     result = ((strcmp (path_element->host, super->path_element->host) == 0)
               && (strcmp (path_element->user, super->path_element->user) == 0)
-              && (path_element->port == super->path_element->port))
-                 ? 1
-                 : 0;
+              && (path_element->port == super->path_element->port)) ?
+        1 :
+        0;
 
     vfs_path_element_free (path_element);
     return result;
@@ -1281,9 +1281,9 @@ ftpfs_setup_active (struct vfs_class *me, struct vfs_s_super *super,
     port = ntohs (port);
 
     /* We are talking to an IPV6 server or PORT failed, so we can try EPRT anyway */
-    res = (ftpfs_command (me, super, WAIT_REPLY, "EPRT |%u|%s|%hu|", af, addr, port) == COMPLETE)
-              ? 1
-              : 0;
+    res = (ftpfs_command (me, super, WAIT_REPLY, "EPRT |%u|%s|%hu|", af, addr, port) == COMPLETE) ?
+        1 :
+        0;
     g_free (addr);
     return res;
 }
@@ -1431,9 +1431,9 @@ ftpfs_initconn (struct vfs_class *me, struct vfs_s_super *super)
     }
 
     /* Restore the initial value of use_passive_connection (for subsequent retries) */
-    ftp_super->use_passive_connection = ftp_super->proxy != NULL
-                                            ? ftpfs_use_passive_connections_over_proxy
-                                            : ftpfs_use_passive_connections;
+    ftp_super->use_passive_connection = ftp_super->proxy != NULL ?
+        ftpfs_use_passive_connections_over_proxy :
+        ftpfs_use_passive_connections;
 
     me->verrno = EIO;
     return (-1);
@@ -1798,7 +1798,7 @@ ftpfs_dir_load (struct vfs_class *me, struct vfs_s_inode *dir, const char *remot
     int err_count = 0;
 
     cd_first = ftpfs_first_cd_then_ls || (ftp_super->strict == RFC_STRICT)
-               || (strchr (remote_path, ' ') != NULL);
+        || (strchr (remote_path, ' ') != NULL);
 
 again:
     vfs_print_message (_ ("ftpfs: Reading FTP directory %s... %s%s"), remote_path,

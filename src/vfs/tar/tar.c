@@ -448,12 +448,12 @@ tar_fill_stat (struct vfs_s_super *archive, union block *header)
     case TAR_GNU:
     case TAR_OLDGNU:
         /* *INDENT-OFF* */
-        current_stat_info.stat.st_uid = *header->header.uname != '\0'
-                                            ? (uid_t) vfs_finduid (header->header.uname)
-                                            : UID_FROM_HEADER (header->header.uid);
-        current_stat_info.stat.st_gid = *header->header.gname != '\0'
-                                            ? (gid_t) vfs_findgid (header->header.gname)
-                                            : GID_FROM_HEADER (header->header.gid);
+        current_stat_info.stat.st_uid = *header->header.uname != '\0' ?
+            (uid_t) vfs_finduid (header->header.uname) :
+            UID_FROM_HEADER (header->header.uid);
+        current_stat_info.stat.st_gid = *header->header.gname != '\0' ?
+            (gid_t) vfs_findgid (header->header.gname) :
+            GID_FROM_HEADER (header->header.gid);
         /* *INDENT-ON* */
 
         switch (header->header.typeflag)

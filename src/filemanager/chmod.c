@@ -367,25 +367,29 @@ chmod_dlg_create (WPanel *panel, const char *fname, const struct stat *sf_stat)
         for (; i < BUTTONS - 2; i++)
         {
             y = lines - chmod_but[i].y;
-            group_add_widget (g, button_new (y, WIDGET (ch_dlg)->rect.cols / 2 - chmod_but[i].len,
-                                             chmod_but[i].ret_cmd, chmod_but[i].flags,
-                                             chmod_but[i].text, NULL));
+            group_add_widget (g,
+                              button_new (y, WIDGET (ch_dlg)->rect.cols / 2 - chmod_but[i].len,
+                                          chmod_but[i].ret_cmd, chmod_but[i].flags,
+                                          chmod_but[i].text, NULL));
             i++;
-            group_add_widget (g, button_new (y, WIDGET (ch_dlg)->rect.cols / 2 + 1,
-                                             chmod_but[i].ret_cmd, chmod_but[i].flags,
-                                             chmod_but[i].text, NULL));
+            group_add_widget (g,
+                              button_new (y, WIDGET (ch_dlg)->rect.cols / 2 + 1,
+                                          chmod_but[i].ret_cmd, chmod_but[i].flags,
+                                          chmod_but[i].text, NULL));
         }
     }
 
     i = BUTTONS - 2;
     y = lines - chmod_but[i].y;
     group_add_widget (g, hline_new (y - 1, -1, -1));
-    group_add_widget (g, button_new (y, WIDGET (ch_dlg)->rect.cols / 2 - chmod_but[i].len,
-                                     chmod_but[i].ret_cmd, chmod_but[i].flags, chmod_but[i].text,
-                                     NULL));
+    group_add_widget (g,
+                      button_new (y, WIDGET (ch_dlg)->rect.cols / 2 - chmod_but[i].len,
+                                  chmod_but[i].ret_cmd, chmod_but[i].flags, chmod_but[i].text,
+                                  NULL));
     i++;
-    group_add_widget (g, button_new (y, WIDGET (ch_dlg)->rect.cols / 2 + 1, chmod_but[i].ret_cmd,
-                                     chmod_but[i].flags, chmod_but[i].text, NULL));
+    group_add_widget (g,
+                      button_new (y, WIDGET (ch_dlg)->rect.cols / 2 + 1, chmod_but[i].ret_cmd,
+                                  chmod_but[i].flags, chmod_but[i].text, NULL));
 
     /* select first checkbox */
     widget_select (WIDGET (check_perm[0].check));

@@ -269,8 +269,8 @@ test_condition (const Widget *edit_widget, char *p, gboolean *condition)
             else
 #endif
                 *condition = panel != NULL
-                             && mc_search (arg, DEFAULT_CHARSET,
-                                           panel_current_entry (panel)->fname->str, search_type);
+                    && mc_search (arg, DEFAULT_CHARSET, panel_current_entry (panel)->fname->str,
+                                  search_type);
             break;
         case 'y': /* syntax pattern */
 #ifdef USE_INTERNAL_EDIT
@@ -290,8 +290,8 @@ test_condition (const Widget *edit_widget, char *p, gboolean *condition)
         case 'd':
             p = extract_arg (p, arg, sizeof (arg));
             *condition = panel != NULL
-                         && mc_search (arg, DEFAULT_CHARSET, vfs_path_as_str (panel->cwd_vpath),
-                                       search_type);
+                && mc_search (arg, DEFAULT_CHARSET, vfs_path_as_str (panel->cwd_vpath),
+                              search_type);
             break;
         case 't':
             p = extract_arg (p, arg, sizeof (arg));
@@ -733,8 +733,8 @@ check_format_var (const char *p, char **v)
         if (dots == NULL || dots == q + 5)
         {
             message (D_ERROR, _ ("Format error on file Extensions File"),
-                     !dots ? _ ("The %%var macro has no default")
-                           : _ ("The %%var macro has no variable"));
+                     !dots ? _ ("The %%var macro has no default") :
+                             _ ("The %%var macro has no variable"));
             return 0;
         }
 

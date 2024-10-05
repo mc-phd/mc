@@ -405,7 +405,7 @@ console_save (void)
     {
         /* *INDENT-OFF* */
         screen_shot.buf[i] = (screen_shot.buf[i] & 0xff00)
-                             | (unsigned char) revmap.scrmap[screen_shot.buf[i] & 0xff];
+            | (unsigned char) revmap.scrmap[screen_shot.buf[i] & 0xff];
         /* *INDENT-ON* */
     }
 }

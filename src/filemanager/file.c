@@ -965,9 +965,9 @@ real_query_recursive (file_op_context_t *ctx, enum OperationMode mode, const cha
         const char *msg;
         char *text;
 
-        msg = mode == Foreground
-                  ? _ ("Directory \"%s\" not empty.\nDelete it recursively?")
-                  : _ ("Background process:\nDirectory \"%s\" not empty.\nDelete it recursively?");
+        msg = mode == Foreground ?
+            _ ("Directory \"%s\" not empty.\nDelete it recursively?") :
+            _ ("Background process:\nDirectory \"%s\" not empty.\nDelete it recursively?");
         text = g_strdup_printf (msg, path_trunc (s, 30));
 
         if (safe_delete)
@@ -3397,7 +3397,7 @@ panel_operate (void *source_panel, FileOperation operation, gboolean force_singl
 {
     WPanel *panel = PANEL (source_panel);
     const gboolean single_entry = force_single || (panel->marked <= 1)
-                                  || (get_current_type () == view_tree);
+        || (get_current_type () == view_tree);
 
     const char *source = NULL;
     char *dest = NULL;
@@ -3463,8 +3463,9 @@ panel_operate (void *source_panel, FileOperation operation, gboolean force_singl
     {
         int v;
 
-        v = do_background (ctx, g_strconcat (op_names[operation], ": ",
-                                             vfs_path_as_str (panel->cwd_vpath), (char *) NULL));
+        v = do_background (ctx,
+                           g_strconcat (op_names[operation], ": ",
+                                        vfs_path_as_str (panel->cwd_vpath), (char *) NULL));
         if (v == -1)
             message (D_ERROR, MSG_ERROR, _ ("Sorry, I could not put the job in background"));
 
@@ -3549,7 +3550,7 @@ panel_operate (void *source_panel, FileOperation operation, gboolean force_singl
 
             if (ctx->skip_all
                 || file_error (TRUE, _ ("Destination \"%s\" must be a directory\n%s"), dest)
-                       != FILE_RETRY)
+                    != FILE_RETRY)
                 goto clean_up;
         }
 
