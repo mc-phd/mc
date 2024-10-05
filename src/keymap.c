@@ -98,90 +98,91 @@ typedef struct global_keymap_ini_t
 /*** file scope variables ************************************************************************/
 
 /* midnight */
-static const global_keymap_ini_t default_filemanager_keymap[]
-    = { { "ChangePanel", "tab; ctrl-i" },
-        { "Help", "f1" },
-        { "UserMenu", "f2" },
-        { "View", "f3" },
-        { "Edit", "f4" },
-        { "Copy", "f5" },
-        { "Move", "f6" },
-        { "MakeDir", "f7" },
-        { "Delete", "f8" },
-        { "Menu", "f9" },
-        { "Quit", "f10" },
-        { "MenuLastSelected", "f19" },
-        { "QuitQuiet", "f20" },
-        { "History", "alt-h" },
-        { "EditorViewerHistory", "alt-shift-e" },
-        { "DirSize", "ctrl-space" },
-        /* Copy useful information to the command line */
-        { "PutCurrentPath", "alt-a" },
-        { "PutOtherPath", "alt-shift-a" },
-        { "PutCurrentSelected", "alt-enter; ctrl-enter" },
-        { "PutCurrentFullSelected", "ctrl-shift-enter" },
-        { "CdQuick", "alt-c" },
-        /* To access the directory hotlist */
-        { "HotList", "ctrl-backslash" },
-        /* Suspend */
-        { "Suspend", "ctrl-z" },
-        /* The filtered view command */
-        { "ViewFiltered", "alt-exclamation" },
-        /* Find file */
-        { "Find", "alt-question" },
-        /* Panel refresh */
-        { "Reread", "ctrl-r" },
-        /* Switch listing between long, user defined and full formats */
-        /* Swap panels */
-        { "Swap", "ctrl-u" },
-        /* Resize panels */
-        { "SplitEqual", "alt-equal" },
-        { "SplitMore", "alt-shift-right" },
-        { "SplitLess", "alt-shift-left" },
-        /* View output */
-        { "Shell", "ctrl-o" },
-        { "ShowHidden", "alt-dot" },
-        { "SplitVertHoriz", "alt-comma" },
-        { "ExtendedKeyMap", "ctrl-x" },
-        /* Select/unselect group */
-        { "Select", "kpplus" },
-        { "Unselect", "kpminus" },
-        { "SelectInvert", "kpasterisk" },
-        /* List of screens */
-        { "ScreenList", "alt-prime" },
-        { NULL, NULL } };
+static const global_keymap_ini_t default_filemanager_keymap[] = {
+    { "ChangePanel", "tab; ctrl-i" },
+    { "Help", "f1" },
+    { "UserMenu", "f2" },
+    { "View", "f3" },
+    { "Edit", "f4" },
+    { "Copy", "f5" },
+    { "Move", "f6" },
+    { "MakeDir", "f7" },
+    { "Delete", "f8" },
+    { "Menu", "f9" },
+    { "Quit", "f10" },
+    { "MenuLastSelected", "f19" },
+    { "QuitQuiet", "f20" },
+    { "History", "alt-h" },
+    { "EditorViewerHistory", "alt-shift-e" },
+    { "DirSize", "ctrl-space" },
+    /* Copy useful information to the command line */
+    { "PutCurrentPath", "alt-a" },
+    { "PutOtherPath", "alt-shift-a" },
+    { "PutCurrentSelected", "alt-enter; ctrl-enter" },
+    { "PutCurrentFullSelected", "ctrl-shift-enter" },
+    { "CdQuick", "alt-c" },
+    /* To access the directory hotlist */
+    { "HotList", "ctrl-backslash" },
+    /* Suspend */
+    { "Suspend", "ctrl-z" },
+    /* The filtered view command */
+    { "ViewFiltered", "alt-exclamation" },
+    /* Find file */
+    { "Find", "alt-question" },
+    /* Panel refresh */
+    { "Reread", "ctrl-r" },
+    /* Switch listing between long, user defined and full formats */
+    /* Swap panels */
+    { "Swap", "ctrl-u" },
+    /* Resize panels */
+    { "SplitEqual", "alt-equal" },
+    { "SplitMore", "alt-shift-right" },
+    { "SplitLess", "alt-shift-left" },
+    /* View output */
+    { "Shell", "ctrl-o" },
+    { "ShowHidden", "alt-dot" },
+    { "SplitVertHoriz", "alt-comma" },
+    { "ExtendedKeyMap", "ctrl-x" },
+    /* Select/unselect group */
+    { "Select", "kpplus" },
+    { "Unselect", "kpminus" },
+    { "SelectInvert", "kpasterisk" },
+    /* List of screens */
+    { "ScreenList", "alt-prime" },
+    { NULL, NULL }
+};
 
-static const global_keymap_ini_t default_filemanager_x_keymap[]
-    = { { "CompareDirs", "d" },
+static const global_keymap_ini_t default_filemanager_x_keymap[] = { { "CompareDirs", "d" },
 #ifdef USE_DIFF_VIEW
-        { "CompareFiles", "ctrl-d" },
+                                                                    { "CompareFiles", "ctrl-d" },
 #endif /* USE_DIFF_VIEW */
 #ifdef ENABLE_VFS
-        { "VfsList", "a" },
+                                                                    { "VfsList", "a" },
 #endif /* ENABLE_VFS */
-        { "PutCurrentPath", "p" },
-        { "PutOtherPath", "ctrl-p" },
-        { "PutCurrentTagged", "t" },
-        { "PutOtherTagged", "ctrl-t" },
-        { "ChangeMode", "c" },
-        { "ChangeOwn", "o" },
+                                                                    { "PutCurrentPath", "p" },
+                                                                    { "PutOtherPath", "ctrl-p" },
+                                                                    { "PutCurrentTagged", "t" },
+                                                                    { "PutOtherTagged", "ctrl-t" },
+                                                                    { "ChangeMode", "c" },
+                                                                    { "ChangeOwn", "o" },
 #ifdef ENABLE_EXT2FS_ATTR
-        { "ChangeAttributes", "e" },
+                                                                    { "ChangeAttributes", "e" },
 #endif /* ENABLE_EXT2FS_ATTR */
-        { "PutCurrentLink", "r" },
-        { "PutOtherLink", "ctrl-r" },
-        { "Link", "l" },
-        { "LinkSymbolic", "s" },
-        { "LinkSymbolicRelative", "v" },
-        { "LinkSymbolicEdit", "ctrl-s" },
-        { "PanelInfo", "i" },
-        { "PanelQuickView", "q" },
-        { "HotListAdd", "h" },
+                                                                    { "PutCurrentLink", "r" },
+                                                                    { "PutOtherLink", "ctrl-r" },
+                                                                    { "Link", "l" },
+                                                                    { "LinkSymbolic", "s" },
+                                                                    { "LinkSymbolicRelative", "v" },
+                                                                    { "LinkSymbolicEdit",
+                                                                      "ctrl-s" },
+                                                                    { "PanelInfo", "i" },
+                                                                    { "PanelQuickView", "q" },
+                                                                    { "HotListAdd", "h" },
 #ifdef ENABLE_BACKGROUND
-        { "Jobs", "j" },
+                                                                    { "Jobs", "j" },
 #endif /* ENABLE_BACKGROUND */
-        { "ExternalPanelize", "!" },
-        { NULL, NULL } };
+                                                                    { "ExternalPanelize", "!" },
+                                                                    { NULL, NULL } };
 
 /* panel */
 static const global_keymap_ini_t default_panel_keymap[] = { { "CycleListingFormat", "alt-t" },
@@ -301,9 +302,10 @@ static const global_keymap_ini_t default_listbox_keymap[] = { { "Up", "up; ctrl-
                                                               { NULL, NULL } };
 
 /* radio */
-static const global_keymap_ini_t default_radio_keymap[]
-    = { { "Up", "up; ctrl-p" },          { "Down", "down; ctrl-n" }, { "Top", "home; alt-lt; a1" },
-        { "Bottom", "end; alt-gt; c1" }, { "Select", "space" },      { NULL, NULL } };
+static const global_keymap_ini_t default_radio_keymap[] = {
+    { "Up", "up; ctrl-p" },          { "Down", "down; ctrl-n" }, { "Top", "home; alt-lt; a1" },
+    { "Bottom", "end; alt-gt; c1" }, { "Select", "space" },      { NULL, NULL }
+};
 
 /* tree */
 static const global_keymap_ini_t default_tree_keymap[] = { { "Help", "f1" },
@@ -329,25 +331,26 @@ static const global_keymap_ini_t default_tree_keymap[] = { { "Help", "f1" },
                                                            { NULL, NULL } };
 
 /* help */
-static const global_keymap_ini_t default_help_keymap[]
-    = { { "Help", "f1" },
-        { "Index", "f2; c" },
-        { "Back", "f3; left; l" },
-        { "Quit", "f10; esc" },
-        { "Up", "up; ctrl-p" },
-        { "Down", "down; ctrl-n" },
-        { "PageDown", "f; space; pgdn; ctrl-v" },
-        { "PageUp", "b; pgup; alt-v; backspace" },
-        { "HalfPageDown", "d" },
-        { "HalfPageUp", "u" },
-        { "Top", "home; ctrl-home; ctrl-pgup; a1; alt-lt; g" },
-        { "Bottom", "end; ctrl-end; ctrl-pgdn; c1; alt-gt; shift-g" },
-        { "Enter", "right; enter" },
-        { "LinkNext", "tab" },
-        { "LinkPrev", "alt-tab" },
-        { "NodeNext", "n" },
-        { "NodePrev", "p" },
-        { NULL, NULL } };
+static const global_keymap_ini_t default_help_keymap[] = {
+    { "Help", "f1" },
+    { "Index", "f2; c" },
+    { "Back", "f3; left; l" },
+    { "Quit", "f10; esc" },
+    { "Up", "up; ctrl-p" },
+    { "Down", "down; ctrl-n" },
+    { "PageDown", "f; space; pgdn; ctrl-v" },
+    { "PageUp", "b; pgup; alt-v; backspace" },
+    { "HalfPageDown", "d" },
+    { "HalfPageUp", "u" },
+    { "Top", "home; ctrl-home; ctrl-pgup; a1; alt-lt; g" },
+    { "Bottom", "end; ctrl-end; ctrl-pgdn; c1; alt-gt; shift-g" },
+    { "Enter", "right; enter" },
+    { "LinkNext", "tab" },
+    { "LinkPrev", "alt-tab" },
+    { "NodeNext", "n" },
+    { "NodePrev", "p" },
+    { NULL, NULL }
+};
 
 #ifdef ENABLE_EXT2FS_ATTR
 /* chattr dialog */
@@ -363,190 +366,193 @@ static const global_keymap_ini_t default_chattr_keymap[] = { { "Up", "up; left; 
 #endif /* ENABLE_EXT2FS_ATTR */
 
 #ifdef USE_INTERNAL_EDIT
-static const global_keymap_ini_t default_editor_keymap[]
-    = { { "Enter", "enter" },
-        { "Return",
-          "shift-enter; ctrl-enter; ctrl-shift-enter" }, /* useful for pasting multiline text */
-        { "Tab", "tab; shift-tab; ctrl-tab; ctrl-shift-tab" }, /* ditto */
-        { "BackSpace", "backspace; ctrl-h" },
-        { "Delete", "delete; ctrl-d" },
-        { "Left", "left" },
-        { "Right", "right" },
-        { "Up", "up" },
-        { "Down", "down" },
-        { "Home", "home" },
-        { "End", "end" },
-        { "PageUp", "pgup" },
-        { "PageDown", "pgdn" },
-        { "WordLeft", "ctrl-left; ctrl-z" },
-        { "WordRight", "ctrl-right; ctrl-x" },
-        { "InsertOverwrite", "insert" },
-        { "Help", "f1" },
-        { "Save", "f2" },
-        { "Mark", "f3" },
-        { "Replace", "f4" },
-        { "Copy", "f5" },
-        { "Move", "f6" },
-        { "Search", "f7" },
-        { "Remove", "f8; ctrl-delete" },
-        { "Menu", "f9" },
-        { "Quit", "f10; esc" },
-        { "UserMenu", "f11" },
-        { "SaveAs", "f12; ctrl-f2" },
-        { "MarkColumn", "f13" },
-        { "ReplaceContinue", "f14; ctrl-f4" },
-        { "InsertFile", "f15" },
-        { "SearchContinue", "f17; ctrl-f7" },
-        { "EditNew", "ctrl-n" },
-        { "DeleteToWordBegin", "alt-backspace" },
-        { "DeleteToWordEnd", "alt-d" },
-        { "DeleteLine", "ctrl-y" },
-        { "DeleteToEnd", "ctrl-k" },
-        { "Undo", "ctrl-u; ctrl-backspace" },
-        { "Redo", "alt-r" },
+static const global_keymap_ini_t default_editor_keymap[] = {
+    { "Enter", "enter" },
+    { "Return",
+      "shift-enter; ctrl-enter; ctrl-shift-enter" },       /* useful for pasting multiline text */
+    { "Tab", "tab; shift-tab; ctrl-tab; ctrl-shift-tab" }, /* ditto */
+    { "BackSpace", "backspace; ctrl-h" },
+    { "Delete", "delete; ctrl-d" },
+    { "Left", "left" },
+    { "Right", "right" },
+    { "Up", "up" },
+    { "Down", "down" },
+    { "Home", "home" },
+    { "End", "end" },
+    { "PageUp", "pgup" },
+    { "PageDown", "pgdn" },
+    { "WordLeft", "ctrl-left; ctrl-z" },
+    { "WordRight", "ctrl-right; ctrl-x" },
+    { "InsertOverwrite", "insert" },
+    { "Help", "f1" },
+    { "Save", "f2" },
+    { "Mark", "f3" },
+    { "Replace", "f4" },
+    { "Copy", "f5" },
+    { "Move", "f6" },
+    { "Search", "f7" },
+    { "Remove", "f8; ctrl-delete" },
+    { "Menu", "f9" },
+    { "Quit", "f10; esc" },
+    { "UserMenu", "f11" },
+    { "SaveAs", "f12; ctrl-f2" },
+    { "MarkColumn", "f13" },
+    { "ReplaceContinue", "f14; ctrl-f4" },
+    { "InsertFile", "f15" },
+    { "SearchContinue", "f17; ctrl-f7" },
+    { "EditNew", "ctrl-n" },
+    { "DeleteToWordBegin", "alt-backspace" },
+    { "DeleteToWordEnd", "alt-d" },
+    { "DeleteLine", "ctrl-y" },
+    { "DeleteToEnd", "ctrl-k" },
+    { "Undo", "ctrl-u; ctrl-backspace" },
+    { "Redo", "alt-r" },
 #ifdef HAVE_CHARSET
-        { "SelectCodepage", "alt-e" },
+    { "SelectCodepage", "alt-e" },
 #endif
-        { "Goto", "alt-l; alt-shift-l" },
-        { "Refresh", "ctrl-l" },
-        { "Shell", "ctrl-o" },
-        { "Top", "ctrl-home; ctrl-pgup; alt-lt" },
-        { "Bottom", "ctrl-end; ctrl-pgdn; alt-gt" },
-        { "TopOnScreen", "ctrl-pgup" },
-        { "BottomOnScreen", "ctrl-pgdn" },
-        { "ScrollUp", "ctrl-up" },
-        { "ScrollDown", "ctrl-down" },
-        { "Store", "ctrl-insert" },
-        { "Paste", "shift-insert" },
-        { "Cut", "shift-delete" },
-        { "BlockSave", "ctrl-f" },
-        { "MarkLeft", "shift-left" },
-        { "MarkRight", "shift-right" },
-        { "MarkUp", "shift-up" },
-        { "MarkDown", "shift-down" },
-        { "MarkPageUp", "shift-pgup" },
-        { "MarkPageDown", "shift-pgdn" },
-        { "MarkToWordBegin", "ctrl-shift-left" },
-        { "MarkToWordEnd", "ctrl-shift-right" },
-        { "MarkToHome", "shift-home" },
-        { "MarkToEnd", "shift-end" },
-        { "MarkToFileBegin", "ctrl-shift-home" },
-        { "MarkToFileEnd", "ctrl-shift-end" },
-        { "MarkToPageBegin", "ctrl-shift-pgup" },
-        { "MarkToPageEnd", "ctrl-shift-pgdn" },
-        { "MarkScrollUp", "ctrl-shift-up" },
-        { "MarkScrollDown", "ctrl-shift-down" },
-        { "MarkColumnLeft", "alt-left" },
-        { "MarkColumnRight", "alt-right" },
-        { "MarkColumnUp", "alt-up" },
-        { "MarkColumnDown", "alt-down" },
-        { "MarkColumnPageUp", "alt-pgup" },
-        { "MarkColumnPageDown", "alt-pgdn" },
-        { "InsertLiteral", "ctrl-q" },
-        { "Complete", "alt-tab" },
-        { "MatchBracket", "alt-b" },
-        { "ParagraphFormat", "alt-p" },
-        { "Bookmark", "alt-k" },
-        { "BookmarkFlush", "alt-o" },
-        { "BookmarkNext", "alt-j" },
-        { "BookmarkPrev", "alt-i" },
-        { "MacroStartStopRecord", "ctrl-r" },
-        { "MacroExecute", "ctrl-a" },
-        { "ShowNumbers", "alt-n" },
-        { "ShowTabTws", "alt-underline" },
-        { "SyntaxOnOff", "ctrl-s" },
-        { "Find", "alt-enter" },
-        { "FilePrev", "alt-minus" },
-        { "FileNext", "alt-plus" },
-        { "Sort", "alt-t" },
-        { "Mail", "alt-m" },
-        { "ExternalCommand", "alt-u" },
+    { "Goto", "alt-l; alt-shift-l" },
+    { "Refresh", "ctrl-l" },
+    { "Shell", "ctrl-o" },
+    { "Top", "ctrl-home; ctrl-pgup; alt-lt" },
+    { "Bottom", "ctrl-end; ctrl-pgdn; alt-gt" },
+    { "TopOnScreen", "ctrl-pgup" },
+    { "BottomOnScreen", "ctrl-pgdn" },
+    { "ScrollUp", "ctrl-up" },
+    { "ScrollDown", "ctrl-down" },
+    { "Store", "ctrl-insert" },
+    { "Paste", "shift-insert" },
+    { "Cut", "shift-delete" },
+    { "BlockSave", "ctrl-f" },
+    { "MarkLeft", "shift-left" },
+    { "MarkRight", "shift-right" },
+    { "MarkUp", "shift-up" },
+    { "MarkDown", "shift-down" },
+    { "MarkPageUp", "shift-pgup" },
+    { "MarkPageDown", "shift-pgdn" },
+    { "MarkToWordBegin", "ctrl-shift-left" },
+    { "MarkToWordEnd", "ctrl-shift-right" },
+    { "MarkToHome", "shift-home" },
+    { "MarkToEnd", "shift-end" },
+    { "MarkToFileBegin", "ctrl-shift-home" },
+    { "MarkToFileEnd", "ctrl-shift-end" },
+    { "MarkToPageBegin", "ctrl-shift-pgup" },
+    { "MarkToPageEnd", "ctrl-shift-pgdn" },
+    { "MarkScrollUp", "ctrl-shift-up" },
+    { "MarkScrollDown", "ctrl-shift-down" },
+    { "MarkColumnLeft", "alt-left" },
+    { "MarkColumnRight", "alt-right" },
+    { "MarkColumnUp", "alt-up" },
+    { "MarkColumnDown", "alt-down" },
+    { "MarkColumnPageUp", "alt-pgup" },
+    { "MarkColumnPageDown", "alt-pgdn" },
+    { "InsertLiteral", "ctrl-q" },
+    { "Complete", "alt-tab" },
+    { "MatchBracket", "alt-b" },
+    { "ParagraphFormat", "alt-p" },
+    { "Bookmark", "alt-k" },
+    { "BookmarkFlush", "alt-o" },
+    { "BookmarkNext", "alt-j" },
+    { "BookmarkPrev", "alt-i" },
+    { "MacroStartStopRecord", "ctrl-r" },
+    { "MacroExecute", "ctrl-a" },
+    { "ShowNumbers", "alt-n" },
+    { "ShowTabTws", "alt-underline" },
+    { "SyntaxOnOff", "ctrl-s" },
+    { "Find", "alt-enter" },
+    { "FilePrev", "alt-minus" },
+    { "FileNext", "alt-plus" },
+    { "Sort", "alt-t" },
+    { "Mail", "alt-m" },
+    { "ExternalCommand", "alt-u" },
 #ifdef HAVE_ASPELL
-        { "SpellCheckCurrentWord", "ctrl-p" },
+    { "SpellCheckCurrentWord", "ctrl-p" },
 #endif
-        { "ExtendedKeyMap", "ctrl-x" },
-        { NULL, NULL } };
+    { "ExtendedKeyMap", "ctrl-x" },
+    { NULL, NULL }
+};
 
 /* emacs keyboard layout emulation */
 static const global_keymap_ini_t default_editor_x_keymap[] = { { NULL, NULL } };
 #endif /* USE_INTERNAL_EDIT */
 
 /* viewer */
-static const global_keymap_ini_t default_viewer_keymap[]
-    = { { "Help", "f1" },
-        { "WrapMode", "f2" },
-        { "Quit", "f3; f10; q; esc" },
-        { "HexMode", "f4" },
-        { "Goto", "f5" },
-        { "Search", "f7" },
-        { "SearchContinue", "f17; n" },
-        { "MagicMode", "f8" },
-        { "NroffMode", "f9" },
-        { "Home", "ctrl-a" },
-        { "End", "ctrl-e" },
-        { "Left", "h; left" },
-        { "Right", "l; right" },
-        { "LeftQuick", "ctrl-left" },
-        { "RightQuick", "ctrl-right" },
-        { "Up", "k; y; insert; up; ctrl-p" },
-        { "Down", "j; e; delete; down; enter; ctrl-n" },
-        { "PageDown", "f; space; pgdn; ctrl-v" },
-        { "PageUp", "b; pgup; alt-v; backspace" },
-        { "HalfPageDown", "d" },
-        { "HalfPageUp", "u" },
-        { "Top", "home; ctrl-home; ctrl-pgup; a1; alt-lt; g" },
-        { "Bottom", "end; ctrl-end; ctrl-pgdn; c1; alt-gt; shift-g" },
-        { "BookmarkGoto", "m" },
-        { "Bookmark", "r" },
-        { "FileNext", "ctrl-f" },
-        { "FilePrev", "ctrl-b" },
+static const global_keymap_ini_t default_viewer_keymap[] = {
+    { "Help", "f1" },
+    { "WrapMode", "f2" },
+    { "Quit", "f3; f10; q; esc" },
+    { "HexMode", "f4" },
+    { "Goto", "f5" },
+    { "Search", "f7" },
+    { "SearchContinue", "f17; n" },
+    { "MagicMode", "f8" },
+    { "NroffMode", "f9" },
+    { "Home", "ctrl-a" },
+    { "End", "ctrl-e" },
+    { "Left", "h; left" },
+    { "Right", "l; right" },
+    { "LeftQuick", "ctrl-left" },
+    { "RightQuick", "ctrl-right" },
+    { "Up", "k; y; insert; up; ctrl-p" },
+    { "Down", "j; e; delete; down; enter; ctrl-n" },
+    { "PageDown", "f; space; pgdn; ctrl-v" },
+    { "PageUp", "b; pgup; alt-v; backspace" },
+    { "HalfPageDown", "d" },
+    { "HalfPageUp", "u" },
+    { "Top", "home; ctrl-home; ctrl-pgup; a1; alt-lt; g" },
+    { "Bottom", "end; ctrl-end; ctrl-pgdn; c1; alt-gt; shift-g" },
+    { "BookmarkGoto", "m" },
+    { "Bookmark", "r" },
+    { "FileNext", "ctrl-f" },
+    { "FilePrev", "ctrl-b" },
 #ifdef HAVE_CHARSET
-        { "SelectCodepage", "alt-e" },
+    { "SelectCodepage", "alt-e" },
 #endif
-        { "Shell", "ctrl-o" },
-        { "Ruler", "alt-r" },
-        { "SearchForward", "slash" },
-        { "SearchBackward", "question" },
-        { "SearchForwardContinue", "ctrl-s" },
-        { "SearchBackwardContinue", "ctrl-r" },
-        { "SearchOppositeContinue", "shift-n" },
-        { "History", "alt-shift-e" },
-        { NULL, NULL } };
+    { "Shell", "ctrl-o" },
+    { "Ruler", "alt-r" },
+    { "SearchForward", "slash" },
+    { "SearchBackward", "question" },
+    { "SearchForwardContinue", "ctrl-s" },
+    { "SearchBackwardContinue", "ctrl-r" },
+    { "SearchOppositeContinue", "shift-n" },
+    { "History", "alt-shift-e" },
+    { NULL, NULL }
+};
 
 /* hex viewer */
-static const global_keymap_ini_t default_viewer_hex_keymap[]
-    = { { "Help", "f1" },
-        { "HexEditMode", "f2" },
-        { "Quit", "f3; f10; q; esc" },
-        { "HexMode", "f4" },
-        { "Goto", "f5" },
-        { "Save", "f6" },
-        { "Search", "f7" },
-        { "SearchContinue", "f17; n" },
-        { "MagicMode", "f8" },
-        { "NroffMode", "f9" },
-        { "ToggleNavigation", "tab" },
-        { "Home", "ctrl-a; home" },
-        { "End", "ctrl-e; end" },
-        { "Left", "b; left" },
-        { "Right", "f; right" },
-        { "Up", "k; y; up" },
-        { "Down", "j; delete; down" },
-        { "PageDown", "pgdn; ctrl-v" },
-        { "PageUp", "pgup; alt-v" },
-        { "Top", "ctrl-home; ctrl-pgup; a1; alt-lt; g" },
-        { "Bottom", "ctrl-end; ctrl-pgdn; c1; alt-gt; shift-g" },
+static const global_keymap_ini_t default_viewer_hex_keymap[] = {
+    { "Help", "f1" },
+    { "HexEditMode", "f2" },
+    { "Quit", "f3; f10; q; esc" },
+    { "HexMode", "f4" },
+    { "Goto", "f5" },
+    { "Save", "f6" },
+    { "Search", "f7" },
+    { "SearchContinue", "f17; n" },
+    { "MagicMode", "f8" },
+    { "NroffMode", "f9" },
+    { "ToggleNavigation", "tab" },
+    { "Home", "ctrl-a; home" },
+    { "End", "ctrl-e; end" },
+    { "Left", "b; left" },
+    { "Right", "f; right" },
+    { "Up", "k; y; up" },
+    { "Down", "j; delete; down" },
+    { "PageDown", "pgdn; ctrl-v" },
+    { "PageUp", "pgup; alt-v" },
+    { "Top", "ctrl-home; ctrl-pgup; a1; alt-lt; g" },
+    { "Bottom", "ctrl-end; ctrl-pgdn; c1; alt-gt; shift-g" },
 #ifdef HAVE_CHARSET
-        { "SelectCodepage", "alt-e" },
+    { "SelectCodepage", "alt-e" },
 #endif
-        { "Shell", "ctrl-o" },
-        { "SearchForward", "slash" },
-        { "SearchBackward", "question" },
-        { "SearchForwardContinue", "ctrl-s" },
-        { "SearchBackwardContinue", "ctrl-r" },
-        { "SearchOppositeContinue", "shift-n" },
-        { "History", "alt-shift-e" },
-        { NULL, NULL } };
+    { "Shell", "ctrl-o" },
+    { "SearchForward", "slash" },
+    { "SearchBackward", "question" },
+    { "SearchForwardContinue", "ctrl-s" },
+    { "SearchBackwardContinue", "ctrl-r" },
+    { "SearchOppositeContinue", "shift-n" },
+    { "History", "alt-shift-e" },
+    { NULL, NULL }
+};
 
 #ifdef USE_DIFF_VIEW
 /* diff viewer */
@@ -795,8 +801,8 @@ load_setup_get_keymap_profile_config (gboolean load_from_file)
     load_setup_init_config_from_file (&keymap_config, share_keymap, TRUE);
 
     /* 2) /etc/mc (mc_global.sysconfig_dir) */
-    sysconfig_keymap
-        = g_build_filename (mc_global.sysconfig_dir, GLOBAL_KEYMAP_FILE, (char *) NULL);
+    sysconfig_keymap = g_build_filename (mc_global.sysconfig_dir, GLOBAL_KEYMAP_FILE,
+                                         (char *) NULL);
     load_setup_init_config_from_file (&keymap_config, sysconfig_keymap, TRUE);
 
     /* then load and merge one of user-defined keymap */

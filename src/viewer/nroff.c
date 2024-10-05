@@ -182,8 +182,8 @@ mcview_nroff_seq_info (mcview_nroff_t *nroff)
 
     if (nroff->current_char == '_' && next2 == '_')
     {
-        nroff->type
-            = (nroff->prev_type == NROFF_TYPE_BOLD) ? NROFF_TYPE_BOLD : NROFF_TYPE_UNDERLINE;
+        nroff->type = (nroff->prev_type == NROFF_TYPE_BOLD) ? NROFF_TYPE_BOLD
+                                                            : NROFF_TYPE_UNDERLINE;
     }
     else if (nroff->current_char == next2)
     {

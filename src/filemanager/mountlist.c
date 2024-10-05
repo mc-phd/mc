@@ -857,8 +857,8 @@ read_file_system_list (void)
                         break;
 
                 me = g_malloc (sizeof (*me));
-                me->me_devname
-                    = g_strdup (fi.device_name[0] != '\0' ? fi.device_name : fi.fsh_name);
+                me->me_devname = g_strdup (fi.device_name[0] != '\0' ? fi.device_name
+                                                                     : fi.fsh_name);
                 me->me_mountdir = g_strdup (re != NULL ? re->name : fi.fsh_name);
                 me->me_mntroot = NULL;
                 me->me_type = g_strdup (fi.fsh_name);
@@ -1355,8 +1355,8 @@ get_fs_usage (char const *file, char const *disk, struct fs_usage *fsp)
 
         /* f_frsize isn't guaranteed to be supported.  */
         /* *INDENT-OFF* */
-        fsp->fsu_blocksize
-            = fsd.f_frsize ? PROPAGATE_ALL_ONES (fsd.f_frsize) : PROPAGATE_ALL_ONES (fsd.f_bsize);
+        fsp->fsu_blocksize = fsd.f_frsize ? PROPAGATE_ALL_ONES (fsd.f_frsize)
+                                          : PROPAGATE_ALL_ONES (fsd.f_bsize);
         /* *INDENT-ON* */
 
 #elif defined STAT_STATFS3_OSF1 /* OSF/1 */

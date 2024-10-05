@@ -125,8 +125,8 @@ mc_search__cond_struct_new_regex_hex_add (const char *charset, GString *str_to,
         gint tmp_len;
 
         if (loop >= low->len || upp->str[loop] == low->str[loop])
-            tmp_len
-                = g_snprintf (tmp_str, sizeof (tmp_str), "\\x%02X", (unsigned char) upp->str[loop]);
+            tmp_len = g_snprintf (tmp_str, sizeof (tmp_str), "\\x%02X",
+                                  (unsigned char) upp->str[loop]);
         else
             tmp_len = g_snprintf (tmp_str, sizeof (tmp_str), "[\\x%02X\\x%02X]",
                                   (unsigned char) upp->str[loop], (unsigned char) low->str[loop]);
@@ -316,8 +316,8 @@ mc_search__regex_found_cond_one (mc_search_t *lc_mc_search, mc_search_regex_t *r
         {
             lc_mc_search->error = MC_SEARCH_E_REGEX;
             g_free (lc_mc_search->error_str);
-            lc_mc_search->error_str
-                = str_conv_gerror_message (mcerror, _ ("Regular expression error"));
+            lc_mc_search->error_str = str_conv_gerror_message (mcerror,
+                                                               _ ("Regular expression error"));
             g_error_free (mcerror);
             return COND__FOUND_ERROR;
         }
@@ -354,8 +354,8 @@ mc_search__regex_found_cond (mc_search_t *lc_mc_search, GString *search_str)
         mc_search_cond_t *mc_search_cond;
         mc_search__found_cond_t ret;
 
-        mc_search_cond
-            = (mc_search_cond_t *) g_ptr_array_index (lc_mc_search->prepared.conditions, loop1);
+        mc_search_cond = (mc_search_cond_t *) g_ptr_array_index (lc_mc_search->prepared.conditions,
+                                                                 loop1);
 
         if (!mc_search_cond->regex_handle)
             continue;
@@ -806,15 +806,15 @@ mc_search__cond_struct_new_init_regex (const char *charset, mc_search_t *lc_mc_s
             }
         }
 
-        mc_search_cond->regex_handle
-            = g_regex_new (mc_search_cond->str->str, g_regex_options, 0, &mcerror);
+        mc_search_cond->regex_handle = g_regex_new (mc_search_cond->str->str, g_regex_options, 0,
+                                                    &mcerror);
 
         if (mcerror != NULL)
         {
             lc_mc_search->error = MC_SEARCH_E_REGEX_COMPILE;
             g_free (lc_mc_search->error_str);
-            lc_mc_search->error_str
-                = str_conv_gerror_message (mcerror, _ ("Regular expression error"));
+            lc_mc_search->error_str = str_conv_gerror_message (mcerror,
+                                                               _ ("Regular expression error"));
             g_error_free (mcerror);
             return;
         }
@@ -1008,8 +1008,8 @@ mc_search_regex_prepare_replace_str (mc_search_t *lc_mc_search, GString *replace
     gsize prev = 0;
     replace_transform_type_t replace_flags = REPLACE_T_NO_TRANSFORM;
 
-    num_replace_tokens
-        = mc_search_regex__get_max_num_of_replace_tokens (replace_str->str, replace_str->len);
+    num_replace_tokens = mc_search_regex__get_max_num_of_replace_tokens (replace_str->str,
+                                                                         replace_str->len);
 
     if (lc_mc_search->num_results < 0)
         return mc_g_string_dup (replace_str);

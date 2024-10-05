@@ -50,11 +50,13 @@
 
 /*** global variables ****************************************************************************/
 
-mcview_mode_flags_t mcview_global_flags
-    = { .wrap = TRUE, .hex = FALSE, .magic = TRUE, .nroff = FALSE };
+mcview_mode_flags_t mcview_global_flags = {
+    .wrap = TRUE, .hex = FALSE, .magic = TRUE, .nroff = FALSE
+};
 
-mcview_mode_flags_t mcview_altered_flags
-    = { .wrap = FALSE, .hex = FALSE, .magic = FALSE, .nroff = FALSE };
+mcview_mode_flags_t mcview_altered_flags = {
+    .wrap = FALSE, .hex = FALSE, .magic = FALSE, .nroff = FALSE
+};
 
 gboolean mcview_remember_file_position = FALSE;
 

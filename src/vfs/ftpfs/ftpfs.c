@@ -1023,8 +1023,8 @@ ftpfs_open_archive (struct vfs_s_super *super, const vfs_path_t *vpath,
     super->path_element = ftpfs_correct_url_parameters (vpath_element);
     if (ftpfs_check_proxy (super->path_element->host))
         FTP_SUPER (super)->proxy = ftpfs_proxy_host;
-    super->root
-        = vfs_s_new_inode (vpath_element->class, super, ftpfs_default_stat (vpath_element->class));
+    super->root = vfs_s_new_inode (vpath_element->class, super,
+                                   ftpfs_default_stat (vpath_element->class));
 
     return ftpfs_open_archive_int (vpath_element->class, super);
 }
@@ -2440,8 +2440,8 @@ ftpfs_netrc_next (void)
 {
     char *p;
     keyword_t i;
-    static const char *const keywords[]
-        = { "default", "machine", "login", "password", "passwd", "account", "macdef", NULL };
+    static const char *const keywords[] = { "default", "machine", "login",  "password",
+                                            "passwd",  "account", "macdef", NULL };
 
     while (TRUE)
     {

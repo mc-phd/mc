@@ -614,8 +614,8 @@ read_command_line_buffer (gboolean test_mode)
             return FALSE;
     }
 
-    bytes
-        = read (command_buffer_pipe[READ], subshell_cursor_buffer, sizeof (subshell_cursor_buffer));
+    bytes = read (command_buffer_pipe[READ], subshell_cursor_buffer,
+                  sizeof (subshell_cursor_buffer));
     if (bytes == 0)
         return FALSE;
 
@@ -1529,8 +1529,8 @@ invoke_subshell (const char *command, int how, vfs_path_t **new_dir_vpath)
 
         pcwd = vfs_translate_path (vfs_path_as_str (subshell_get_cwd ()));
         if (strcmp (subshell_cwd, pcwd) != 0)
-            *new_dir_vpath
-                = vfs_path_from_str (subshell_cwd); /* Make MC change to the subshell's CWD */
+            *new_dir_vpath = vfs_path_from_str (
+                subshell_cwd); /* Make MC change to the subshell's CWD */
     }
 
     /* Restart the subshell if it has died by SIGHUP, SIGQUIT, etc. */

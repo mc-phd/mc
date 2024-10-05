@@ -132,44 +132,45 @@ enum
 };
 
 /* *INDENT-OFF* */
-static struct xhdr_tab xhdr_tab[]
-    = { { "atime", atime_decoder, 0 },
-        { "comment", dummy_decoder, 0 },
-        { "charset", dummy_decoder, 0 },
-        { "ctime", ctime_decoder, 0 },
-        { "gid", gid_decoder, 0 },
+static struct xhdr_tab xhdr_tab[] = {
+    { "atime", atime_decoder, 0 },
+    { "comment", dummy_decoder, 0 },
+    { "charset", dummy_decoder, 0 },
+    { "ctime", ctime_decoder, 0 },
+    { "gid", gid_decoder, 0 },
 #if 0
     { "gname",                gname_decoder,            0  },
 #endif
-        { "linkpath", linkpath_decoder, 0 },
-        { "mtime", mtime_decoder, 0 },
-        { "path", path_decoder, 0 },
-        { "size", size_decoder, 0 },
-        { "uid", uid_decoder, 0 },
+    { "linkpath", linkpath_decoder, 0 },
+    { "mtime", mtime_decoder, 0 },
+    { "path", path_decoder, 0 },
+    { "size", size_decoder, 0 },
+    { "uid", uid_decoder, 0 },
 #if 0
     { "uname",                uname_decoder,            0  },
 #endif
 
-        /* Sparse file handling */
-        { "GNU.sparse.name", sparse_path_decoder, XHDR_PROTECTED },
-        { "GNU.sparse.major", sparse_major_decoder, XHDR_PROTECTED },
-        { "GNU.sparse.minor", sparse_minor_decoder, XHDR_PROTECTED },
-        { "GNU.sparse.realsize", sparse_size_decoder, XHDR_PROTECTED },
-        { "GNU.sparse.numblocks", sparse_numblocks_decoder, XHDR_PROTECTED },
+    /* Sparse file handling */
+    { "GNU.sparse.name", sparse_path_decoder, XHDR_PROTECTED },
+    { "GNU.sparse.major", sparse_major_decoder, XHDR_PROTECTED },
+    { "GNU.sparse.minor", sparse_minor_decoder, XHDR_PROTECTED },
+    { "GNU.sparse.realsize", sparse_size_decoder, XHDR_PROTECTED },
+    { "GNU.sparse.numblocks", sparse_numblocks_decoder, XHDR_PROTECTED },
 
-        { "GNU.sparse.size", sparse_size_decoder, XHDR_PROTECTED },
-        /* tar 1.14 - 1.15.1 keywords. Multiple instances of these appeared in 'x'
-           headers, and each of them was meaningful. It confilcted with POSIX specs,
-           which requires that "when extended header records conflict, the last one
-           given in the header shall take precedence." */
-        { "GNU.sparse.offset", sparse_offset_decoder, XHDR_PROTECTED },
-        { "GNU.sparse.numbytes", sparse_numbytes_decoder, XHDR_PROTECTED },
-        /* tar 1.15.90 keyword, introduced to remove the above-mentioned conflict. */
-        { "GNU.sparse.map", sparse_map_decoder, 0 },
+    { "GNU.sparse.size", sparse_size_decoder, XHDR_PROTECTED },
+    /* tar 1.14 - 1.15.1 keywords. Multiple instances of these appeared in 'x'
+       headers, and each of them was meaningful. It confilcted with POSIX specs,
+       which requires that "when extended header records conflict, the last one
+       given in the header shall take precedence." */
+    { "GNU.sparse.offset", sparse_offset_decoder, XHDR_PROTECTED },
+    { "GNU.sparse.numbytes", sparse_numbytes_decoder, XHDR_PROTECTED },
+    /* tar 1.15.90 keyword, introduced to remove the above-mentioned conflict. */
+    { "GNU.sparse.map", sparse_map_decoder, 0 },
 
-        { "GNU.dumpdir", dumpdir_decoder, XHDR_PROTECTED },
+    { "GNU.dumpdir", dumpdir_decoder, XHDR_PROTECTED },
 
-        { NULL, NULL, 0 } };
+    { NULL, NULL, 0 }
+};
 /* *INDENT-ON* */
 
 /* List of keyword/value pairs decoded from the last 'g' type header */

@@ -107,10 +107,11 @@ static gboolean ftpfs_parse_long_list_MacWebStar (char *line, struct stat *s, ch
 static time_t rawnow;
 static struct tm now;
 
-static ftpfs_line_parser line_parsers[number_of_parsers]
-    = { ftpfs_parse_long_list_UNIX,      ftpfs_parse_long_list_NT,    ftpfs_parse_long_list_EPLF,
-        ftpfs_parse_long_list_MLSD,      ftpfs_parse_long_list_AS400, ftpfs_parse_long_list_OS2,
-        ftpfs_parse_long_list_MacWebStar };
+static ftpfs_line_parser line_parsers[number_of_parsers] = {
+    ftpfs_parse_long_list_UNIX,      ftpfs_parse_long_list_NT,    ftpfs_parse_long_list_EPLF,
+    ftpfs_parse_long_list_MLSD,      ftpfs_parse_long_list_AS400, ftpfs_parse_long_list_OS2,
+    ftpfs_parse_long_list_MacWebStar
+};
 
 /* --------------------------------------------------------------------------------------------- */
 /*** file scope functions ************************************************************************/

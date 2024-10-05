@@ -322,8 +322,8 @@ book_mark_serialize (WEdit *edit, int color)
         edit_book_mark_t *p;
 
         if (edit->serialized_bookmarks == NULL)
-            edit->serialized_bookmarks
-                = g_array_sized_new (FALSE, FALSE, sizeof (size_t), MAX_SAVED_BOOKMARKS);
+            edit->serialized_bookmarks = g_array_sized_new (FALSE, FALSE, sizeof (size_t),
+                                                            MAX_SAVED_BOOKMARKS);
 
         for (p = book_mark_find (edit, 0); p != NULL; p = p->next)
             if (p->c == color && p->line >= 0)

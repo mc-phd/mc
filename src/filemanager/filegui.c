@@ -571,8 +571,8 @@ overwrite_query_dialog (file_op_context_t *ctx, enum OperationMode mode)
 
     /* will "Append" and "Reget" buttons be in the dialog? */
     do_append = !S_ISDIR (ui->dst_stat->st_mode);
-    do_reget
-        = do_append && ui->dst_stat->st_size != 0 && ui->src_stat->st_size > ui->dst_stat->st_size;
+    do_reget = do_append && ui->dst_stat->st_size != 0
+               && ui->src_stat->st_size > ui->dst_stat->st_size;
 
     NEW_LABEL (8, dlg_widgets[8].text);
     NEW_BUTTON (9);
@@ -583,8 +583,8 @@ overwrite_query_dialog (file_op_context_t *ctx, enum OperationMode mode)
         NEW_BUTTON (12);
 
     NEW_LABEL (13, dlg_widgets[13].text);
-    dlg_widgets[14].widget
-        = WIDGET (check_new (dlg_widgets[14].y, dlg_widgets[14].x, FALSE, dlg_widgets[14].text));
+    dlg_widgets[14].widget = WIDGET (
+        check_new (dlg_widgets[14].y, dlg_widgets[14].x, FALSE, dlg_widgets[14].text));
     for (i = 15; i <= 20; i++)
         NEW_BUTTON (i);
 
@@ -885,8 +885,8 @@ file_op_context_create_ui (file_op_context_t *ctx, gboolean with_eta,
 
             if (ctx->progress_totals_computed)
             {
-                ui->progress_total_gauge
-                    = gauge_new (y++, x + 3, dlg_width - (x + 3) * 2, FALSE, 100, 0);
+                ui->progress_total_gauge = gauge_new (y++, x + 3, dlg_width - (x + 3) * 2, FALSE,
+                                                      100, 0);
                 if (!classic_progressbar && (current_panel == right_panel))
                     ui->progress_total_gauge->from_left_to_right = FALSE;
                 group_add_widget_autopos (g, ui->progress_total_gauge,
@@ -911,32 +911,32 @@ file_op_context_create_ui (file_op_context_t *ctx, gboolean with_eta,
 
     group_add_widget (g, hline_new (y++, -1, -1));
 
-    progress_buttons[0].w
-        = WIDGET (button_new (y, 0, progress_buttons[0].action, progress_buttons[0].flags,
-                              progress_buttons[0].text, progress_button_callback));
+    progress_buttons[0].w = WIDGET (button_new (y, 0, progress_buttons[0].action,
+                                                progress_buttons[0].flags, progress_buttons[0].text,
+                                                progress_button_callback));
     if (progress_buttons[0].len == -1)
         progress_buttons[0].len = button_get_len (BUTTON (progress_buttons[0].w));
 
-    progress_buttons[1].w
-        = WIDGET (button_new (y, 0, progress_buttons[1].action, progress_buttons[1].flags,
-                              progress_buttons[1].text, progress_button_callback));
+    progress_buttons[1].w = WIDGET (button_new (y, 0, progress_buttons[1].action,
+                                                progress_buttons[1].flags, progress_buttons[1].text,
+                                                progress_button_callback));
     if (progress_buttons[1].len == -1)
         progress_buttons[1].len = button_get_len (BUTTON (progress_buttons[1].w));
 
     if (progress_buttons[2].len == -1)
     {
         /* create and destroy button to get it length */
-        progress_buttons[2].w
-            = WIDGET (button_new (y, 0, progress_buttons[2].action, progress_buttons[2].flags,
-                                  progress_buttons[2].text, progress_button_callback));
+        progress_buttons[2].w = WIDGET (
+            button_new (y, 0, progress_buttons[2].action, progress_buttons[2].flags,
+                        progress_buttons[2].text, progress_button_callback));
         progress_buttons[2].len = button_get_len (BUTTON (progress_buttons[2].w));
         widget_destroy (progress_buttons[2].w);
     }
     progress_buttons[2].w = progress_buttons[1].w;
 
-    progress_buttons[3].w
-        = WIDGET (button_new (y, 0, progress_buttons[3].action, progress_buttons[3].flags,
-                              progress_buttons[3].text, progress_button_callback));
+    progress_buttons[3].w = WIDGET (button_new (y, 0, progress_buttons[3].action,
+                                                progress_buttons[3].flags, progress_buttons[3].text,
+                                                progress_button_callback));
     if (progress_buttons[3].len == -1)
         progress_buttons[3].len = button_get_len (BUTTON (progress_buttons[3].w));
 
@@ -1230,8 +1230,8 @@ file_progress_real_query_replace (file_op_context_t *ctx, enum OperationMode mod
         ui->replace_result = overwrite_query_dialog (ctx, mode);
     }
 
-    replace_with_zero
-        = (src_stat->st_size == 0 && ui->dont_overwrite_with_zero) ? FILE_SKIP : FILE_CONT;
+    replace_with_zero = (src_stat->st_size == 0 && ui->dont_overwrite_with_zero) ? FILE_SKIP
+                                                                                 : FILE_CONT;
 
     switch (ui->replace_result)
     {
@@ -1386,8 +1386,9 @@ file_mask_dialog (file_op_context_t *ctx, gboolean only_one, const char *format,
 
         WRect r = { -1, -1, 0, fmd_xlen };
 
-        quick_dialog_t qdlg
-            = { r, op_names[ctx->operation], "[Mask Copy/Rename]", quick_widgets, NULL, NULL };
+        quick_dialog_t qdlg = {
+            r, op_names[ctx->operation], "[Mask Copy/Rename]", quick_widgets, NULL, NULL
+        };
 
         while (TRUE)
         {

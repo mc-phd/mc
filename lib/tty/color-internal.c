@@ -56,31 +56,32 @@ typedef struct mc_tty_color_table_struct
 
 /*** file scope variables ************************************************************************/
 
-static mc_tty_color_table_t const color_table[]
-    = { { "black", COLOR_BLACK },
-        { "gray", COLOR_BLACK + COLOR_INTENSITY },
-        { "red", COLOR_RED },
-        { "brightred", COLOR_RED + COLOR_INTENSITY },
-        { "green", COLOR_GREEN },
-        { "brightgreen", COLOR_GREEN + COLOR_INTENSITY },
-        { "brown", COLOR_YELLOW },
-        { "yellow", COLOR_YELLOW + COLOR_INTENSITY },
-        { "blue", COLOR_BLUE },
-        { "brightblue", COLOR_BLUE + COLOR_INTENSITY },
-        { "magenta", COLOR_MAGENTA },
-        { "brightmagenta", COLOR_MAGENTA + COLOR_INTENSITY },
-        { "cyan", COLOR_CYAN },
-        { "brightcyan", COLOR_CYAN + COLOR_INTENSITY },
-        { "lightgray", COLOR_WHITE },
-        { "white", COLOR_WHITE + COLOR_INTENSITY },
-        { "default", -1 }, /* default color of the terminal */
-        /* special colors */
-        { "A_REVERSE", SPEC_A_REVERSE },
-        { "A_BOLD", SPEC_A_BOLD },
-        { "A_BOLD_REVERSE", SPEC_A_BOLD_REVERSE },
-        { "A_UNDERLINE", SPEC_A_UNDERLINE },
-        /* End of list */
-        { NULL, 0 } };
+static mc_tty_color_table_t const color_table[] = {
+    { "black", COLOR_BLACK },
+    { "gray", COLOR_BLACK + COLOR_INTENSITY },
+    { "red", COLOR_RED },
+    { "brightred", COLOR_RED + COLOR_INTENSITY },
+    { "green", COLOR_GREEN },
+    { "brightgreen", COLOR_GREEN + COLOR_INTENSITY },
+    { "brown", COLOR_YELLOW },
+    { "yellow", COLOR_YELLOW + COLOR_INTENSITY },
+    { "blue", COLOR_BLUE },
+    { "brightblue", COLOR_BLUE + COLOR_INTENSITY },
+    { "magenta", COLOR_MAGENTA },
+    { "brightmagenta", COLOR_MAGENTA + COLOR_INTENSITY },
+    { "cyan", COLOR_CYAN },
+    { "brightcyan", COLOR_CYAN + COLOR_INTENSITY },
+    { "lightgray", COLOR_WHITE },
+    { "white", COLOR_WHITE + COLOR_INTENSITY },
+    { "default", -1 }, /* default color of the terminal */
+    /* special colors */
+    { "A_REVERSE", SPEC_A_REVERSE },
+    { "A_BOLD", SPEC_A_BOLD },
+    { "A_BOLD_REVERSE", SPEC_A_BOLD_REVERSE },
+    { "A_UNDERLINE", SPEC_A_UNDERLINE },
+    /* End of list */
+    { NULL, 0 }
+};
 
 static mc_tty_color_table_t const attributes_table[] = { { "bold", A_BOLD },
 #ifdef A_ITALIC /* available since ncurses-5.9-20130831 / slang-pre2.3.0-107 */

@@ -327,8 +327,8 @@ background_attention (int fd, void *closure)
                 result = routine.non_have_ctx3 (ctx, Background, data[0], data[1], data[2]);
                 break;
             case 4:
-                result
-                    = routine.non_have_ctx4 (ctx, Background, data[0], data[1], data[2], data[3]);
+                result = routine.non_have_ctx4 (ctx, Background, data[0], data[1], data[2],
+                                                data[3]);
                 break;
             default:
                 break;
@@ -634,8 +634,8 @@ background_parent_call (const gchar *event_group_name, const gchar *event_name, 
     (void) event_name;
     (void) init_data;
 
-    event_data->ret.i
-        = parent_va_call (event_data->routine, event_data->ctx, event_data->argc, event_data->ap);
+    event_data->ret.i = parent_va_call (event_data->routine, event_data->ctx, event_data->argc,
+                                        event_data->ap);
 
     return TRUE;
 }
@@ -653,8 +653,8 @@ background_parent_call_string (const gchar *event_group_name, const gchar *event
     (void) event_name;
     (void) init_data;
 
-    event_data->ret.s
-        = parent_va_call_string (event_data->routine, event_data->argc, event_data->ap);
+    event_data->ret.s = parent_va_call_string (event_data->routine, event_data->argc,
+                                               event_data->ap);
 
     return TRUE;
 }

@@ -248,8 +248,8 @@ START_PARAMETRIZED_TEST (test_vfs_parse_ls_lga, test_vfs_parse_ls_lga_ds)
     fill_stat_struct (&etalon_stat, _i);
 
     /* when */
-    actual_result
-        = vfs_parse_ls_lga (data->input_string, &test_stat, &filename, &linkname, &filepos);
+    actual_result = vfs_parse_ls_lga (data->input_string, &test_stat, &filename, &linkname,
+                                      &filepos);
 
     /* then */
     ck_assert_int_eq (actual_result, data->expected_result);

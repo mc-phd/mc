@@ -423,8 +423,8 @@ mcview_get_next_maybe_nroff_char (WView *view, mcview_state_machine_t *state, in
     {
         *state = state_after_nroff;
         if (color != NULL)
-            *color
-                = state->nroff_underscore_is_underlined ? VIEW_UNDERLINED_COLOR : VIEW_BOLD_COLOR;
+            *color = state->nroff_underscore_is_underlined ? VIEW_UNDERLINED_COLOR
+                                                           : VIEW_BOLD_COLOR;
     }
     else if (*c == c3)
     {
@@ -997,8 +997,8 @@ mcview_ascii_move_up (WView *view, off_t lines)
             /* This is a tricky way of denoting that we're at the end of the paragraph.
              * Normally we'd jump to the next paragraph and reset paragraph_skip_lines. But for
              * walking backwards this is exactly what we need. */
-            view->dpy_paragraph_skip_lines
-                = mcview_display_paragraph (view, &view->dpy_state_top, view->data_area.lines);
+            view->dpy_paragraph_skip_lines = mcview_display_paragraph (view, &view->dpy_state_top,
+                                                                       view->data_area.lines);
             view->force_max = -1;
         }
 

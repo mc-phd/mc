@@ -156,9 +156,9 @@ mc_event_get_event_group_by_name (const gchar *event_group_name, gboolean create
     event_group = (GTree *) g_tree_lookup (mc_event_grouplist, (gconstpointer) event_group_name);
     if (event_group == NULL && create_new)
     {
-        event_group
-            = g_tree_new_full ((GCompareDataFunc) g_ascii_strcasecmp, NULL, (GDestroyNotify) g_free,
-                               (GDestroyNotify) mc_event_group_destroy_value);
+        event_group = g_tree_new_full ((GCompareDataFunc) g_ascii_strcasecmp, NULL,
+                                       (GDestroyNotify) g_free,
+                                       (GDestroyNotify) mc_event_group_destroy_value);
         if (event_group == NULL)
         {
             mc_propagate_error (mcerror, 0, _ ("Unable to create group '%s' for events!"),

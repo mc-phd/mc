@@ -459,8 +459,8 @@ edit_find (edit_search_status_msg_t *esm, gsize *len)
         if ((edit->search_line_type & AT_END_LINE) != 0
             && (end_mark - 1 != edit->buffer.size
                 || edit_buffer_get_byte (&edit->buffer, end_mark) != end_string_symbol))
-            end_mark
-                = edit_calculate_end_of_previous_line (&edit->buffer, end_mark, end_string_symbol);
+            end_mark = edit_calculate_end_of_previous_line (&edit->buffer, end_mark,
+                                                            end_string_symbol);
 
         if (start_mark >= end_mark)
         {

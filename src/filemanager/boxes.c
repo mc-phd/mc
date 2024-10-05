@@ -377,10 +377,10 @@ sel_charset_button (WButton *button, int action)
         const char *cpname;
 
         new_display_codepage = new_dcp;
-        cpname
-            = (new_display_codepage == SELECT_CHARSET_OTHER_8BIT)
-                  ? _ ("Other 8 bit")
-                  : ((codepage_desc *) g_ptr_array_index (codepages, new_display_codepage))->name;
+        cpname = (new_display_codepage == SELECT_CHARSET_OTHER_8BIT)
+                     ? _ ("Other 8 bit")
+                     : ((codepage_desc *) g_ptr_array_index (codepages, new_display_codepage))
+                           ->name;
         if (cpname != NULL)
             mc_global.utf8_display = str_isutf8 (cpname);
         else
@@ -586,9 +586,9 @@ configure_box (void)
 
         WRect r = { -1, -1, 0, 60 };
 
-        quick_dialog_t qdlg
-            = { r,   N_ ("Configure options"), "[Configuration]", quick_widgets, configure_callback,
-                NULL };
+        quick_dialog_t qdlg = {
+            r, N_ ("Configure options"), "[Configuration]", quick_widgets, configure_callback, NULL
+        };
 
         g_snprintf (time_out, sizeof (time_out), "%d", old_esc_mode_timeout);
 
@@ -669,11 +669,11 @@ panel_options_box (void)
 {
     gboolean simple_swap;
 
-    simple_swap
-        = mc_config_get_bool (mc_global.main_config, CONFIG_PANELS_SECTION, "simple_swap", FALSE);
+    simple_swap = mc_config_get_bool (mc_global.main_config, CONFIG_PANELS_SECTION, "simple_swap",
+                                      FALSE);
     {
-        const char *qsearch_options[]
-            = { N_ ("Case &insensitive"), N_ ("Cas&e sensitive"), N_ ("Use panel sort mo&de") };
+        const char *qsearch_options[] = { N_ ("Case &insensitive"), N_ ("Cas&e sensitive"),
+                                          N_ ("Use panel sort mo&de") };
 
         quick_widget_t quick_widgets[] = {
             /* *INDENT-OFF* */
@@ -715,8 +715,8 @@ panel_options_box (void)
 
         WRect r = { -1, -1, 0, 60 };
 
-        quick_dialog_t qdlg
-            = { r, N_ ("Panel options"), "[Panel options]", quick_widgets, NULL, NULL };
+        quick_dialog_t qdlg = { r,   N_ ("Panel options"), "[Panel options]", quick_widgets, NULL,
+                                NULL };
 
         if (quick_dialog (&qdlg) != B_ENTER)
             return;
@@ -881,8 +881,9 @@ sort_box (dir_sort_options_t *op, const panel_field_t *sort_field)
 
         WRect r = { -1, -1, 0, 40 };
 
-        quick_dialog_t qdlg
-            = { r, N_ ("Sort order"), "[Sort Order...]", quick_widgets, NULL, NULL };
+        quick_dialog_t qdlg = {
+            r, N_ ("Sort order"), "[Sort Order...]", quick_widgets, NULL, NULL
+        };
 
         if (quick_dialog (&qdlg) != B_CANCEL)
             result = panel_get_field_by_title_hotkey (sort_orders_names[sort_idx]);
@@ -933,8 +934,8 @@ display_bits_box (void)
     gboolean new_meta;
     int current_mode;
 
-    const char *display_bits_str[]
-        = { N_ ("&UTF-8 output"), N_ ("&Full 8 bits output"), N_ ("&ISO 8859-1"), N_ ("7 &bits") };
+    const char *display_bits_str[] = { N_ ("&UTF-8 output"), N_ ("&Full 8 bits output"),
+                                       N_ ("&ISO 8859-1"), N_ ("7 &bits") };
 
     quick_widget_t quick_widgets[] = {
         /* *INDENT-OFF* */
@@ -1003,8 +1004,9 @@ display_bits_box (void)
 
         WRect r = { -1, -1, 0, 46 };
 
-        quick_dialog_t qdlg
-            = { r, N_ ("Display bits"), "[Display bits]", quick_widgets, NULL, NULL };
+        quick_dialog_t qdlg = {
+            r, N_ ("Display bits"), "[Display bits]", quick_widgets, NULL, NULL
+        };
 
         new_meta = !use_8th_bit_as_meta;
         application_keypad_mode ();
@@ -1188,10 +1190,11 @@ cd_box (const WPanel *panel)
     const Widget *w = CONST_WIDGET (panel);
     char *my_str;
 
-    quick_widget_t quick_widgets[]
-        = { QUICK_LABELED_INPUT (N_ ("cd"), input_label_left, "", "input", &my_str, NULL, FALSE,
-                                 TRUE, INPUT_COMPLETE_FILENAMES | INPUT_COMPLETE_CD),
-            QUICK_END };
+    quick_widget_t quick_widgets[] = {
+        QUICK_LABELED_INPUT (N_ ("cd"), input_label_left, "", "input", &my_str, NULL, FALSE, TRUE,
+                             INPUT_COMPLETE_FILENAMES | INPUT_COMPLETE_CD),
+        QUICK_END
+    };
 
     WRect r = { w->rect.y + w->rect.lines - 6, w->rect.x, 0, w->rect.cols };
 

@@ -804,9 +804,10 @@ dir_list_reload (dir_list *list, const vfs_path_t *vpath, GCompareFunc sort,
              * to find matching file.  Decrease number of remaining marks if
              * we copied one.
              */
-            fentry->f.marked
-                = (marked_cnt > 0 && g_hash_table_lookup (marked_files, dp->d_name) != NULL) ? 1
-                                                                                             : 0;
+            fentry->f.marked = (marked_cnt > 0
+                                && g_hash_table_lookup (marked_files, dp->d_name) != NULL)
+                                   ? 1
+                                   : 0;
             if (fentry->f.marked != 0)
                 marked_cnt--;
         }

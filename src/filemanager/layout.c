@@ -1527,8 +1527,8 @@ title_path_prepare (char **path, char **login)
     struct passwd *pw = NULL;
     int res = 0;
 
-    *path
-        = vfs_path_to_str_flags (current_panel->cwd_vpath, 0, VPF_STRIP_HOME | VPF_STRIP_PASSWORD);
+    *path = vfs_path_to_str_flags (current_panel->cwd_vpath, 0,
+                                   VPF_STRIP_HOME | VPF_STRIP_PASSWORD);
 
     res = gethostname (host, sizeof (host));
     if (res != 0)

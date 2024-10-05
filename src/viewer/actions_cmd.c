@@ -352,8 +352,8 @@ mcview_load_next_prev (WView *view, int direction)
     dir_idx = view->dir_idx;
     view->dir = NULL;
     view->dir_idx = NULL;
-    vfile
-        = vfs_path_append_new (view->workdir_vpath, dir->list[*dir_idx].fname->str, (char *) NULL);
+    vfile = vfs_path_append_new (view->workdir_vpath, dir->list[*dir_idx].fname->str,
+                                 (char *) NULL);
     mcview_done (view);
     mcview_remove_ext_script (view);
     mcview_init (view);

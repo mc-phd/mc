@@ -216,8 +216,8 @@ exec_get_export_variables (const vfs_path_t *filename_vpath)
 
     for (i = 0; export_variables[i].name != NULL; i++)
     {
-        text
-            = exec_expand_format (export_variables[i].symbol, export_variables[i].is_result_quoted);
+        text = exec_expand_format (export_variables[i].symbol,
+                                   export_variables[i].is_result_quoted);
         if (text != NULL)
         {
             g_string_append_printf (export_vars_string, "%s=%s\nexport %s\n",
@@ -684,10 +684,10 @@ regex_check_type (const vfs_path_t *filename_vpath, const char *ptr, gboolean ca
         }
 
 #ifdef HAVE_CHARSET
-        got_encoding_data
-            = is_autodetect_codeset_enabled
-                  ? get_file_encoding_local (localfile_vpath, encoding_id, sizeof (encoding_id))
-                  : 0;
+        got_encoding_data = is_autodetect_codeset_enabled
+                                ? get_file_encoding_local (localfile_vpath, encoding_id,
+                                                           sizeof (encoding_id))
+                                : 0;
 
         if (got_encoding_data > 0)
         {
@@ -813,8 +813,8 @@ load_extension_file (void)
         if (!exist_file (extension_file))
         {
             g_free (extension_file);
-            extension_file
-                = mc_build_filename (mc_global.share_data_dir, MC_EXT_FILE, (char *) NULL);
+            extension_file = mc_build_filename (mc_global.share_data_dir, MC_EXT_FILE,
+                                                (char *) NULL);
             if (!exist_file (extension_file))
                 MC_PTR_FREE (extension_file);
         }
@@ -975,10 +975,10 @@ regex_command_for (void *target, const vfs_path_t *filename_vpath, const char *a
                 GError *mcerror = NULL;
 
                 ignore_case = mc_config_get_bool (ext_ini, g, "TypeIgnoreCase", FALSE);
-                type_state
-                    = regex_check_type (filename_vpath, pattern, ignore_case, &have_type, &mcerror)
-                          ? TYPE_FOUND
-                          : TYPE_NOT_FOUND;
+                type_state = regex_check_type (filename_vpath, pattern, ignore_case, &have_type,
+                                               &mcerror)
+                                 ? TYPE_FOUND
+                                 : TYPE_NOT_FOUND;
                 g_free (pattern);
 
                 if (mc_error_message (&mcerror, NULL))

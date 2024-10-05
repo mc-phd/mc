@@ -206,8 +206,8 @@ mc_search__cond_struct_new_init_hex (const char *charset, mc_search_t *lc_mc_sea
         }
 
         lc_mc_search->error = MC_SEARCH_E_INPUT;
-        lc_mc_search->error_str
-            = g_strdup_printf (_ ("Hex pattern error at position %d:\n%s."), error_pos + 1, desc);
+        lc_mc_search->error_str = g_strdup_printf (_ ("Hex pattern error at position %d:\n%s."),
+                                                   error_pos + 1, desc);
     }
 }
 

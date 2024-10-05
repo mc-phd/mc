@@ -98,9 +98,9 @@ static const struct filevercmp_test_struct
     const char *s1;
     const char *s2;
     int expected_result;
-} filevercmp_test_ds1[]
-    = { { "", "", 0 },      { "a", "a", 0 },     { "a", "b", -1 },  { "b", "a", 1 },
-        { "00", "01", -1 }, { "01", "010", -1 }, { "9", "10", -1 }, { "0a", "0", 1 } };
+} filevercmp_test_ds1[] = { { "", "", 0 },     { "a", "a", 0 },    { "a", "b", -1 },
+                            { "b", "a", 1 },   { "00", "01", -1 }, { "01", "010", -1 },
+                            { "9", "10", -1 }, { "0a", "0", 1 } };
 /* *INDENT-ON* */
 
 /* @Test(dataSource = "filevercmp_test_ds1") */
@@ -230,8 +230,8 @@ END_TEST
 
 /* @DataSource("filevercmp_test_ds3") */
 /* Ticket #3959 */
-static const char *filevercmp_test_ds3[]
-    = { "application-1.10.tar.gz", "application-1.10.1.tar.gz" };
+static const char *filevercmp_test_ds3[] = { "application-1.10.tar.gz",
+                                             "application-1.10.1.tar.gz" };
 
 const size_t filevercmp_test_ds3_len = G_N_ELEMENTS (filevercmp_test_ds3);
 
@@ -264,9 +264,9 @@ END_TEST
 
 /* @DataSource("filevercmp_test_ds4") */
 /* Ticket #3905 */
-static const char *filevercmp_test_ds4[]
-    = { "firefox-58.0.1+build1.tar.gz", "firefox-59.0~b14+build1.tar.gz",
-        "firefox-59.0.1+build1.tar.gz" };
+static const char *filevercmp_test_ds4[] = { "firefox-58.0.1+build1.tar.gz",
+                                             "firefox-59.0~b14+build1.tar.gz",
+                                             "firefox-59.0.1+build1.tar.gz" };
 
 const size_t filevercmp_test_ds4_len = G_N_ELEMENTS (filevercmp_test_ds4);
 
@@ -299,33 +299,34 @@ END_TEST
 
 /* @DataSource("filevercmp_test_ds5") */
 /* Testcases are taken from Gnulib */
-static const char *filevercmp_test_ds5[]
-    = { "a",
-        "a0",
-        "a0000",
-        NULL,
-        "a\1c-27.txt",
-        "a\1c-027.txt",
-        "a\1c-00000000000000000000000000000000000000000000000000000027.txt",
-        NULL,
-        ".a\1c-27.txt",
-        ".a\1c-027.txt",
-        ".a\1c-00000000000000000000000000000000000000000000000000000027.txt",
-        NULL,
-        "a\1c-",
-        "a\1c-0",
-        "a\1c-00",
-        NULL,
-        ".a\1c-",
-        ".a\1c-0",
-        ".a\1c-00",
-        NULL,
-        "a\1c-0.txt",
-        "a\1c-00.txt",
-        NULL,
-        ".a\1c-1\1.txt",
-        ".a\1c-001\1.txt",
-        NULL };
+static const char *filevercmp_test_ds5[] = {
+    "a",
+    "a0",
+    "a0000",
+    NULL,
+    "a\1c-27.txt",
+    "a\1c-027.txt",
+    "a\1c-00000000000000000000000000000000000000000000000000000027.txt",
+    NULL,
+    ".a\1c-27.txt",
+    ".a\1c-027.txt",
+    ".a\1c-00000000000000000000000000000000000000000000000000000027.txt",
+    NULL,
+    "a\1c-",
+    "a\1c-0",
+    "a\1c-00",
+    NULL,
+    ".a\1c-",
+    ".a\1c-0",
+    ".a\1c-00",
+    NULL,
+    "a\1c-0.txt",
+    "a\1c-00.txt",
+    NULL,
+    ".a\1c-1\1.txt",
+    ".a\1c-001\1.txt",
+    NULL
+};
 
 const size_t filevercmp_test_ds5_len = G_N_ELEMENTS (filevercmp_test_ds5);
 

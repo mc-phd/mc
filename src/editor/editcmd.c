@@ -339,8 +339,8 @@ edit_save_file (WEdit *edit, const vfs_path_t *filename_vpath)
         tmp_vpath = vfs_path_clone (real_filename_vpath);
         last_vpath_element = (vfs_path_element_t *) vfs_path_get_by_index (tmp_vpath, -1);
         tmp_store_filename = last_vpath_element->path;
-        last_vpath_element->path
-            = g_strdup_printf ("%s%s", tmp_store_filename, edit_options.backup_ext);
+        last_vpath_element->path = g_strdup_printf ("%s%s", tmp_store_filename,
+                                                    edit_options.backup_ext);
         g_free (tmp_store_filename);
 
         ok = (mc_rename (real_filename_vpath, tmp_vpath) != -1);
@@ -387,9 +387,9 @@ edit_get_save_file_as (WEdit *edit)
     char *filename_res;
     vfs_path_t *ret_vpath = NULL;
 
-    const char *lb_names[LB_NAMES]
-        = { N_ ("&Do not change"), N_ ("&Unix format (LF)"), N_ ("&Windows/DOS format (CR LF)"),
-            N_ ("&Macintosh format (CR)") };
+    const char *lb_names[LB_NAMES] = { N_ ("&Do not change"), N_ ("&Unix format (LF)"),
+                                       N_ ("&Windows/DOS format (CR LF)"),
+                                       N_ ("&Macintosh format (CR)") };
 
     quick_widget_t quick_widgets[] = {
         /* *INDENT-OFF* */
@@ -844,8 +844,8 @@ edit_save_mode_cmd (void)
 {
     char *str_result = NULL;
 
-    const char *str[]
-        = { N_ ("&Quick save"), N_ ("&Safe save"), N_ ("&Do backups with following extension:") };
+    const char *str[] = { N_ ("&Quick save"), N_ ("&Safe save"),
+                          N_ ("&Do backups with following extension:") };
 
 #ifdef ENABLE_NLS
     size_t i;
@@ -1132,13 +1132,13 @@ edit_load_syntax_file (WDialog *h)
         dir = query_dialog (_ ("Syntax file edit"), _ ("Which syntax file you want to edit?"),
                             D_NORMAL, 2, _ ("&User"), _ ("&System wide"));
 
-    extdir_vpath
-        = vfs_path_build_filename (mc_global.sysconfig_dir, EDIT_SYNTAX_FILE, (char *) NULL);
+    extdir_vpath = vfs_path_build_filename (mc_global.sysconfig_dir, EDIT_SYNTAX_FILE,
+                                            (char *) NULL);
     if (!exist_file (vfs_path_get_last_path_str (extdir_vpath)))
     {
         vfs_path_free (extdir_vpath, TRUE);
-        extdir_vpath
-            = vfs_path_build_filename (mc_global.share_data_dir, EDIT_SYNTAX_FILE, (char *) NULL);
+        extdir_vpath = vfs_path_build_filename (mc_global.share_data_dir, EDIT_SYNTAX_FILE,
+                                                (char *) NULL);
     }
 
     if (dir == 0)
@@ -1182,13 +1182,13 @@ edit_load_menu_file (WDialog *h)
     dir = query_dialog (_ ("Menu edit"), _ ("Which menu file do you want to edit?"), D_NORMAL,
                         geteuid () != 0 ? 2 : 3, _ ("&Local"), _ ("&User"), _ ("&System wide"));
 
-    menufile_vpath
-        = vfs_path_build_filename (mc_global.sysconfig_dir, EDIT_GLOBAL_MENU, (char *) NULL);
+    menufile_vpath = vfs_path_build_filename (mc_global.sysconfig_dir, EDIT_GLOBAL_MENU,
+                                              (char *) NULL);
     if (!exist_file (vfs_path_get_last_path_str (menufile_vpath)))
     {
         vfs_path_free (menufile_vpath, TRUE);
-        menufile_vpath
-            = vfs_path_build_filename (mc_global.share_data_dir, EDIT_GLOBAL_MENU, (char *) NULL);
+        menufile_vpath = vfs_path_build_filename (mc_global.share_data_dir, EDIT_GLOBAL_MENU,
+                                                  (char *) NULL);
     }
 
     switch (dir)
@@ -1205,8 +1205,8 @@ edit_load_menu_file (WDialog *h)
         break;
 
     case 2:
-        buffer_vpath
-            = vfs_path_build_filename (mc_global.sysconfig_dir, EDIT_GLOBAL_MENU, (char *) NULL);
+        buffer_vpath = vfs_path_build_filename (mc_global.sysconfig_dir, EDIT_GLOBAL_MENU,
+                                                (char *) NULL);
         if (!exist_file (vfs_path_get_last_path_str (buffer_vpath)))
         {
             vfs_path_free (buffer_vpath, TRUE);
@@ -1944,8 +1944,8 @@ edit_insert_literal_cmd (WEdit *edit)
 {
     int char_for_insertion;
 
-    char_for_insertion
-        = editcmd_dialog_raw_key_query (_ ("Insert literal"), _ ("Press any key:"), FALSE);
+    char_for_insertion = editcmd_dialog_raw_key_query (_ ("Insert literal"), _ ("Press any key:"),
+                                                       FALSE);
     edit_execute_key_command (edit, -1, ascii_alpha_to_cntrl (char_for_insertion));
 }
 

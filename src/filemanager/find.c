@@ -201,8 +201,8 @@ static const size_t quit_button = 4; /* index of "Quit" button */
 
 static WListbox *find_list; /* Listbox with the file list */
 
-static find_file_options_t options
-    = { TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, NULL };
+static find_file_options_t options = { TRUE,  TRUE,  TRUE,  FALSE, FALSE, FALSE, TRUE,
+                                       FALSE, FALSE, FALSE, FALSE, FALSE, NULL };
 
 static char *in_start_dir = INPUT_LAST_TEXT;
 
@@ -278,32 +278,32 @@ find_load_options (void)
 
     loaded = TRUE;
 
-    options.file_case_sens
-        = mc_config_get_bool (mc_global.main_config, "FindFile", "file_case_sens", TRUE);
-    options.file_pattern
-        = mc_config_get_bool (mc_global.main_config, "FindFile", "file_shell_pattern", TRUE);
-    options.find_recurs
-        = mc_config_get_bool (mc_global.main_config, "FindFile", "file_find_recurs", TRUE);
-    options.follow_symlinks
-        = mc_config_get_bool (mc_global.main_config, "FindFile", "follow_symlinks", FALSE);
-    options.skip_hidden
-        = mc_config_get_bool (mc_global.main_config, "FindFile", "file_skip_hidden", FALSE);
-    options.file_all_charsets
-        = mc_config_get_bool (mc_global.main_config, "FindFile", "file_all_charsets", FALSE);
-    options.content_case_sens
-        = mc_config_get_bool (mc_global.main_config, "FindFile", "content_case_sens", TRUE);
-    options.content_regexp
-        = mc_config_get_bool (mc_global.main_config, "FindFile", "content_regexp", FALSE);
-    options.content_first_hit
-        = mc_config_get_bool (mc_global.main_config, "FindFile", "content_first_hit", FALSE);
-    options.content_whole_words
-        = mc_config_get_bool (mc_global.main_config, "FindFile", "content_whole_words", FALSE);
-    options.content_all_charsets
-        = mc_config_get_bool (mc_global.main_config, "FindFile", "content_all_charsets", FALSE);
-    options.ignore_dirs_enable
-        = mc_config_get_bool (mc_global.main_config, "FindFile", "ignore_dirs_enable", TRUE);
-    options.ignore_dirs
-        = mc_config_get_string (mc_global.main_config, "FindFile", "ignore_dirs", "");
+    options.file_case_sens = mc_config_get_bool (mc_global.main_config, "FindFile",
+                                                 "file_case_sens", TRUE);
+    options.file_pattern = mc_config_get_bool (mc_global.main_config, "FindFile",
+                                               "file_shell_pattern", TRUE);
+    options.find_recurs = mc_config_get_bool (mc_global.main_config, "FindFile", "file_find_recurs",
+                                              TRUE);
+    options.follow_symlinks = mc_config_get_bool (mc_global.main_config, "FindFile",
+                                                  "follow_symlinks", FALSE);
+    options.skip_hidden = mc_config_get_bool (mc_global.main_config, "FindFile", "file_skip_hidden",
+                                              FALSE);
+    options.file_all_charsets = mc_config_get_bool (mc_global.main_config, "FindFile",
+                                                    "file_all_charsets", FALSE);
+    options.content_case_sens = mc_config_get_bool (mc_global.main_config, "FindFile",
+                                                    "content_case_sens", TRUE);
+    options.content_regexp = mc_config_get_bool (mc_global.main_config, "FindFile",
+                                                 "content_regexp", FALSE);
+    options.content_first_hit = mc_config_get_bool (mc_global.main_config, "FindFile",
+                                                    "content_first_hit", FALSE);
+    options.content_whole_words = mc_config_get_bool (mc_global.main_config, "FindFile",
+                                                      "content_whole_words", FALSE);
+    options.content_all_charsets = mc_config_get_bool (mc_global.main_config, "FindFile",
+                                                       "content_all_charsets", FALSE);
+    options.ignore_dirs_enable = mc_config_get_bool (mc_global.main_config, "FindFile",
+                                                     "ignore_dirs_enable", TRUE);
+    options.ignore_dirs = mc_config_get_string (mc_global.main_config, "FindFile", "ignore_dirs",
+                                                "");
 
     if (options.ignore_dirs[0] == '\0')
         MC_PTR_FREE (options.ignore_dirs);
@@ -694,8 +694,8 @@ find_parameters (WPanel *panel, char **start_dir, ssize_t *start_dir_len, char *
 
     group_add_widget (g, button_new (y1++, cols - b0 - 3, B_TREE, NORMAL_BUTTON, buts[0], NULL));
 
-    ignore_dirs_cbox
-        = check_new (y1++, x1, options.ignore_dirs_enable, _ ("Ena&ble ignore directories:"));
+    ignore_dirs_cbox = check_new (y1++, x1, options.ignore_dirs_enable,
+                                  _ ("Ena&ble ignore directories:"));
     group_add_widget (g, ignore_dirs_cbox);
 
     in_ignore = input_new (y1++, x1, input_colors, cols - 6,
@@ -735,8 +735,8 @@ find_parameters (WPanel *panel, char **start_dir, ssize_t *start_dir_len, char *
     group_add_widget (g, file_case_sens_cbox);
 
 #ifdef HAVE_CHARSET
-    file_all_charsets_cbox
-        = check_new (y1++, x1, options.file_all_charsets, file_all_charsets_label);
+    file_all_charsets_cbox = check_new (y1++, x1, options.file_all_charsets,
+                                        file_all_charsets_label);
     group_add_widget (g, file_all_charsets_cbox);
 #endif
 
@@ -744,8 +744,8 @@ find_parameters (WPanel *panel, char **start_dir, ssize_t *start_dir_len, char *
     group_add_widget (g, skip_hidden_cbox);
 
     /* Continue 2nd column */
-    content_whole_words_cbox
-        = check_new (y2++, x2, options.content_whole_words, content_whole_words_label);
+    content_whole_words_cbox = check_new (y2++, x2, options.content_whole_words,
+                                          content_whole_words_label);
     group_add_widget (g, content_whole_words_cbox);
 
     content_regexp_cbox = check_new (y2++, x2, options.content_regexp, content_regexp_label);
@@ -755,13 +755,13 @@ find_parameters (WPanel *panel, char **start_dir, ssize_t *start_dir_len, char *
     group_add_widget (g, content_case_sens_cbox);
 
 #ifdef HAVE_CHARSET
-    content_all_charsets_cbox
-        = check_new (y2++, x2, options.content_all_charsets, content_all_charsets_label);
+    content_all_charsets_cbox = check_new (y2++, x2, options.content_all_charsets,
+                                           content_all_charsets_label);
     group_add_widget (g, content_all_charsets_cbox);
 #endif
 
-    content_first_hit_cbox
-        = check_new (y2++, x2, options.content_first_hit, content_first_hit_label);
+    content_first_hit_cbox = check_new (y2++, x2, options.content_first_hit,
+                                        content_first_hit_label);
     group_add_widget (g, content_first_hit_cbox);
 
     /* buttons */
@@ -1129,8 +1129,8 @@ search_content (WDialog *h, const char *directory, const char *filename)
                 }
 
                 g_snprintf (result, sizeof (result), "%d:%s", line, filename);
-                found_start
-                    = off + search_content_handle->normal_offset + 1; /* off by one: ticket 3280 */
+                found_start = off + search_content_handle->normal_offset
+                              + 1; /* off by one: ticket 3280 */
                 find_add_match (directory, result, found_start, found_start + found_len);
                 found = TRUE;
             }
@@ -1733,8 +1733,8 @@ run_process (void)
     search_content_handle = mc_search_new (content_pattern, NULL);
     if (search_content_handle)
     {
-        search_content_handle->search_type
-            = options.content_regexp ? MC_SEARCH_T_REGEX : MC_SEARCH_T_NORMAL;
+        search_content_handle->search_type = options.content_regexp ? MC_SEARCH_T_REGEX
+                                                                    : MC_SEARCH_T_NORMAL;
         search_content_handle->is_case_sensitive = options.content_case_sens;
         search_content_handle->whole_words = options.content_whole_words;
 #ifdef HAVE_CHARSET

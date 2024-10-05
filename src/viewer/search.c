@@ -286,8 +286,9 @@ mcview_search_cmd_callback (const void *user_data, gsize char_offset, int *curre
             switch (view->search_nroff_seq->type)
             {
             case NROFF_TYPE_BOLD:
-                view->search_numNeedSkipChar
-                    = 1 + view->search_nroff_seq->char_length; /* real char length and 0x8 */
+                view->search_numNeedSkipChar = 1
+                                               + view->search_nroff_seq
+                                                     ->char_length; /* real char length and 0x8 */
                 break;
             case NROFF_TYPE_UNDERLINE:
                 view->search_numNeedSkipChar = 2; /* underline symbol and ox8 */

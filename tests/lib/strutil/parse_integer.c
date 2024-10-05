@@ -56,19 +56,20 @@ static const struct parse_integer_test_ds
     const char *haystack;
     uintmax_t expected_result;
     gboolean invalid;
-} parse_integer_test_ds[]
-    = { { /* too big */
-          "99999999999999999999999999999999999999999999999999999999999999999999", 0, TRUE },
-        { "x", 0, TRUE },
-        { "9x", 0, TRUE },
-        { "1", 1, FALSE },
-        { "-1", 0, TRUE },
-        { "1k", 1024, FALSE },
-        { "1K", 1024, FALSE },
-        { "1M", 1024 * 1024, FALSE },
-        { "1m", 0, TRUE },
-        { "64M", 64 * 1024 * 1024, FALSE },
-        { "1G", 1 * 1024 * 1024 * 1024, FALSE } };
+} parse_integer_test_ds[] = {
+    { /* too big */
+      "99999999999999999999999999999999999999999999999999999999999999999999", 0, TRUE },
+    { "x", 0, TRUE },
+    { "9x", 0, TRUE },
+    { "1", 1, FALSE },
+    { "-1", 0, TRUE },
+    { "1k", 1024, FALSE },
+    { "1K", 1024, FALSE },
+    { "1M", 1024 * 1024, FALSE },
+    { "1m", 0, TRUE },
+    { "64M", 64 * 1024 * 1024, FALSE },
+    { "1G", 1 * 1024 * 1024 * 1024, FALSE }
+};
 /* *INDENT-ON* */
 
 /* @Test(dataSource = "parse_integer_test_ds") */

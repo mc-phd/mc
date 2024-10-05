@@ -103,14 +103,14 @@ str_verscmp (const char *s1, const char *s2)
                                                 /* S_Z */ S_N, S_F, S_Z
     };
 
-    static const signed char result_type[]
-        = { /* state  x/x  x/d  x/0  d/x  d/d  d/0  0/x  0/d  0/0  */
+    static const signed char result_type[] = {
+        /* state  x/x  x/d  x/0  d/x  d/d  d/0  0/x  0/d  0/0  */
 
-            /* S_N */ CMP, CMP, CMP, CMP, LEN, CMP, CMP, CMP, CMP,
-            /* S_I */ CMP, -1,  -1,  +1,  LEN, LEN, +1,  LEN, LEN,
-            /* S_F */ CMP, CMP, CMP, CMP, CMP, CMP, CMP, CMP, CMP,
-            /* S_Z */ CMP, +1,  +1,  -1,  CMP, CMP, -1,  CMP, CMP
-          };
+        /* S_N */ CMP, CMP, CMP, CMP, LEN, CMP, CMP, CMP, CMP,
+        /* S_I */ CMP, -1,  -1,  +1,  LEN, LEN, +1,  LEN, LEN,
+        /* S_F */ CMP, CMP, CMP, CMP, CMP, CMP, CMP, CMP, CMP,
+        /* S_Z */ CMP, +1,  +1,  -1,  CMP, CMP, -1,  CMP, CMP
+    };
     /* *INDENT-ON* */
 
     if (p1 == p2)

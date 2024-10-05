@@ -86,8 +86,8 @@ is_logging_enabled (void)
     if (is_logging_enabled_from_env ())
         return logging_enabled;
 
-    logging_enabled
-        = mc_config_get_bool (mc_global.main_config, CONFIG_GROUP_NAME, CONFIG_KEY_NAME, FALSE);
+    logging_enabled = mc_config_get_bool (mc_global.main_config, CONFIG_GROUP_NAME, CONFIG_KEY_NAME,
+                                          FALSE);
     logging_initialized = TRUE;
 
     return logging_enabled;

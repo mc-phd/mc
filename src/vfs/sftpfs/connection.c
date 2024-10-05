@@ -188,14 +188,14 @@ sftpfs_open_socket (struct vfs_s_super *super, GError **mcerror)
         switch (curr_res->ai_addr->sa_family)
         {
         case AF_INET:
-            sftpfs_super->ip_address
-                = inet_ntop (AF_INET, &((struct sockaddr_in *) curr_res->ai_addr)->sin_addr,
-                             address_ipv4, INET_ADDRSTRLEN);
+            sftpfs_super->ip_address = inet_ntop (
+                AF_INET, &((struct sockaddr_in *) curr_res->ai_addr)->sin_addr, address_ipv4,
+                INET_ADDRSTRLEN);
             break;
         case AF_INET6:
-            sftpfs_super->ip_address
-                = inet_ntop (AF_INET6, &((struct sockaddr_in6 *) curr_res->ai_addr)->sin6_addr,
-                             address_ipv6, INET6_ADDRSTRLEN);
+            sftpfs_super->ip_address = inet_ntop (
+                AF_INET6, &((struct sockaddr_in6 *) curr_res->ai_addr)->sin6_addr, address_ipv6,
+                INET6_ADDRSTRLEN);
             break;
         default:
             sftpfs_super->ip_address = NULL;
@@ -273,8 +273,8 @@ sftpfs_read_known_hosts (struct vfs_s_super *super, GError **mcerror)
     if (sftpfs_super->known_hosts == NULL)
         goto err;
 
-    sftpfs_super->known_hosts_file
-        = mc_build_filename (mc_config_get_home_dir (), ".ssh", "known_hosts", (char *) NULL);
+    sftpfs_super->known_hosts_file = mc_build_filename (mc_config_get_home_dir (), ".ssh",
+                                                        "known_hosts", (char *) NULL);
     rc = libssh2_knownhost_readfile (sftpfs_super->known_hosts, sftpfs_super->known_hosts_file,
                                      LIBSSH2_KNOWNHOST_FILE_OPENSSH);
     if (rc > 0)

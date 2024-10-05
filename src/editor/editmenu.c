@@ -100,8 +100,8 @@ create_edit_menu (void)
     entries = g_list_prepend (entries, menu_entry_new (_ ("&Undo"), CK_Undo));
     entries = g_list_prepend (entries, menu_entry_new (_ ("&Redo"), CK_Redo));
     entries = g_list_prepend (entries, menu_separator_new ());
-    entries
-        = g_list_prepend (entries, menu_entry_new (_ ("&Toggle ins/overw"), CK_InsertOverwrite));
+    entries = g_list_prepend (entries,
+                              menu_entry_new (_ ("&Toggle ins/overw"), CK_InsertOverwrite));
     entries = g_list_prepend (entries, menu_separator_new ());
     entries = g_list_prepend (entries, menu_entry_new (_ ("To&ggle mark"), CK_Mark));
     entries = g_list_prepend (entries, menu_entry_new (_ ("&Mark columns"), CK_MarkColumn));
@@ -150,8 +150,8 @@ create_command_menu (void)
 
     entries = g_list_prepend (entries, menu_entry_new (_ ("&Go to line..."), CK_Goto));
     entries = g_list_prepend (entries, menu_entry_new (_ ("&Toggle line state"), CK_ShowNumbers));
-    entries
-        = g_list_prepend (entries, menu_entry_new (_ ("Go to matching &bracket"), CK_MatchBracket));
+    entries = g_list_prepend (entries,
+                              menu_entry_new (_ ("Go to matching &bracket"), CK_MatchBracket));
     entries = g_list_prepend (entries,
                               menu_entry_new (_ ("Toggle s&yntax highlighting"), CK_SyntaxOnOff));
     entries = g_list_prepend (entries, menu_separator_new ());
@@ -197,13 +197,13 @@ create_format_menu (void)
     entries = g_list_prepend (entries, menu_entry_new (_ ("Insert &literal..."), CK_InsertLiteral));
     entries = g_list_prepend (entries, menu_entry_new (_ ("Insert &date/time"), CK_Date));
     entries = g_list_prepend (entries, menu_separator_new ());
-    entries
-        = g_list_prepend (entries, menu_entry_new (_ ("&Format paragraph"), CK_ParagraphFormat));
+    entries = g_list_prepend (entries,
+                              menu_entry_new (_ ("&Format paragraph"), CK_ParagraphFormat));
     entries = g_list_prepend (entries, menu_entry_new (_ ("&Sort..."), CK_Sort));
-    entries
-        = g_list_prepend (entries, menu_entry_new (_ ("&Paste output of..."), CK_ExternalCommand));
-    entries
-        = g_list_prepend (entries, menu_entry_new (_ ("&External formatter"), CK_PipeBlock (0)));
+    entries = g_list_prepend (entries,
+                              menu_entry_new (_ ("&Paste output of..."), CK_ExternalCommand));
+    entries = g_list_prepend (entries,
+                              menu_entry_new (_ ("&External formatter"), CK_PipeBlock (0)));
 
     return g_list_reverse (entries);
 }
@@ -220,8 +220,8 @@ create_window_menu (void)
 
     entries = g_list_prepend (entries, menu_entry_new (_ ("&Move"), CK_WindowMove));
     entries = g_list_prepend (entries, menu_entry_new (_ ("&Resize"), CK_WindowResize));
-    entries
-        = g_list_prepend (entries, menu_entry_new (_ ("&Toggle fullscreen"), CK_WindowFullscreen));
+    entries = g_list_prepend (entries,
+                              menu_entry_new (_ ("&Toggle fullscreen"), CK_WindowFullscreen));
     entries = g_list_prepend (entries, menu_separator_new ());
     entries = g_list_prepend (entries, menu_entry_new (_ ("&Next"), CK_WindowNext));
     entries = g_list_prepend (entries, menu_entry_new (_ ("&Previous"), CK_WindowPrev));
@@ -240,8 +240,8 @@ create_options_menu (void)
     entries = g_list_prepend (entries, menu_entry_new (_ ("&General..."), CK_Options));
     entries = g_list_prepend (entries, menu_entry_new (_ ("Save &mode..."), CK_OptionsSaveMode));
     entries = g_list_prepend (entries, menu_entry_new (_ ("Learn &keys..."), CK_LearnKeys));
-    entries
-        = g_list_prepend (entries, menu_entry_new (_ ("Syntax &highlighting..."), CK_SyntaxChoose));
+    entries = g_list_prepend (entries,
+                              menu_entry_new (_ ("Syntax &highlighting..."), CK_SyntaxChoose));
     entries = g_list_prepend (entries, menu_separator_new ());
     entries = g_list_prepend (entries, menu_entry_new (_ ("S&yntax file"), CK_EditSyntaxFile));
     entries = g_list_prepend (entries, menu_entry_new (_ ("&Menu file"), CK_EditUserMenu));

@@ -248,8 +248,8 @@ cd_to (const char *path)
             {
                 vfs_path_t *tmp_vpath = current_panel->cwd_vpath;
 
-                current_panel->cwd_vpath
-                    = vfs_path_vtokens_get (tmp_vpath, 0, vfs_path_tokens_count (tmp_vpath) - 1);
+                current_panel->cwd_vpath = vfs_path_vtokens_get (
+                    tmp_vpath, 0, vfs_path_tokens_count (tmp_vpath) - 1);
                 vfs_path_free (tmp_vpath, TRUE);
             }
             sync_tree (current_panel->cwd_vpath);

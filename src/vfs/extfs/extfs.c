@@ -1644,8 +1644,8 @@ extfs_get_plugins (const char *where, gboolean silent)
                     p = &g_array_index (extfs_plugins, extfs_plugin_info_t, i);
 
                     /* 2 files with same names cannot be in a directory */
-                    found
-                        = strcmp (info.path, p->path) != 0 && strcmp (info.prefix, p->prefix) == 0;
+                    found = strcmp (info.path, p->path) != 0
+                            && strcmp (info.prefix, p->prefix) == 0;
                 }
 
                 if (found)

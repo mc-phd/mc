@@ -161,8 +161,9 @@ edit_about (void)
 
         WRect r = { -1, -1, 0, 40 };
 
-        quick_dialog_t qdlg
-            = { r, N_ ("About"), "[Internal File Editor]", quick_widgets, NULL, NULL };
+        quick_dialog_t qdlg = {
+            r, N_ ("About"), "[Internal File Editor]", quick_widgets, NULL, NULL
+        };
 
         quick_widgets[0].pos_flags = WPOS_KEEP_TOP | WPOS_CENTER_HORZ;
         quick_widgets[2].pos_flags = WPOS_KEEP_TOP | WPOS_CENTER_HORZ;

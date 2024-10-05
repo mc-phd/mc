@@ -647,8 +647,8 @@ execute_external_editor_or_viewer (const char *command, const vfs_path_t *filena
 
     do_execute_vpath = (localcopy_vpath == NULL) ? filename_vpath : localcopy_vpath;
 
-    extern_cmd_options
-        = execute_get_external_cmd_opts_from_config (command, do_execute_vpath, start_line);
+    extern_cmd_options = execute_get_external_cmd_opts_from_config (command, do_execute_vpath,
+                                                                    start_line);
 
     if (extern_cmd_options != NULL)
     {

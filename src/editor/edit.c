@@ -198,8 +198,8 @@ edit_load_file_fast (edit_buffer_t *buf, const vfs_path_t *filename_vpath)
     {
         gchar *errmsg;
 
-        errmsg
-            = g_strdup_printf (_ ("Cannot open %s for reading"), vfs_path_as_str (filename_vpath));
+        errmsg = g_strdup_printf (_ ("Cannot open %s for reading"),
+                                  vfs_path_as_str (filename_vpath));
         edit_error_dialog (_ ("Error"), errmsg);
         g_free (errmsg);
         return FALSE;
@@ -1232,14 +1232,14 @@ edit_do_undo (WEdit *edit)
 
     if (edit->start_display > ac - KEY_PRESS)
     {
-        edit->start_line
-            -= edit_buffer_count_lines (&edit->buffer, ac - KEY_PRESS, edit->start_display);
+        edit->start_line -= edit_buffer_count_lines (&edit->buffer, ac - KEY_PRESS,
+                                                     edit->start_display);
         edit->force |= REDRAW_PAGE;
     }
     else if (edit->start_display < ac - KEY_PRESS)
     {
-        edit->start_line
-            += edit_buffer_count_lines (&edit->buffer, edit->start_display, ac - KEY_PRESS);
+        edit->start_line += edit_buffer_count_lines (&edit->buffer, edit->start_display,
+                                                     ac - KEY_PRESS);
         edit->force |= REDRAW_PAGE;
     }
     edit->start_display = ac - KEY_PRESS; /* see push and pop above */
@@ -1315,14 +1315,14 @@ edit_do_redo (WEdit *edit)
 
     if (edit->start_display > ac - KEY_PRESS)
     {
-        edit->start_line
-            -= edit_buffer_count_lines (&edit->buffer, ac - KEY_PRESS, edit->start_display);
+        edit->start_line -= edit_buffer_count_lines (&edit->buffer, ac - KEY_PRESS,
+                                                     edit->start_display);
         edit->force |= REDRAW_PAGE;
     }
     else if (edit->start_display < ac - KEY_PRESS)
     {
-        edit->start_line
-            += edit_buffer_count_lines (&edit->buffer, edit->start_display, ac - KEY_PRESS);
+        edit->start_line += edit_buffer_count_lines (&edit->buffer, edit->start_display,
+                                                     ac - KEY_PRESS);
         edit->force |= REDRAW_PAGE;
     }
     edit->start_display = ac - KEY_PRESS; /* see push and pop above */
@@ -2927,8 +2927,8 @@ edit_scroll_upward (WEdit *edit, long i)
     if (i != 0)
     {
         edit->start_line -= i;
-        edit->start_display
-            = edit_buffer_get_backward_offset (&edit->buffer, edit->start_display, i);
+        edit->start_display = edit_buffer_get_backward_offset (&edit->buffer, edit->start_display,
+                                                               i);
         edit->force |= REDRAW_PAGE;
         edit->force &= (0xfff - REDRAW_CHAR_ONLY);
     }
@@ -2948,8 +2948,8 @@ edit_scroll_downward (WEdit *edit, long i)
         if (i > lines_below)
             i = lines_below;
         edit->start_line += i;
-        edit->start_display
-            = edit_buffer_get_forward_offset (&edit->buffer, edit->start_display, i, 0);
+        edit->start_display = edit_buffer_get_forward_offset (&edit->buffer, edit->start_display, i,
+                                                              0);
         edit->force |= REDRAW_PAGE;
         edit->force &= (0xfff - REDRAW_CHAR_ONLY);
     }

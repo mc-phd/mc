@@ -201,21 +201,21 @@ mc_skin_color_get_from_ini_file (mc_skin_t *mc_skin, const gchar *group, const g
     }
 
     tmp = mc_skin_color_get_with_defaults (group, "_default_");
-    mc_skin_color->fg
-        = (items_count > 0 && values[0][0])
-              ? mc_skin_color_look_up_alias (mc_skin, g_strstrip (g_strdup (values[0])))
-          : (tmp != NULL) ? g_strdup (tmp->fg)
-                          : NULL;
-    mc_skin_color->bg
-        = (items_count > 1 && values[1][0])
-              ? mc_skin_color_look_up_alias (mc_skin, g_strstrip (g_strdup (values[1])))
-          : (tmp != NULL) ? g_strdup (tmp->bg)
-                          : NULL;
-    mc_skin_color->attrs
-        = (items_count > 2 && values[2][0])
-              ? mc_skin_color_look_up_alias (mc_skin, g_strstrip (g_strdup (values[2])))
-          : (tmp != NULL) ? g_strdup (tmp->attrs)
-                          : NULL;
+    mc_skin_color->fg = (items_count > 0 && values[0][0])
+                            ? mc_skin_color_look_up_alias (mc_skin,
+                                                           g_strstrip (g_strdup (values[0])))
+                        : (tmp != NULL) ? g_strdup (tmp->fg)
+                                        : NULL;
+    mc_skin_color->bg = (items_count > 1 && values[1][0])
+                            ? mc_skin_color_look_up_alias (mc_skin,
+                                                           g_strstrip (g_strdup (values[1])))
+                        : (tmp != NULL) ? g_strdup (tmp->bg)
+                                        : NULL;
+    mc_skin_color->attrs = (items_count > 2 && values[2][0])
+                               ? mc_skin_color_look_up_alias (mc_skin,
+                                                              g_strstrip (g_strdup (values[2])))
+                           : (tmp != NULL) ? g_strdup (tmp->attrs)
+                                           : NULL;
 
     g_strfreev (values);
 

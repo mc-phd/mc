@@ -308,8 +308,8 @@ init_learn (void)
         padding = MAX (0, padding);
         g_snprintf (buffer, sizeof (buffer), "%s%*s", label, padding, "");
 
-        learnkeys[i].button
-            = WIDGET (button_new (y, x, B_USER + i, NARROW_BUTTON, buffer, learn_button));
+        learnkeys[i].button = WIDGET (
+            button_new (y, x, B_USER + i, NARROW_BUTTON, buffer, learn_button));
         learnkeys[i].label = WIDGET (label_new (y, x + 19, NULL));
         group_add_widget (g, learnkeys[i].button);
         group_add_widget (g, learnkeys[i].label);

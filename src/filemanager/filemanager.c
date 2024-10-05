@@ -242,8 +242,8 @@ create_file_menu (void)
                               menu_entry_new (_ ("Relative symlin&k"), CK_LinkSymbolicRelative));
     entries = g_list_prepend (entries, menu_entry_new (_ ("Edit s&ymlink"), CK_LinkSymbolicEdit));
     entries = g_list_prepend (entries, menu_entry_new (_ ("Ch&own"), CK_ChangeOwn));
-    entries
-        = g_list_prepend (entries, menu_entry_new (_ ("&Advanced chown"), CK_ChangeOwnAdvanced));
+    entries = g_list_prepend (entries,
+                              menu_entry_new (_ ("&Advanced chown"), CK_ChangeOwnAdvanced));
 #ifdef ENABLE_EXT2FS_ATTR
     entries = g_list_prepend (entries, menu_entry_new (_ ("Cha&ttr"), CK_ChangeAttributes));
 #endif
@@ -281,8 +281,8 @@ create_command_menu (void)
 #ifdef USE_DIFF_VIEW
     entries = g_list_prepend (entries, menu_entry_new (_ ("C&ompare files"), CK_CompareFiles));
 #endif
-    entries
-        = g_list_prepend (entries, menu_entry_new (_ ("E&xternal panelize"), CK_ExternalPanelize));
+    entries = g_list_prepend (entries,
+                              menu_entry_new (_ ("E&xternal panelize"), CK_ExternalPanelize));
     entries = g_list_prepend (entries, menu_entry_new (_ ("Show directory s&izes"), CK_DirSize));
     entries = g_list_prepend (entries, menu_separator_new ());
     entries = g_list_prepend (entries, menu_entry_new (_ ("Command &history"), CK_History));
@@ -328,8 +328,8 @@ create_options_menu (void)
     entries = g_list_prepend (entries, menu_entry_new (_ ("&Panel options..."), CK_OptionsPanel));
     entries = g_list_prepend (entries, menu_entry_new (_ ("C&onfirmation..."), CK_OptionsConfirm));
     entries = g_list_prepend (entries, menu_entry_new (_ ("&Appearance..."), CK_OptionsAppearance));
-    entries
-        = g_list_prepend (entries, menu_entry_new (_ ("&Display bits..."), CK_OptionsDisplayBits));
+    entries = g_list_prepend (entries,
+                              menu_entry_new (_ ("&Display bits..."), CK_OptionsDisplayBits));
     entries = g_list_prepend (entries, menu_entry_new (_ ("Learn &keys..."), CK_LearnKeys));
 #ifdef ENABLE_VFS
     entries = g_list_prepend (entries, menu_entry_new (_ ("&Virtual FS..."), CK_OptionsVfs));

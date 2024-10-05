@@ -920,15 +920,15 @@ open_include_file (const char *filename)
         return fopen (filename, "r");
 
     g_free (error_file_name);
-    error_file_name
-        = g_build_filename (mc_config_get_data_path (), EDIT_SYNTAX_DIR, filename, (char *) NULL);
+    error_file_name = g_build_filename (mc_config_get_data_path (), EDIT_SYNTAX_DIR, filename,
+                                        (char *) NULL);
     f = fopen (error_file_name, "r");
     if (f != NULL)
         return f;
 
     g_free (error_file_name);
-    error_file_name
-        = g_build_filename (mc_global.share_data_dir, EDIT_SYNTAX_DIR, filename, (char *) NULL);
+    error_file_name = g_build_filename (mc_global.share_data_dir, EDIT_SYNTAX_DIR, filename,
+                                        (char *) NULL);
 
     return fopen (error_file_name, "r");
 }
@@ -1298,8 +1298,8 @@ edit_read_syntax_file (WEdit *edit, GPtrArray *pnames, const char *syntax_file,
     {
         char *global_syntax_file;
 
-        global_syntax_file
-            = g_build_filename (mc_global.share_data_dir, EDIT_SYNTAX_FILE, (char *) NULL);
+        global_syntax_file = g_build_filename (mc_global.share_data_dir, EDIT_SYNTAX_FILE,
+                                               (char *) NULL);
         f = fopen (global_syntax_file, "r");
         g_free (global_syntax_file);
         if (f == NULL)
@@ -1455,8 +1455,8 @@ exec_edit_syntax_dialog (const GPtrArray *names, const char *current_syntax)
     size_t i;
     Listbox *syntaxlist;
 
-    syntaxlist
-        = listbox_window_new (LIST_LINES, MAX_ENTRY_LEN, _ ("Choose syntax highlighting"), NULL);
+    syntaxlist = listbox_window_new (LIST_LINES, MAX_ENTRY_LEN, _ ("Choose syntax highlighting"),
+                                     NULL);
     LISTBOX_APPEND_TEXT (syntaxlist, 'A', _ ("< Auto >"), NULL, FALSE);
     LISTBOX_APPEND_TEXT (syntaxlist, 'R', _ ("< Reload Current Syntax >"), NULL, FALSE);
 

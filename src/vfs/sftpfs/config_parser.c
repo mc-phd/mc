@@ -80,20 +80,20 @@ static struct
     mc_search_t *pattern_regexp;
     enum config_var_type type;
     size_t offset;
-} config_variables[]
-    = { { "^\\s*User\\s+(.*)$", NULL, STRING, offsetof (sftpfs_ssh_config_entity_t, user) },
-        { "^\\s*HostName\\s+(.*)$", NULL, STRING,
-          offsetof (sftpfs_ssh_config_entity_t, real_host) },
-        { "^\\s*IdentitiesOnly\\s+(.*)$", NULL, BOOLEAN,
-          offsetof (sftpfs_ssh_config_entity_t, identities_only) },
-        { "^\\s*IdentityFile\\s+(.*)$", NULL, FILENAME,
-          offsetof (sftpfs_ssh_config_entity_t, identity_file) },
-        { "^\\s*Port\\s+(.*)$", NULL, INTEGER, offsetof (sftpfs_ssh_config_entity_t, port) },
-        { "^\\s*PasswordAuthentication\\s+(.*)$", NULL, BOOLEAN,
-          offsetof (sftpfs_ssh_config_entity_t, password_auth) },
-        { "^\\s*PubkeyAuthentication\\s+(.*)$", NULL, STRING,
-          offsetof (sftpfs_ssh_config_entity_t, pubkey_auth) },
-        { NULL, NULL, 0, 0 } };
+} config_variables[] = {
+    { "^\\s*User\\s+(.*)$", NULL, STRING, offsetof (sftpfs_ssh_config_entity_t, user) },
+    { "^\\s*HostName\\s+(.*)$", NULL, STRING, offsetof (sftpfs_ssh_config_entity_t, real_host) },
+    { "^\\s*IdentitiesOnly\\s+(.*)$", NULL, BOOLEAN,
+      offsetof (sftpfs_ssh_config_entity_t, identities_only) },
+    { "^\\s*IdentityFile\\s+(.*)$", NULL, FILENAME,
+      offsetof (sftpfs_ssh_config_entity_t, identity_file) },
+    { "^\\s*Port\\s+(.*)$", NULL, INTEGER, offsetof (sftpfs_ssh_config_entity_t, port) },
+    { "^\\s*PasswordAuthentication\\s+(.*)$", NULL, BOOLEAN,
+      offsetof (sftpfs_ssh_config_entity_t, password_auth) },
+    { "^\\s*PubkeyAuthentication\\s+(.*)$", NULL, STRING,
+      offsetof (sftpfs_ssh_config_entity_t, pubkey_auth) },
+    { NULL, NULL, 0, 0 }
+};
 /* *INDENT-ON* */
 
 /* --------------------------------------------------------------------------------------------- */
@@ -396,8 +396,8 @@ sftpfs_fill_connection_data_from_config (struct vfs_s_super *super, GError **mce
     if (config_entity->real_host != NULL)
     {
         g_free (super->path_element->host);
-        super->path_element->host
-            = sftpsfs_expand_hostname (super->path_element->host, config_entity->real_host);
+        super->path_element->host = sftpsfs_expand_hostname (super->path_element->host,
+                                                             config_entity->real_host);
     }
 
     if (config_entity->identity_file != NULL)
@@ -421,8 +421,8 @@ sftpfs_init_config_variables_patterns (void)
 
     for (i = 0; config_variables[i].pattern != NULL; i++)
     {
-        config_variables[i].pattern_regexp
-            = mc_search_new (config_variables[i].pattern, DEFAULT_CHARSET);
+        config_variables[i].pattern_regexp = mc_search_new (config_variables[i].pattern,
+                                                            DEFAULT_CHARSET);
         config_variables[i].pattern_regexp->search_type = MC_SEARCH_T_REGEX;
         config_variables[i].pattern_regexp->is_case_sensitive = FALSE;
     }

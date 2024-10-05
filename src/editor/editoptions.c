@@ -50,8 +50,8 @@
 
 /*** file scope variables ************************************************************************/
 
-static const char *wrap_str[]
-    = { N_ ("&None"), N_ ("&Dynamic paragraphing"), N_ ("Type &writer wrap"), NULL };
+static const char *wrap_str[] = { N_ ("&None"), N_ ("&Dynamic paragraphing"),
+                                  N_ ("Type &writer wrap"), NULL };
 
 /* --------------------------------------------------------------------------------------------- */
 /*** file scope functions ************************************************************************/
@@ -186,8 +186,8 @@ edit_options_dialog (WDialog *h)
 
         WRect r = { -1, -1, 0, 74 };
 
-        quick_dialog_t qdlg
-            = { r, N_ ("Editor options"), "[Editor options]", quick_widgets, NULL, NULL };
+        quick_dialog_t qdlg = { r,   N_ ("Editor options"), "[Editor options]", quick_widgets, NULL,
+                                NULL };
 
         if (quick_dialog (&qdlg) == B_CANCEL)
             return;

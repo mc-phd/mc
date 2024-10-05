@@ -1760,8 +1760,8 @@ redo_diff (WDiff *dview)
 
                 h = g_array_new (FALSE, FALSE, sizeof (BRACKET));
 
-                runresult
-                    = hdiff_scan (p->p, p->u.len, q->p, q->u.len, HDIFF_MINCTX, h, HDIFF_DEPTH);
+                runresult = hdiff_scan (p->p, p->u.len, q->p, q->u.len, HDIFF_MINCTX, h,
+                                        HDIFF_DEPTH);
                 if (!runresult)
                 {
                     g_array_free (h, TRUE);
@@ -2281,8 +2281,8 @@ dview_load_options (WDiff *dview)
     gboolean show_numbers;
     int tab_size;
 
-    dview->display_symbols
-        = mc_config_get_bool (mc_global.main_config, "DiffView", "show_symbols", FALSE);
+    dview->display_symbols = mc_config_get_bool (mc_global.main_config, "DiffView", "show_symbols",
+                                                 FALSE);
     show_numbers = mc_config_get_bool (mc_global.main_config, "DiffView", "show_numbers", FALSE);
     if (show_numbers)
         dview->display_numbers = 1;
@@ -2294,16 +2294,16 @@ dview_load_options (WDiff *dview)
 
     dview->opt.quality = mc_config_get_int (mc_global.main_config, "DiffView", "diff_quality", 0);
 
-    dview->opt.strip_trailing_cr
-        = mc_config_get_bool (mc_global.main_config, "DiffView", "diff_ignore_tws", FALSE);
-    dview->opt.ignore_all_space
-        = mc_config_get_bool (mc_global.main_config, "DiffView", "diff_ignore_all_space", FALSE);
-    dview->opt.ignore_space_change
-        = mc_config_get_bool (mc_global.main_config, "DiffView", "diff_ignore_space_change", FALSE);
-    dview->opt.ignore_tab_expansion
-        = mc_config_get_bool (mc_global.main_config, "DiffView", "diff_tab_expansion", FALSE);
-    dview->opt.ignore_case
-        = mc_config_get_bool (mc_global.main_config, "DiffView", "diff_ignore_case", FALSE);
+    dview->opt.strip_trailing_cr = mc_config_get_bool (mc_global.main_config, "DiffView",
+                                                       "diff_ignore_tws", FALSE);
+    dview->opt.ignore_all_space = mc_config_get_bool (mc_global.main_config, "DiffView",
+                                                      "diff_ignore_all_space", FALSE);
+    dview->opt.ignore_space_change = mc_config_get_bool (mc_global.main_config, "DiffView",
+                                                         "diff_ignore_space_change", FALSE);
+    dview->opt.ignore_tab_expansion = mc_config_get_bool (mc_global.main_config, "DiffView",
+                                                          "diff_tab_expansion", FALSE);
+    dview->opt.ignore_case = mc_config_get_bool (mc_global.main_config, "DiffView",
+                                                 "diff_ignore_case", FALSE);
 
     dview->new_frame = TRUE;
 }
@@ -3078,12 +3078,12 @@ dview_execute_cmd (WDiff *dview, long command)
         dview_redo (dview);
         break;
     case CK_HunkNext:
-        dview->skip_rows = dview->search.last_accessed_num_line
-            = find_next_hunk (dview->a[DIFF_LEFT], dview->skip_rows);
+        dview->skip_rows = dview->search.last_accessed_num_line = find_next_hunk (
+            dview->a[DIFF_LEFT], dview->skip_rows);
         break;
     case CK_HunkPrev:
-        dview->skip_rows = dview->search.last_accessed_num_line
-            = find_prev_hunk (dview->a[DIFF_LEFT], dview->skip_rows);
+        dview->skip_rows = dview->search.last_accessed_num_line = find_prev_hunk (
+            dview->a[DIFF_LEFT], dview->skip_rows);
         break;
     case CK_Goto:
         dview_goto_cmd (dview, DIFF_RIGHT);

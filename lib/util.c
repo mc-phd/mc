@@ -452,10 +452,11 @@ size_trunc_len (char *buffer, unsigned int len, uintmax_t size, int units, gbool
 #endif
     };
 
-    static const char *const suffix[]
-        = { "", "K", "M", "G", "T", "P", "E", "Z", "Y", "R", "Q", NULL };
-    static const char *const suffix_lc[]
-        = { "", "k", "m", "g", "t", "p", "e", "z", "y", "r", "q", NULL };
+    static const char *const suffix[] = {
+        "", "K", "M", "G", "T", "P", "E", "Z", "Y", "R", "Q", NULL
+    };
+    static const char *const suffix_lc[] = { "",  "k", "m", "g", "t", "p",
+                                             "e", "z", "y", "r", "q", NULL };
     /* *INDENT-ON* */
 
     const char *const *sfx = use_si ? suffix_lc : suffix;
@@ -1406,17 +1407,17 @@ mc_util_unlink_backup_if_possible (const char *file_name, const char *backup_suf
 char *
 guess_message_value (void)
 {
-    static const char *const var[]
-        = { /* Setting of LC_ALL overwrites all other.  */
-            /* Do not use LANGUAGE for check user locale and drowing hints */
-            "LC_ALL",
-            /* Next comes the name of the desired category.  */
-            "LC_MESSAGES",
-            /* Last possibility is the LANG environment variable.  */
-            "LANG",
-            /* NULL exit loops */
-            NULL
-          };
+    static const char *const var[] = {
+        /* Setting of LC_ALL overwrites all other.  */
+        /* Do not use LANGUAGE for check user locale and drowing hints */
+        "LC_ALL",
+        /* Next comes the name of the desired category.  */
+        "LC_MESSAGES",
+        /* Last possibility is the LANG environment variable.  */
+        "LANG",
+        /* NULL exit loops */
+        NULL
+    };
 
     size_t i;
     const char *locale = NULL;

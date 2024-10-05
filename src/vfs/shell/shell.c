@@ -209,8 +209,8 @@ shell_load_script_from_file (const char *hostname, const char *script_name, cons
     /* 2nd: scan system dir */
     if (scr_content == NULL)
     {
-        scr_filename
-            = g_build_path (PATH_SEP_STR, LIBEXECDIR, VFS_SHELL_PREFIX, script_name, (char *) NULL);
+        scr_filename = g_build_path (PATH_SEP_STR, LIBEXECDIR, VFS_SHELL_PREFIX, script_name,
+                                     (char *) NULL);
         g_file_get_contents (scr_filename, &scr_content, &scr_len, NULL);
         g_free (scr_filename);
     }

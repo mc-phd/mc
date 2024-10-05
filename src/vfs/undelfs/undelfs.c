@@ -282,8 +282,8 @@ undelfs_loaddel (void)
         {
             if (num_delarray >= max_delarray)
             {
-                struct deleted_info *delarray_new
-                    = g_try_realloc (delarray, sizeof (struct deleted_info) * (max_delarray + 50));
+                struct deleted_info *delarray_new = g_try_realloc (
+                    delarray, sizeof (struct deleted_info) * (max_delarray + 50));
                 if (!delarray_new)
                 {
                     message (D_ERROR, undelfserr, "%s",

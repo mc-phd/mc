@@ -239,10 +239,10 @@ execvp__deinit (void)
 
 #define VERIFY_SIGACTION__IS_RESTORED(oldact_idx, act_idx)                                         \
     {                                                                                              \
-        struct sigaction *_oldact                                                                  \
-            = (struct sigaction *) g_ptr_array_index (sigaction_oldact__captured, oldact_idx);     \
-        struct sigaction *_act                                                                     \
-            = (struct sigaction *) g_ptr_array_index (sigaction_act__captured, act_idx);           \
+        struct sigaction *_oldact = (struct sigaction *) g_ptr_array_index (                       \
+            sigaction_oldact__captured, oldact_idx);                                               \
+        struct sigaction *_act = (struct sigaction *) g_ptr_array_index (sigaction_act__captured,  \
+                                                                         act_idx);                 \
         ck_assert_msg (memcmp (_oldact, _act, sizeof (struct sigaction)) == 0,                     \
                        "sigaction(): oldact[%d] should be equals to act[%d]", oldact_idx,          \
                        act_idx);                                                                   \
@@ -285,8 +285,8 @@ execvp__deinit (void)
 
 #define VERIFY_SIGNAL_HANDLER_IS_SIG_DFL(_idx)                                                     \
     {                                                                                              \
-        sighandler_t *tmp_handler                                                                  \
-            = (sighandler_t *) g_ptr_array_index (signal_handler__captured, _idx);                 \
+        sighandler_t *tmp_handler = (sighandler_t *) g_ptr_array_index (signal_handler__captured,  \
+                                                                        _idx);                     \
         mctest_assert_ptr_eq (tmp_handler, (sighandler_t *) SIG_DFL);                              \
     }
 

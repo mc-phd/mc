@@ -561,10 +561,10 @@ quick_dialog_skip (quick_dialog_t *quick_dlg, int nskip)
             unsigned long id;
 
             /* add widget into dialog */
-            item->widget->options
-                |= item->quick_widget->options; /* FIXME: cannot reset flags, setup only */
-            item->widget->state
-                |= item->quick_widget->state; /* FIXME: cannot reset flags, setup only */
+            item->widget->options |= item->quick_widget
+                                         ->options; /* FIXME: cannot reset flags, setup only */
+            item->widget->state |= item->quick_widget
+                                       ->state; /* FIXME: cannot reset flags, setup only */
             id = group_add_widget_autopos (GROUP (dd), item->widget, item->quick_widget->pos_flags,
                                            NULL);
             if (item->quick_widget->id != NULL)
@@ -597,8 +597,8 @@ quick_dialog_skip (quick_dialog_t *quick_dlg, int nskip)
 
             case quick_input:
                 if ((item->quick_widget->u.input.completion_flags & INPUT_COMPLETE_CD) != 0)
-                    *item->quick_widget->u.input.result
-                        = tilde_expand (input_get_ctext (INPUT (item->widget)));
+                    *item->quick_widget->u.input.result = tilde_expand (
+                        input_get_ctext (INPUT (item->widget)));
                 else
                     *item->quick_widget->u.input.result = input_get_text (INPUT (item->widget));
                 break;

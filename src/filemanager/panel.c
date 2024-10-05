@@ -1439,8 +1439,8 @@ panel_paint_sort_info (const WPanel *panel)
 {
     if (*panel->sort_field->hotkey != '\0')
     {
-        const char *sort_sign
-            = panel->sort_info.reverse ? panel_sort_up_char : panel_sort_down_char;
+        const char *sort_sign = panel->sort_info.reverse ? panel_sort_up_char
+                                                         : panel_sort_down_char;
         char *str;
 
         str = g_strdup_printf ("%s%s", sort_sign, Q_ (panel->sort_field->hotkey));
@@ -4183,8 +4183,8 @@ panel_recursive_cd_to_parent (const vfs_path_t *vpath)
 
         tmp_vpath = vfs_path_vtokens_get (cwd_vpath, 0, -1);
         vfs_path_free (cwd_vpath, TRUE);
-        cwd_vpath
-            = vfs_path_build_filename (PATH_SEP_STR, vfs_path_as_str (tmp_vpath), (char *) NULL);
+        cwd_vpath = vfs_path_build_filename (PATH_SEP_STR, vfs_path_as_str (tmp_vpath),
+                                             (char *) NULL);
         vfs_path_free (tmp_vpath, TRUE);
     }
 
@@ -5216,10 +5216,10 @@ panel_init (void)
     panel_history_prev_item_char = mc_skin_get ("widget-panel", "history-prev-item-char", "<");
     panel_history_next_item_char = mc_skin_get ("widget-panel", "history-next-item-char", ">");
     panel_history_show_list_char = mc_skin_get ("widget-panel", "history-show-list-char", "^");
-    panel_filename_scroll_left_char
-        = mc_skin_get ("widget-panel", "filename-scroll-left-char", "{");
-    panel_filename_scroll_right_char
-        = mc_skin_get ("widget-panel", "filename-scroll-right-char", "}");
+    panel_filename_scroll_left_char = mc_skin_get ("widget-panel", "filename-scroll-left-char",
+                                                   "{");
+    panel_filename_scroll_right_char = mc_skin_get ("widget-panel", "filename-scroll-right-char",
+                                                    "}");
 
     string_file_name_buffer = g_string_sized_new (MC_MAXFILENAMELEN);
 

@@ -166,9 +166,9 @@ sftpfs_open_file (vfs_file_handler_t *fh, int flags, mode_t mode, GError **mcerr
     {
         int libssh_errno;
 
-        file->handle
-            = libssh2_sftp_open_ex (super->sftp_session, fixfname->str, fixfname->len,
-                                    sftp_open_flags, sftp_open_mode, LIBSSH2_SFTP_OPENFILE);
+        file->handle = libssh2_sftp_open_ex (super->sftp_session, fixfname->str, fixfname->len,
+                                             sftp_open_flags, sftp_open_mode,
+                                             LIBSSH2_SFTP_OPENFILE);
         if (file->handle != NULL)
             break;
 

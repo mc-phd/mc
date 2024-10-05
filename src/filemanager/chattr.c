@@ -1036,14 +1036,14 @@ chattr_dlg_create (WPanel *panel, const char *fname, unsigned long attr)
         group_add_widget (dg, chattr_but[i].button);
 
         i++;
-        chattr_but[i].button
-            = WIDGET (button_new (y++, dw->rect.cols / 2 + 2, chattr_but[i].ret_cmd,
-                                  chattr_but[i].flags, chattr_but[i].text, NULL));
+        chattr_but[i].button = WIDGET (button_new (y++, dw->rect.cols / 2 + 2,
+                                                   chattr_but[i].ret_cmd, chattr_but[i].flags,
+                                                   chattr_but[i].text, NULL));
         group_add_widget (dg, chattr_but[i].button);
 
         /* two buttons in a row */
-        cols
-            = MAX (cols, chattr_but[i - 1].button->rect.cols + 1 + chattr_but[i].button->rect.cols);
+        cols = MAX (cols,
+                    chattr_but[i - 1].button->rect.cols + 1 + chattr_but[i].button->rect.cols);
     }
 
     /* adjust dialog size and button positions */

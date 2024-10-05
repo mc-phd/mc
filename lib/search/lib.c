@@ -44,8 +44,8 @@
 /* *INDENT-OFF* */
 const char *STR_E_NOTFOUND = N_ ("Search string not found");
 const char *STR_E_UNKNOWN_TYPE = N_ ("Not implemented yet");
-const char *STR_E_RPL_NOT_EQ_TO_FOUND
-    = N_ ("Num of replace tokens not equal to num of found tokens");
+const char *STR_E_RPL_NOT_EQ_TO_FOUND = N_ (
+    "Num of replace tokens not equal to num of found tokens");
 const char *STR_E_RPL_INVALID_TOKEN = N_ ("Invalid token number %d");
 /* *INDENT-ON* */
 
@@ -175,8 +175,8 @@ mc_search__get_one_symbol (const char *charset, const char *str, gsize str_len,
     g_string_set_size (converted_str, (gsize) (next_char - converted_str->str));
 
 #ifdef HAVE_CHARSET
-    converted_str2
-        = mc_search__recode_str (converted_str->str, converted_str->len, cp_display, charset);
+    converted_str2 = mc_search__recode_str (converted_str->str, converted_str->len, cp_display,
+                                            charset);
 #endif
     if (just_letters != NULL)
         *just_letters = str_isalnum (converted_str->str) && !str_isdigit (converted_str->str);

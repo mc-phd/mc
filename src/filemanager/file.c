@@ -91,8 +91,8 @@
 /*** global variables ****************************************************************************/
 
 /* TRANSLATORS: no need to translate 'DialogTitle', it's just a context prefix  */
-const char *op_names[3]
-    = { N_ ("DialogTitle|Copy"), N_ ("DialogTitle|Move"), N_ ("DialogTitle|Delete") };
+const char *op_names[3] = { N_ ("DialogTitle|Copy"), N_ ("DialogTitle|Move"),
+                            N_ ("DialogTitle|Delete") };
 
 /*** file scope macro definitions ****************************************************************/
 
@@ -144,8 +144,8 @@ typedef enum
  */
 
 /* TRANSLATORS: no need to translate 'FileOperation', it's just a context prefix  */
-static const char *op_names1[]
-    = { N_ ("FileOperation|Copy"), N_ ("FileOperation|Move"), N_ ("FileOperation|Delete") };
+static const char *op_names1[] = { N_ ("FileOperation|Copy"), N_ ("FileOperation|Move"),
+                                   N_ ("FileOperation|Delete") };
 
 /*
  * These are formats for building a prompt. Parts encoded as follows:
@@ -161,10 +161,11 @@ static const char *one_format = N_ ("%o %f%n\"%s\"%m");
 /* xgettext:no-c-format */
 static const char *many_format = N_ ("%o %d %f%m");
 
-static const char *prompt_parts[]
-    = { N_ ("file"), N_ ("files"), N_ ("directory"), N_ ("directories"), N_ ("files/directories"),
-        /* TRANSLATORS: keep leading space here to split words in Copy/Move dialog */
-        N_ (" with source mask:") };
+static const char *prompt_parts[] = {
+    N_ ("file"), N_ ("files"), N_ ("directory"), N_ ("directories"), N_ ("files/directories"),
+    /* TRANSLATORS: keep leading space here to split words in Copy/Move dialog */
+    N_ (" with source mask:")
+};
 
 /*** forward declarations (file scope functions) *************************************************/
 
@@ -394,9 +395,9 @@ check_hardlinks (const vfs_path_t *src_vpath, const struct stat *src_stat,
                     {
                         FileProgressStatus status;
 
-                        status
-                            = file_error (TRUE, _ ("Cannot stat hardlink source file \"%s\"\n%s"),
-                                          vfs_path_as_str (lnk->dst_vpath));
+                        status = file_error (TRUE,
+                                             _ ("Cannot stat hardlink source file \"%s\"\n%s"),
+                                             vfs_path_as_str (lnk->dst_vpath));
                         if (status == FILE_ABORT)
                             return HARDLINK_ABORT;
                         if (status == FILE_RETRY)
@@ -2269,8 +2270,8 @@ copy_file_file (file_op_total_context_t *tctx, file_op_context_t *ctx, const cha
                 return_status = FILE_SKIPALL;
             else
             {
-                return_status
-                    = file_error (TRUE, _ ("Cannot overwrite directory \"%s\"\n%s"), dst_path);
+                return_status = file_error (TRUE, _ ("Cannot overwrite directory \"%s\"\n%s"),
+                                            dst_path);
                 if (return_status == FILE_SKIPALL)
                     ctx->skip_all = TRUE;
                 if (return_status == FILE_RETRY)
@@ -2405,8 +2406,8 @@ copy_file_file (file_op_total_context_t *tctx, file_op_context_t *ctx, const cha
             while (mc_mknod (dst_vpath, src_stat.st_mode & ctx->umask_kill, rdev) < 0
                    && !ctx->skip_all)
             {
-                return_status
-                    = file_error (TRUE, _ ("Cannot create special file \"%s\"\n%s"), dst_path);
+                return_status = file_error (TRUE, _ ("Cannot create special file \"%s\"\n%s"),
+                                            dst_path);
                 if (return_status == FILE_RETRY)
                     continue;
                 if (return_status == FILE_SKIPALL)
@@ -2418,8 +2419,8 @@ copy_file_file (file_op_total_context_t *tctx, file_op_context_t *ctx, const cha
             while (ctx->preserve_uidgid
                    && mc_chown (dst_vpath, src_stat.st_uid, src_stat.st_gid) != 0 && !ctx->skip_all)
             {
-                temp_status
-                    = file_error (TRUE, _ ("Cannot chown target file \"%s\"\n%s"), dst_path);
+                temp_status = file_error (TRUE, _ ("Cannot chown target file \"%s\"\n%s"),
+                                          dst_path);
                 if (temp_status == FILE_SKIP)
                     break;
                 if (temp_status == FILE_SKIPALL)
@@ -2434,8 +2435,8 @@ copy_file_file (file_op_total_context_t *tctx, file_op_context_t *ctx, const cha
             while (ctx->preserve && mc_chmod (dst_vpath, src_stat.st_mode & ctx->umask_kill) != 0
                    && !ctx->skip_all)
             {
-                temp_status
-                    = file_error (TRUE, _ ("Cannot chmod target file \"%s\"\n%s"), dst_path);
+                temp_status = file_error (TRUE, _ ("Cannot chmod target file \"%s\"\n%s"),
+                                          dst_path);
                 if (temp_status == FILE_SKIP)
                     break;
                 if (temp_status == FILE_SKIPALL)
@@ -2536,8 +2537,8 @@ copy_file_file (file_op_total_context_t *tctx, file_op_context_t *ctx, const cha
                 return_status = FILE_SKIPALL;
             else
             {
-                return_status
-                    = file_error (TRUE, _ ("Cannot create target file \"%s\"\n%s"), dst_path);
+                return_status = file_error (TRUE, _ ("Cannot create target file \"%s\"\n%s"),
+                                            dst_path);
                 if (return_status == FILE_RETRY)
                     continue;
                 if (return_status == FILE_SKIPALL)
@@ -2648,8 +2649,8 @@ copy_file_file (file_op_total_context_t *tctx, file_op_context_t *ctx, const cha
             if (mc_ctl (src_desc, VFS_CTL_IS_NOTREADY, 0) == 0)
                 while ((n_read = mc_read (src_desc, buf, bufsize)) < 0 && !ctx->skip_all)
                 {
-                    return_status
-                        = file_error (TRUE, _ ("Cannot read source file \"%s\"\n%s"), src_path);
+                    return_status = file_error (TRUE, _ ("Cannot read source file \"%s\"\n%s"),
+                                                src_path);
                     if (return_status == FILE_RETRY)
                         continue;
                     if (return_status == FILE_SKIPALL)
@@ -2741,9 +2742,9 @@ copy_file_file (file_op_total_context_t *tctx, file_op_context_t *ctx, const cha
             {
                 int query_res;
 
-                query_res
-                    = query_dialog (Q_ ("DialogTitle|Copy"), _ ("Incomplete file was retrieved"),
-                                    D_ERROR, 3, _ ("&Delete"), _ ("&Keep"), _ ("&Continue copy"));
+                query_res = query_dialog (Q_ ("DialogTitle|Copy"),
+                                          _ ("Incomplete file was retrieved"), D_ERROR, 3,
+                                          _ ("&Delete"), _ ("&Keep"), _ ("&Continue copy"));
 
                 switch (query_res)
                 {
@@ -2954,8 +2955,8 @@ retry_src_stat:
             return_status = FILE_SKIPALL;
         else
         {
-            return_status
-                = file_error (TRUE, _ ("Cannot get attributes of source directory \"%s\"\n%s"), s);
+            return_status = file_error (
+                TRUE, _ ("Cannot get attributes of source directory \"%s\"\n%s"), s);
             if (return_status == FILE_RETRY)
             {
                 attrs_ok = TRUE;
@@ -3052,8 +3053,8 @@ retry_dst_stat:
                 return_status = FILE_SKIPALL;
             else
             {
-                return_status
-                    = file_error (TRUE, _ ("Destination \"%s\" must be a directory\n%s"), d);
+                return_status = file_error (TRUE, _ ("Destination \"%s\" must be a directory\n%s"),
+                                            d);
                 if (return_status == FILE_SKIPALL)
                     ctx->skip_all = TRUE;
                 if (return_status == FILE_RETRY)
@@ -3084,8 +3085,8 @@ retry_dst_stat:
                 return_status = FILE_SKIPALL;
             else
             {
-                return_status
-                    = file_error (TRUE, _ ("Cannot create target directory \"%s\"\n%s"), d);
+                return_status = file_error (TRUE, _ ("Cannot create target directory \"%s\"\n%s"),
+                                            d);
                 if (return_status == FILE_SKIPALL)
                     ctx->skip_all = TRUE;
             }
@@ -3109,8 +3110,8 @@ retry_dst_stat:
                 return_status = FILE_SKIPALL;
             else
             {
-                return_status
-                    = file_error (TRUE, _ ("Cannot chown target directory \"%s\"\n%s"), d);
+                return_status = file_error (TRUE, _ ("Cannot chown target directory \"%s\"\n%s"),
+                                            d);
                 if (return_status == FILE_SKIPALL)
                     ctx->skip_all = TRUE;
             }
@@ -3151,8 +3152,8 @@ retry_dst_stat:
              * dir already exists. So, we give the recursive call the flag 0
              * meaning no toplevel.
              */
-            return_status
-                = copy_dir_dir (tctx, ctx, path, mdpath, FALSE, FALSE, do_delete, parent_dirs);
+            return_status = copy_dir_dir (tctx, ctx, path, mdpath, FALSE, FALSE, do_delete,
+                                          parent_dirs);
             g_free (mdpath);
         }
         else
@@ -3395,8 +3396,8 @@ gboolean
 panel_operate (void *source_panel, FileOperation operation, gboolean force_single)
 {
     WPanel *panel = PANEL (source_panel);
-    const gboolean single_entry
-        = force_single || (panel->marked <= 1) || (get_current_type () == view_tree);
+    const gboolean single_entry = force_single || (panel->marked <= 1)
+                                  || (get_current_type () == view_tree);
 
     const char *source = NULL;
     char *dest = NULL;

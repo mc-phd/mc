@@ -178,12 +178,12 @@ mc_config_init_config_paths (GError **mcerror)
     }
     else
     {
-        mc_config_str
-            = mc_config_init_one_config_path (g_get_user_config_dir (), MC_USERCONF_DIR, mcerror);
-        mc_cache_str
-            = mc_config_init_one_config_path (g_get_user_cache_dir (), MC_USERCONF_DIR, mcerror);
-        mc_data_str
-            = mc_config_init_one_config_path (g_get_user_data_dir (), MC_USERCONF_DIR, mcerror);
+        mc_config_str = mc_config_init_one_config_path (g_get_user_config_dir (), MC_USERCONF_DIR,
+                                                        mcerror);
+        mc_cache_str = mc_config_init_one_config_path (g_get_user_cache_dir (), MC_USERCONF_DIR,
+                                                       mcerror);
+        mc_data_str = mc_config_init_one_config_path (g_get_user_data_dir (), MC_USERCONF_DIR,
+                                                      mcerror);
     }
 
     xdg_vars_initialized = TRUE;

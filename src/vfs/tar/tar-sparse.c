@@ -333,12 +333,13 @@ static struct tar_sparse_optab const star_optab = { .init = NULL, /* No init fun
  --sparse-version 0.1 --pax-option delete=GNU.sparse.map
  */
 
-static struct tar_sparse_optab const pax_optab
-    = { .init = NULL, /* No init function */
-        .done = NULL, /* No done function */
-        .sparse_member_p = pax_sparse_member_p,
-        .fixup_header = NULL, /* No fixup_header function */
-        .decode_header = pax_decode_header };
+static struct tar_sparse_optab const pax_optab = {
+    .init = NULL, /* No init function */
+    .done = NULL, /* No done function */
+    .sparse_member_p = pax_sparse_member_p,
+    .fixup_header = NULL, /* No fixup_header function */
+    .decode_header = pax_decode_header
+};
 
 /* --------------------------------------------------------------------------------------------- */
 /*** file scope functions ************************************************************************/
@@ -667,8 +668,8 @@ pax_decode_header (tar_super_t *archive, struct tar_sparse_file *file)
         }
 
         if (file->stat_info->sparse_map == NULL)
-            file->stat_info->sparse_map
-                = g_array_sized_new (FALSE, FALSE, sizeof (struct sp_array), u);
+            file->stat_info->sparse_map = g_array_sized_new (FALSE, FALSE, sizeof (struct sp_array),
+                                                             u);
         else
             g_array_set_size (file->stat_info->sparse_map, u);
 

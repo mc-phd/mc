@@ -89,8 +89,8 @@ static struct
 
 static int check_perm_len = 0;
 
-static const char *file_info_labels[LABELS]
-    = { N_ ("Name:"), N_ ("Permissions (octal):"), N_ ("Owner name:"), N_ ("Group name:") };
+static const char *file_info_labels[LABELS] = { N_ ("Name:"), N_ ("Permissions (octal):"),
+                                                N_ ("Owner name:"), N_ ("Group name:") };
 
 static int file_info_labels_len = 0;
 

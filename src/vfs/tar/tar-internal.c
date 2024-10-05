@@ -57,11 +57,12 @@
 /*** file scope variables ************************************************************************/
 
 /* Base 64 digits; see RFC 2045 Table 1.  */
-static char const base_64_digits[64]
-    = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-        'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
-        'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-        'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/' };
+static char const base_64_digits[64] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
+                                         'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
+                                         'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+                                         'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+                                         's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2',
+                                         '3', '4', '5', '6', '7', '8', '9', '+', '/' };
 
 /* Table of base 64 digit values indexed by unsigned chars.
    The value is 64 for unsigned chars that are not base 64 digits. */
@@ -363,8 +364,8 @@ tar_from_header (const char *where0, size_t digs, char const *type, intmax_t min
         uintmax_t topbits;
 
         signbit = *where & (1 << (LG_256 - 2));
-        topbits
-            = (((uintmax_t) -signbit) << (CHAR_BIT * sizeof (uintmax_t) - LG_256 - (LG_256 - 2)));
+        topbits = (((uintmax_t) -signbit)
+                   << (CHAR_BIT * sizeof (uintmax_t) - LG_256 - (LG_256 - 2)));
 
         value = (*where++ & ((1 << (LG_256 - 2)) - 1)) - signbit;
 

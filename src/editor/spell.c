@@ -595,8 +595,8 @@ edit_suggest_current_word (WEdit *edit)
     GString *match_word;
 
     /* search start of word to spell check */
-    match_word
-        = edit_buffer_get_word_from_pos (&edit->buffer, edit->buffer.curs1, &word_start, &cut_len);
+    match_word = edit_buffer_get_word_from_pos (&edit->buffer, edit->buffer.curs1, &word_start,
+                                                &cut_len);
     word_len = match_word->len;
 
 #ifdef HAVE_CHARSET
@@ -630,8 +630,8 @@ edit_suggest_current_word (WEdit *edit)
                 edit_scroll_screen_over_cursor (edit);
                 edit_render_keypress (edit);
 
-                retval
-                    = spell_dialog_spell_suggest_show (edit, match_word->str, &new_word, suggest);
+                retval = spell_dialog_spell_suggest_show (edit, match_word->str, &new_word,
+                                                          suggest);
                 edit_cursor_move (edit, word_len - cut_len);
 
                 if (retval == B_ENTER && new_word != NULL)
