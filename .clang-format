@@ -3,9 +3,11 @@ SortIncludes: Never
 ColumnLimit: 100
 IndentWidth: 4
 AlignConsecutiveMacros: AcrossEmptyLines
+AlignOperands: false # ?
 AttributeMacros:
   - G_GNUC_PRINTF
 BreakBeforeBraces: Custom
+BreakBeforeTernaryOperators: false # ?
 BraceWrapping:
   AfterCaseLabel:  true
   AfterClass:      true
