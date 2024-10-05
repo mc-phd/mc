@@ -48,7 +48,10 @@
 
 /* *INDENT-OFF* */
 static tty_color_pair_t tty_color_defaults = {
-    .fg = NULL, .bg = NULL, .attrs = NULL, .pair_index = 0
+    .fg = NULL,
+    .bg = NULL,
+    .attrs = NULL,
+    .pair_index = 0,
 };
 /* *INDENT-ON* */
 
