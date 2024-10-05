@@ -965,9 +965,9 @@ real_query_recursive (file_op_context_t *ctx, enum OperationMode mode, const cha
         const char *msg;
         char *text;
 
-        msg = mode == Foreground ?
-            _ ("Directory \"%s\" not empty.\nDelete it recursively?") :
-            _ ("Background process:\nDirectory \"%s\" not empty.\nDelete it recursively?");
+        msg = mode == Foreground
+            ? _ ("Directory \"%s\" not empty.\nDelete it recursively?")
+            : _ ("Background process:\nDirectory \"%s\" not empty.\nDelete it recursively?");
         text = g_strdup_printf (msg, path_trunc (s, 30));
 
         if (safe_delete)

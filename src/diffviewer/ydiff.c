@@ -2243,8 +2243,8 @@ dview_set_codeset (WDiff *dview)
     const char *encoding_id = NULL;
 
     dview->utf8 = TRUE;
-    encoding_id = get_codepage_id (mc_global.source_codepage >= 0 ? mc_global.source_codepage :
-                                                                    mc_global.display_codepage);
+    encoding_id = get_codepage_id (mc_global.source_codepage >= 0 ? mc_global.source_codepage
+                                                                  : mc_global.display_codepage);
     if (encoding_id != NULL)
     {
         GIConv conv;
@@ -2985,9 +2985,9 @@ dview_ok_to_exit (WDiff *dview)
         return res;
 
     act = query_dialog (_ ("Quit"),
-                        !mc_global.midnight_shutdown ?
-                            _ ("File(s) was modified. Save with exit?") :
-                            _ ("Midnight Commander is being shut down.\nSave modified file(s)?"),
+                        !mc_global.midnight_shutdown
+                            ? _ ("File(s) was modified. Save with exit?")
+                            : _ ("Midnight Commander is being shut down.\nSave modified file(s)?"),
                         D_NORMAL, 2, _ ("&Yes"), _ ("&No"));
 
     /* Esc is No */

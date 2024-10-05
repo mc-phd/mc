@@ -54,9 +54,9 @@
 /*** file scope macro definitions ****************************************************************/
 
 #define MY_ISDIR(x)                                                                                \
-    ((is_exe (x->st.st_mode) && !(S_ISDIR (x->st.st_mode) || link_isdir (x)) && exec_first) ?      \
-         1 :                                                                                       \
-         ((S_ISDIR (x->st.st_mode) || link_isdir (x)) ? 2 : 0))
+    ((is_exe (x->st.st_mode) && !(S_ISDIR (x->st.st_mode) || link_isdir (x)) && exec_first)        \
+         ? 1                                                                                       \
+         : ((S_ISDIR (x->st.st_mode) || link_isdir (x)) ? 2 : 0))
 
 /*** file scope type declarations ****************************************************************/
 
@@ -805,9 +805,9 @@ dir_list_reload (dir_list *list, const vfs_path_t *vpath, GCompareFunc sort,
              * we copied one.
              */
             fentry->f.marked = (marked_cnt > 0
-                                && g_hash_table_lookup (marked_files, dp->d_name) != NULL) ?
-                1 :
-                0;
+                                && g_hash_table_lookup (marked_files, dp->d_name) != NULL)
+                ? 1
+                : 0;
             if (fentry->f.marked != 0)
                 marked_cnt--;
         }

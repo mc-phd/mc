@@ -684,9 +684,9 @@ regex_check_type (const vfs_path_t *filename_vpath, const char *ptr, gboolean ca
         }
 
 #ifdef HAVE_CHARSET
-        got_encoding_data = is_autodetect_codeset_enabled ?
-            get_file_encoding_local (localfile_vpath, encoding_id, sizeof (encoding_id)) :
-            0;
+        got_encoding_data = is_autodetect_codeset_enabled
+            ? get_file_encoding_local (localfile_vpath, encoding_id, sizeof (encoding_id))
+            : 0;
 
         if (got_encoding_data > 0)
         {
@@ -975,9 +975,9 @@ regex_command_for (void *target, const vfs_path_t *filename_vpath, const char *a
 
                 ignore_case = mc_config_get_bool (ext_ini, g, "TypeIgnoreCase", FALSE);
                 type_state = regex_check_type (filename_vpath, pattern, ignore_case, &have_type,
-                                               &mcerror) ?
-                    TYPE_FOUND :
-                    TYPE_NOT_FOUND;
+                                               &mcerror)
+                    ? TYPE_FOUND
+                    : TYPE_NOT_FOUND;
                 g_free (pattern);
 
                 if (mc_error_message (&mcerror, NULL))

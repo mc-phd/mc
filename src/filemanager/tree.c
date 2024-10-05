@@ -84,8 +84,8 @@ gboolean xtree_mode = FALSE;
 /*** file scope macro definitions ****************************************************************/
 
 #define tlines(t)                                                                                  \
-    (t->is_panel ? WIDGET (t)->rect.lines - 2 - (panels_options.show_mini_info ? 2 : 0) :          \
-                   WIDGET (t)->rect.lines)
+    (t->is_panel ? WIDGET (t)->rect.lines - 2 - (panels_options.show_mini_info ? 2 : 0)            \
+                 : WIDGET (t)->rect.lines)
 
 /*** file scope type declarations ****************************************************************/
 

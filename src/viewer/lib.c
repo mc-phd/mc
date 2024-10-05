@@ -266,8 +266,8 @@ mcview_set_codeset (WView *view)
     const char *cp_id = NULL;
 
     view->utf8 = TRUE;
-    cp_id = get_codepage_id (mc_global.source_codepage >= 0 ? mc_global.source_codepage :
-                                                              mc_global.display_codepage);
+    cp_id = get_codepage_id (mc_global.source_codepage >= 0 ? mc_global.source_codepage
+                                                            : mc_global.display_codepage);
     if (cp_id != NULL)
     {
         GIConv conv;

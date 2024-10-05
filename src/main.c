@@ -200,7 +200,7 @@ init_sigchld (void)
 #ifdef ENABLE_SUBSHELL
         mc_global.tty.use_subshell ? sigchld_handler :
 #endif /* ENABLE_SUBSHELL */
-                                     sigchld_handler_no_subshell;
+                                   sigchld_handler_no_subshell;
 
     sigemptyset (&sigchld_action.sa_mask);
 

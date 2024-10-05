@@ -726,8 +726,8 @@ widget_default_make_local (Widget *w, const WRect *delta)
 GList *
 widget_default_find (const Widget *w, const Widget *what)
 {
-    return (w != what || w->owner == NULL) ? NULL :
-                                             g_list_find (CONST_GROUP (w->owner)->widgets, what);
+    return (w != what || w->owner == NULL) ? NULL
+                                           : g_list_find (CONST_GROUP (w->owner)->widgets, what);
 }
 
 /* --------------------------------------------------------------------------------------------- */

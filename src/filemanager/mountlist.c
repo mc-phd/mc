@@ -269,9 +269,9 @@ me_remote (char const *fs_name, char const *fs_type)
    is unsigned and narrower than uintmax_t.  */
 #define PROPAGATE_ALL_ONES(x)                                                                      \
     ((sizeof (x) < sizeof (uintmax_t)                                                              \
-      && (~(x) == (sizeof (x) < sizeof (int) ? -(1 << (sizeof (x) * CHAR_BIT)) : 0))) ?            \
-         UINTMAX_MAX :                                                                             \
-         (uintmax_t) (x))
+      && (~(x) == (sizeof (x) < sizeof (int) ? -(1 << (sizeof (x) * CHAR_BIT)) : 0)))              \
+         ? UINTMAX_MAX                                                                             \
+         : (uintmax_t) (x))
 
 /* Extract the top bit of X as an uintmax_t value.  */
 #define EXTRACT_TOP_BIT(x) ((x) & ((uintmax_t) 1 << (sizeof (x) * CHAR_BIT - 1)))
@@ -857,8 +857,8 @@ read_file_system_list (void)
                         break;
 
                 me = g_malloc (sizeof (*me));
-                me->me_devname = g_strdup (fi.device_name[0] != '\0' ? fi.device_name :
-                                                                       fi.fsh_name);
+                me->me_devname = g_strdup (fi.device_name[0] != '\0' ? fi.device_name
+                                                                     : fi.fsh_name);
                 me->me_mountdir = g_strdup (re != NULL ? re->name : fi.fsh_name);
                 me->me_mntroot = NULL;
                 me->me_type = g_strdup (fi.fsh_name);
@@ -1332,8 +1332,8 @@ get_fs_usage (char const *file, char const *disk, struct fs_usage *fsp)
             return -1;
 
         /* f_frsize isn't guaranteed to be supported.  */
-        fsp->fsu_blocksize = (vfsd.f_frsize ? PROPAGATE_ALL_ONES (vfsd.f_frsize) :
-                                              PROPAGATE_ALL_ONES (vfsd.f_bsize));
+        fsp->fsu_blocksize = (vfsd.f_frsize ? PROPAGATE_ALL_ONES (vfsd.f_frsize)
+                                            : PROPAGATE_ALL_ONES (vfsd.f_bsize));
 
         fsp->fsu_blocks = PROPAGATE_ALL_ONES (vfsd.f_blocks);
         fsp->fsu_bfree = PROPAGATE_ALL_ONES (vfsd.f_bfree);
@@ -1355,8 +1355,8 @@ get_fs_usage (char const *file, char const *disk, struct fs_usage *fsp)
 
         /* f_frsize isn't guaranteed to be supported.  */
         /* *INDENT-OFF* */
-        fsp->fsu_blocksize = fsd.f_frsize ? PROPAGATE_ALL_ONES (fsd.f_frsize) :
-                                            PROPAGATE_ALL_ONES (fsd.f_bsize);
+        fsp->fsu_blocksize = fsd.f_frsize ? PROPAGATE_ALL_ONES (fsd.f_frsize)
+                                          : PROPAGATE_ALL_ONES (fsd.f_bsize);
         /* *INDENT-ON* */
 
 #elif defined STAT_STATFS3_OSF1 /* OSF/1 */

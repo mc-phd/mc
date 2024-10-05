@@ -223,8 +223,8 @@ menubar_draw (const WMenuBar *menubar)
     GList *i;
 
     /* First draw the complete menubar */
-    tty_setcolor (widget_get_state (WIDGET (menubar), WST_FOCUSED) ? MENU_ENTRY_COLOR :
-                                                                     MENU_INACTIVE_COLOR);
+    tty_setcolor (widget_get_state (WIDGET (menubar), WST_FOCUSED) ? MENU_ENTRY_COLOR
+                                                                   : MENU_INACTIVE_COLOR);
     tty_draw_hline (w->y, w->x, ' ', w->cols);
 
     /* Now each one of the entries */

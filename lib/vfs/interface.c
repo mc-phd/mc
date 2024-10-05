@@ -434,9 +434,9 @@ mc_opendir (const vfs_path_t *vpath)
     path_element->dir.info = info;
 
 #ifdef HAVE_CHARSET
-    path_element->dir.converter = (path_element->encoding != NULL) ?
-        str_crt_conv_from (path_element->encoding) :
-        str_cnv_from_term;
+    path_element->dir.converter = (path_element->encoding != NULL)
+        ? str_crt_conv_from (path_element->encoding)
+        : str_cnv_from_term;
     if (path_element->dir.converter == INVALID_CONV)
         path_element->dir.converter = str_cnv_from_term;
 #endif
@@ -569,8 +569,8 @@ mc_getlocalcopy (const vfs_path_t *pathname_vpath)
     me = VFS_CLASS (vfs_path_get_last_path_vfs (pathname_vpath));
     if (me != NULL)
     {
-        result = me->getlocalcopy != NULL ? me->getlocalcopy (pathname_vpath) :
-                                            mc_def_getlocalcopy (pathname_vpath);
+        result = me->getlocalcopy != NULL ? me->getlocalcopy (pathname_vpath)
+                                          : mc_def_getlocalcopy (pathname_vpath);
         if (result == NULL)
             errno = vfs_ferrno (me);
     }
@@ -591,9 +591,9 @@ mc_ungetlocalcopy (const vfs_path_t *pathname_vpath, const vfs_path_t *local_vpa
 
     me = vfs_path_get_last_path_vfs (pathname_vpath);
     if (me != NULL)
-        result = me->ungetlocalcopy != NULL ?
-            me->ungetlocalcopy (pathname_vpath, local_vpath, has_changed) :
-            mc_def_ungetlocalcopy (pathname_vpath, local_vpath, has_changed);
+        result = me->ungetlocalcopy != NULL
+            ? me->ungetlocalcopy (pathname_vpath, local_vpath, has_changed)
+            : mc_def_ungetlocalcopy (pathname_vpath, local_vpath, has_changed);
 
     return result;
 }

@@ -113,12 +113,12 @@ statfs (char const *filename, struct fs_info *buf)
 
     if (device < 0)
     {
-        errno = (device == B_ENTRY_NOT_FOUND   ? ENOENT :
-                     device == B_BAD_VALUE     ? EINVAL :
-                     device == B_NAME_TOO_LONG ? ENAMETOOLONG :
-                     device == B_NO_MEMORY     ? ENOMEM :
-                     device == B_FILE_ERROR    ? EIO :
-                                                 0);
+        errno = (device == B_ENTRY_NOT_FOUND     ? ENOENT
+                     : device == B_BAD_VALUE     ? EINVAL
+                     : device == B_NAME_TOO_LONG ? ENAMETOOLONG
+                     : device == B_NO_MEMORY     ? ENOMEM
+                     : device == B_FILE_ERROR    ? EIO
+                                                 : 0);
         return -1;
     }
     /* If successful, buf->dev will be == device.  */
@@ -1229,8 +1229,8 @@ file_progress_real_query_replace (file_op_context_t *ctx, enum OperationMode mod
         ui->replace_result = overwrite_query_dialog (ctx, mode);
     }
 
-    replace_with_zero = (src_stat->st_size == 0 && ui->dont_overwrite_with_zero) ? FILE_SKIP :
-                                                                                   FILE_CONT;
+    replace_with_zero = (src_stat->st_size == 0 && ui->dont_overwrite_with_zero) ? FILE_SKIP
+                                                                                 : FILE_CONT;
 
     switch (ui->replace_result)
     {

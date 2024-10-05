@@ -1081,9 +1081,9 @@ show_free_space (const WPanel *panel)
         size_trunc_len (buffer2, sizeof (buffer2) - 1, myfs_stats.total, 1,
                         panels_options.kilobyte_si);
         g_snprintf (tmp, sizeof (tmp), " %s / %s (%d%%) ", buffer1, buffer2,
-                    myfs_stats.total == 0 ?
-                        0 :
-                        (int) (100 * (long double) myfs_stats.avail / myfs_stats.total));
+                    myfs_stats.total == 0
+                        ? 0
+                        : (int) (100 * (long double) myfs_stats.avail / myfs_stats.total));
         widget_gotoyx (w, w->rect.lines - 1, w->rect.cols - 2 - (int) strlen (tmp));
         tty_setcolor (NORMAL_COLOR);
         tty_print_string (tmp);
@@ -1439,8 +1439,8 @@ panel_paint_sort_info (const WPanel *panel)
 {
     if (*panel->sort_field->hotkey != '\0')
     {
-        const char *sort_sign = panel->sort_info.reverse ? panel_sort_up_char :
-                                                           panel_sort_down_char;
+        const char *sort_sign = panel->sort_info.reverse ? panel_sort_up_char
+                                                         : panel_sort_down_char;
         char *str;
 
         str = g_strdup_printf ("%s%s", sort_sign, Q_ (panel->sort_field->hotkey));
@@ -1505,8 +1505,8 @@ panel_print_header (const WPanel *panel)
 
                 if (panel->list_format == list_long && strcmp (fi->id, panel->sort_field->id) == 0)
                     g_string_append (format_txt,
-                                     panel->sort_info.reverse ? panel_sort_up_char :
-                                                                panel_sort_down_char);
+                                     panel->sort_info.reverse ? panel_sort_up_char
+                                                              : panel_sort_down_char);
 
                 g_string_append (format_txt, fi->title);
 

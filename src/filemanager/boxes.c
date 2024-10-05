@@ -377,9 +377,9 @@ sel_charset_button (WButton *button, int action)
         const char *cpname;
 
         new_display_codepage = new_dcp;
-        cpname = (new_display_codepage == SELECT_CHARSET_OTHER_8BIT) ?
-            _ ("Other 8 bit") :
-            ((codepage_desc *) g_ptr_array_index (codepages, new_display_codepage))->name;
+        cpname = (new_display_codepage == SELECT_CHARSET_OTHER_8BIT)
+            ? _ ("Other 8 bit")
+            : ((codepage_desc *) g_ptr_array_index (codepages, new_display_codepage))->name;
         if (cpname != NULL)
             mc_global.utf8_display = str_isutf8 (cpname);
         else
@@ -980,9 +980,9 @@ display_bits_box (void)
 
     new_display_codepage = mc_global.display_codepage;
 
-    cpname = (new_display_codepage < 0) ?
-        _ ("Other 8 bit") :
-        ((codepage_desc *) g_ptr_array_index (codepages, new_display_codepage))->name;
+    cpname = (new_display_codepage < 0)
+        ? _ ("Other 8 bit")
+        : ((codepage_desc *) g_ptr_array_index (codepages, new_display_codepage))->name;
 
     {
         gboolean new_meta;

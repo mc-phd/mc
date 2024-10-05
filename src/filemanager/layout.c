@@ -570,8 +570,8 @@ layout_dlg_create (void)
     check_options[0].widget = check_new (5, 5, XTRACT (0));
     group_add_widget (g, check_options[0].widget);
 
-    equal_split = panels_layout.horizontal_split ? panels_layout.horizontal_equal :
-                                                   panels_layout.vertical_equal;
+    equal_split = panels_layout.horizontal_split ? panels_layout.horizontal_equal
+                                                 : panels_layout.vertical_equal;
 
     bleft_widget = button_new (6, 8, B_2LEFT, NARROW_BUTTON, "&<", b_left_right_cback);
     widget_disable (WIDGET (bleft_widget), equal_split);

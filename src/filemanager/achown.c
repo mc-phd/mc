@@ -188,13 +188,13 @@ get_perm (char *s, int base)
 {
     mode_t m = 0;
 
-    m |= (s[0] == '-') ?
-        0 :
-        ((s[0] == '+') ? (mode_t) (1 << (base + 2)) : (1 << (base + 2)) & ch_cmode);
+    m |= (s[0] == '-')
+        ? 0
+        : ((s[0] == '+') ? (mode_t) (1 << (base + 2)) : (1 << (base + 2)) & ch_cmode);
 
-    m |= (s[1] == '-') ?
-        0 :
-        ((s[1] == '+') ? (mode_t) (1 << (base + 1)) : (1 << (base + 1)) & ch_cmode);
+    m |= (s[1] == '-')
+        ? 0
+        : ((s[1] == '+') ? (mode_t) (1 << (base + 1)) : (1 << (base + 1)) & ch_cmode);
 
     m |= (s[2] == '-') ? 0 : ((s[2] == '+') ? (mode_t) (1 << base) : (1 << base) & ch_cmode);
 

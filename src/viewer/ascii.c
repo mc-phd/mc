@@ -423,8 +423,8 @@ mcview_get_next_maybe_nroff_char (WView *view, mcview_state_machine_t *state, in
     {
         *state = state_after_nroff;
         if (color != NULL)
-            *color = state->nroff_underscore_is_underlined ? VIEW_UNDERLINED_COLOR :
-                                                             VIEW_BOLD_COLOR;
+            *color = state->nroff_underscore_is_underlined ? VIEW_UNDERLINED_COLOR
+                                                           : VIEW_BOLD_COLOR;
     }
     else if (*c == c3)
     {

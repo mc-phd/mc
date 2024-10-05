@@ -351,8 +351,8 @@ retry:
         {
         case NROFF_START:
         case NROFF_CONTINUATION:
-            nroff_state = mcview_is_nroff_sequence (view, current.cc_offset) ? NROFF_BACKSPACE :
-                                                                               NROFF_START;
+            nroff_state = mcview_is_nroff_sequence (view, current.cc_offset) ? NROFF_BACKSPACE
+                                                                             : NROFF_START;
             break;
         case NROFF_BACKSPACE:
             nroff_state = NROFF_CONTINUATION;
