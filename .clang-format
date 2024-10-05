@@ -3,6 +3,8 @@ SortIncludes: Never
 ColumnLimit: 100
 IndentWidth: 4
 AlignConsecutiveMacros: AcrossEmptyLines
+AttributeMacros:
+  - G_GNUC_PRINTF
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterCaseLabel:  true
@@ -23,6 +25,5 @@ BraceWrapping:
   SplitEmptyFunction: true
   SplitEmptyRecord: true
   SplitEmptyNamespace: true
+PenaltyBreakAssignment: 200
 SpaceAfterCStyleCast: true
-AttributeMacros:
-  - G_GNUC_PRINTF
