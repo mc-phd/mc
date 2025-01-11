@@ -355,7 +355,7 @@ AC_CHECK_DECLS([environ], , ,
 
 AC_PATH_PROG([PERL], [perl], [/usr/bin/perl], [$PATH$PATH_SEPARATORQOpenSys/pkgs/bin])
 AC_PATH_PROG([PERL_FOR_BUILD], [perl], [/usr/bin/perl], [$PATH$PATH_SEPARATORQOpenSys/pkgs/bin])
-AC_PATH_PROG([PYTHON], [python3], [/usr/bin/ruby], [$PATH$PATH_SEPARATORQOpenSys/pkgs/bin])
+AC_PATH_PROG([PYTHON], [python3], [/usr/bin/python3], [$PATH$PATH_SEPARATORQOpenSys/pkgs/bin])
 AC_PATH_PROG([RUBY], [ruby], [/usr/bin/ruby], [$PATH$PATH_SEPARATORQOpenSys/pkgs/bin])
 
 case $host_os in
