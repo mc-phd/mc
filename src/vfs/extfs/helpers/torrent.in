@@ -49,6 +49,11 @@ import subprocess
 import sys
 from time import localtime, asctime
 
+if 'MC_TEST_EXTFS_LIST_CMD' in os.environ:
+    from time import gmtime as localtime
+else:
+    from time import localtime
+
 try:
     import locale
     use_locale = True
