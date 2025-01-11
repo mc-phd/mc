@@ -353,10 +353,10 @@ AC_CHECK_DECLS([environ], , ,
   [ #include <unistd.h>
     #include <stdlib.h> ])
 
-AC_PATH_PROG([PERL], [perl], [/usr/bin/perl], [$PATH$PATH_SEPARATORQOpenSys/pkgs/bin])
-AC_PATH_PROG([PERL_FOR_BUILD], [perl], [/usr/bin/perl], [$PATH$PATH_SEPARATORQOpenSys/pkgs/bin])
-AC_PATH_PROG([PYTHON], [python3], [/usr/bin/python3], [$PATH$PATH_SEPARATORQOpenSys/pkgs/bin])
-AC_PATH_PROG([RUBY], [ruby], [/usr/bin/ruby], [$PATH$PATH_SEPARATORQOpenSys/pkgs/bin])
+AC_PATH_PROG([PERL], [perl], [/usr/bin/env perl], [$PATH$PATH_SEPARATORQOpenSys/pkgs/bin])
+AC_PATH_PROG([PERL_FOR_BUILD], [perl], [/usr/bin/env perl], [$PATH$PATH_SEPARATORQOpenSys/pkgs/bin])
+AC_PATH_PROG([PYTHON], [python3], [/usr/bin/env python3], [$PATH$PATH_SEPARATORQOpenSys/pkgs/bin])
+AC_PATH_PROG([RUBY], [ruby], [/usr/bin/env ruby], [$PATH$PATH_SEPARATORQOpenSys/pkgs/bin])
 
 case $host_os in
 aux*)
